@@ -31,7 +31,7 @@ class Controller
                 Code line: '.$e->getLine().'<br>
                 <pre>Trace: <br>'.$e->getTraceAsString().'</pre>';
 				
-			$handle = @file_get_contents("view/exception.html");
+			$handle = @file_get_contents("view/exception.phtml");
 			if($handle)
 			{
 				echo(str_replace("{message}", $str, $handle));
