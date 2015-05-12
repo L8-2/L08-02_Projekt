@@ -1,0 +1,20 @@
+
+@charset "UTF-8";
+@import url(http://fonts.googleapis.com/css?family=Oxygen+Mono);
+@import url(http://fonts.googleapis.com/css?family=Ubuntu);
+
+body{
+	background: url(images/background.png);
+	overflow-x: hidden;
+	/*font-family: 'Ubuntu', sans-serif;*/
+	font-family: 'Oxygen Mono',sans-serif;
+}
+
+#logo {
+	background: url(images/logo.png) no-repeat;
+	width: 320px;
+	height: 72px;
+	margin-bottom: 20px;
+	margin-top: 20px;
+	margin-left: 5px;
+}
