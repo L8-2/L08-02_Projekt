@@ -22,6 +22,33 @@ class Controller
 			$this->throw_error($e);
         }
     }
+	public function throw_error($e)
+	{
+		try
+		{
+			$str = $e->getMessage().'<br><br>
+                File: '.$e->getFile().'<br>
+                Code line: '.$e->getLine().'<br>
+                <pre>Trace: <br>'.$e->getTraceAsString().'</pre>';
+				
+			$handle = @file_get_contents("view/exception.html");
+			if($handle)
+			{
+				echo(str_replace("{message}", $str, $handle));
+				exit;
+			}
+			else
+				throw new Exception('Nie można otworzyć widoku błędu: view/exception.html<br>Aby wyświetlić: <pre>'.$e.'</pre>');
+		}
+        catch(Exception $e)
+		{
+			echo($e->getMessage().'<br>
+                W pliku: '.$e->getFile().'<br>
+                Linia: '.$e->getLine().'<br>
+                <pre>Trace: <br>'.$e->getTraceAsString().'</pre>');
+			exit;
+        }
+	}
 
 }
 ?>
