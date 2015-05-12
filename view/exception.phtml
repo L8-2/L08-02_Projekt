@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html class=''>
+<head>
+<meta charset='UTF-8'>
+<style>
+.row {
+  position: relative;
+  outline: none;
+}
+.row:before {
+  content: '$> ';
+}
+.row:last-of-type:after {
+  content: " ";
+  display: inline-block;
+  -webkit-transform: translateY(2px) translateX(1px);
+      -ms-transform: translateY(2px) translateX(1px);
+          transform: translateY(2px) translateX(1px);
+  width: 7px;
+  height: 16px;
+  background-color: #0f0;
+  -webkit-animation: blink 1s infinite;
+  animation: blink 1s infinite;
+}
+
+body {
+  font-family: monospace;
+  padding: 20px;
+  background-color: #000;
+  color: #0f0;
+}
+
+@-webkit-keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+</style>
+</head>
+<body>
+<div class="row">{message}</div>
+<div class="row"></div>
+</body>
+</html>
