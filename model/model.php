@@ -6,7 +6,7 @@ abstract class Model extends Controller
 	public function __construct()
 	{
 		try
-		 {
+		  {
             require_once('configuration.php');
 			$connection = mysql_connect($DBASE['host'], $DBASE['username'], $DBASE['password']);
 
@@ -17,13 +17,13 @@ abstract class Model extends Controller
 				mysql_select_db($DBASE['name']);
 
 				if(mysql_error())
-					throw new Exception('Nie mo¿na odnaleŸæ bazy '.$DBASE['name']);
+					throw new Exception('Nie moÅ¼na odnaleÅºÄ‡ bazy '.$DBASE['name']);
 			}
 			else
-				throw new Exception('Nie mo¿na po³¹czyæ siê z baz¹ danych w: '.$path);
+				throw new Exception('Nie moÅ¼na poÅ‚Ä…czyÄ‡ siÄ™ z bazÄ… danych w: '.$path);
 				
 			include_once("view/header.phtml");
-                  }
+           }
 
         catch(Exception $e)
 		{
