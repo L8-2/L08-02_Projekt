@@ -138,6 +138,16 @@ body{
 	padding-top: 50px;
 }
 
+.alert {
+  box-shadow: inset 0px 0px 10px -2px rgba(0, 0, 0, 0.75);
+  padding: 2em 10px 2em 10px;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #fff;
+}
+.alert.success { background: #53ca74; }
+.alert.info { background: #53AFCA; }
+.alert.error { background: #CA5353; }
 
 footer {  
 	width: 100%;
@@ -146,4 +156,5 @@ footer {
 	padding-top: 20px;
 	padding-bottom: 20px;
 	color: #CBCBCB;
+	margin-top: 30px;
 }

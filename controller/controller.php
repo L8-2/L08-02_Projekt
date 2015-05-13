@@ -65,24 +65,8 @@ class Controller
 	
     public function getMessage()
 	{
-		$ret = false;
-		
 		if(isset($_GET['type']) && isset($_GET['ret']))
-			switch($_GET['type'])
-			{
-				case 'error':
-					$ret = '<fieldset style="width:100%;background:#E77575;border: 1px #C24646 solid;padding:5px;">'.base64_decode($_GET['ret']).'</fieldset>';
-					break;
-				case 'success':
-					$ret = '<fieldset style="width:100%;background:#78E775;border: 1px #61C246 solid;padding:5px;">'.base64_decode($_GET['ret']).'</fieldset>';
-					break;
-				default:
-					$ret = '<fieldset style="width:100%;background:#75AFE7;border: 1px #4677C2 solid;padding:5px;">'.base64_decode($_GET['ret']).'</fieldset>';
-					break;
-			}
-			
-		if($ret)
-			echo $ret;
+			echo('<aside class="alert success">'.base64_decode($_GET['ret']).'</aside>');
 	}
 	
 	public function getAction()
