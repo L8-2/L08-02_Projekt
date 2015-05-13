@@ -108,7 +108,7 @@ body{
 
 .frame {
    padding: 0px;
-   margin: 12 15 0 0;
+   margin: 12px 15px 0px 0px;
    float: left;
    background: #333;
    border: 1px dashed #999;
