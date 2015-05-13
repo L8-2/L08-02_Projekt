@@ -20,7 +20,7 @@ abstract class Model extends Controller
 					throw new Exception('Nie można odnaleźć bazy '.$DBASE['name']);
 			}
 			else
-				throw new Exception('Nie można połączyć się z bazą danych w: '.$path);
+				throw new Exception('Nie można połączyć się z bazą danych.');
 				
 			include_once("view/header.phtml");
            }
