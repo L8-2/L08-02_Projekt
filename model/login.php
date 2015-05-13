@@ -24,13 +24,13 @@ class login_Model extends Model
 	{
 		if(isset($_POST['login'])) 
 		{
-			$result = $this->sql_query("SELECT * FROM `konto` WHERE `login`='".addslashes($_POST['login'])."' LIMIT 1"); 
+			$result = $this->sql_query("SELECT * FROM `konto` WHERE `login`='".addslashes($_POST['username'])."' LIMIT 1"); 
 			
 			if($_POST['username'] == "" || $_POST['password'] == "") 
 				$this->redirect("index.php?con=login", "error", "Nie wprowadzono danych."); 
 			else if(!$result) 
 				$this->redirect("index.php?con=login", "error", "Niepoprawna nazwa użytkownika."); 
-			else if(md5($_POST['password']) != $result[0]['hasło']) 
+			else if(md5($_POST['password']) != $result[0][2]) 
 				$this->redirect("index.php?con=login", "error", "Niepoprawne hasło."); 
 			else
 			{

@@ -52,7 +52,10 @@ class Controller
     public function redirect($url, $type="", $ret="")
 	{
 		if($type != "" && $ret != "")
-			$url .= '&type='.$type.'&ret='.base64_encode($ret);
+			if(count($_GET) == 1)
+				$url .= '?type='.$type.'&ret='.base64_encode($ret);
+			else
+				$url .= '&type='.$type.'&ret='.base64_encode($ret);
 		
 		if(headers_sent())
 		{
