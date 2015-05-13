@@ -8,12 +8,10 @@ abstract class Model extends Controller
 		try
 		  {
             require_once('configuration.php');
-			$connection = mysql_connect($DBASE['host'], $DBASE['username'], $DBASE['password']);
+			$this->mysql = mysql_connect($DBASE['host'], $DBASE['username'], $DBASE['password']);
 
-			if($connection)
+			if($this->mysql)
 			{
-				$this->mysql = $connection;
-				
 				mysql_select_db($DBASE['name']);
 
 				if(mysql_error())
@@ -36,6 +34,26 @@ abstract class Model extends Controller
 		include_once(dirname($_SERVER['SCRIPT_FILENAME'])."/view/footer.phtml");
 		mysql_close($this->mysql);
 	}
-
+	
+	public function sql_query($query)
+	{
+		$ret = array();
+		$result = mysql_query($query);
+		
+		while ($row = mysql_fetch_array($result, MYSQL_BOTH))
+			$ret[] = $row;
+		
+		if(sizeof($ret) == 0)
+			$ret = false; 
+		
+		mysql_free_result($result);
+		
+		return $ret;
+	}
+	
+	public function isLogged()
+	{
+		return (isset($_SESSION['logged']));
+	}
 }
 ?>
