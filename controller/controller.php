@@ -66,10 +66,10 @@ class Controller
 			header('location: '.$url);
     }
 	
-    public function getMessage()
+     public function getMessage()
 	{
 		if(isset($_GET['type']) && isset($_GET['ret']))
-			echo('<aside class="alert success">'.base64_decode($_GET['ret']).'</aside>');
+			echo('<aside class="alert '.$_GET['type'].'">'.base64_decode($_GET['ret']).'</aside>');
 	}
 	
 	public function getAction()
