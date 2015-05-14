@@ -35,6 +35,7 @@ class login_Model extends Model
 			else
 			{
 				$_SESSION['logged'] = true; 
+				$_SESSION['id'] = $result[0][0]; 
 					$this->redirect("index.php", "success", "Zostałeś zalogowany pomyślnie!");
 			}
 		}
