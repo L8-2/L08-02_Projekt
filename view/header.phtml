@@ -10,7 +10,7 @@
 	<div id="container">
 		<div id="menu">
 		  <ul class="nav">
-			 <li class="active"><a href="index.html">Strona główna</a></li>
+			 <li class="active"><a href="index.php">Strona główna</a></li>
 			 <li class="has-sub"><a href="#">Konferencje</a>
 				<ul class="left">
 				   <li><a href="#">Kategoria 1</a></li>
@@ -21,12 +21,16 @@
 			 <li><a href="#">Kontakt</a></li>
 		  </ul>
 		  <ul class="login">
-			<li class="visit"><a href="index.html">Rejestracja</a></li>
-			<li class="visit has-sub"><a href="index.html"><img class="frame" height="20" src="http://img1.wikia.nocookie.net/__cb20091231054441/splintercell/images/3/39/Unknown_male.jpg"> Zaloguj się</a>
+		  <?php if(!$this->isLogged()) { ?>
+			<li class="visit"><a href="index.php?con=rejestracja">Rejestracja</a></li>
+			<li class="visit"><a href="index.php?con=login"><img class="frame" height="20" src="http://img1.wikia.nocookie.net/__cb20091231054441/splintercell/images/3/39/Unknown_male.jpg"> Zaloguj się</a></li>
+		  <?php } else { ?>
+			<li class="visit has-sub"><img class="frame" height="20" src="http://img1.wikia.nocookie.net/__cb20091231054441/splintercell/images/3/39/Unknown_male.jpg"> Mój profil
 				<ul class="right">
-					<li><a href="#">Mój profil</a></li>
-					<li><a href="#">Wyloguj</a></li>
+					<li><a href="#">Edytuj profil</a></li>
+					<li><a href="index.php?con=login&act=logout">Wyloguj</a></li>
 				</ul>
 			</li>
+		  <?php } ?>
 		  </ul>
 		</div>
