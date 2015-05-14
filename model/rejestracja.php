@@ -8,7 +8,9 @@ class rejestracja_Model extends Model
 		parent::__construct(); 
 		
 
-				$this->rejestruj();
+				$this->rejestracja();
+
+
 				
 		
 		include_once("view/rejestracja.phtml"); 
@@ -16,23 +18,25 @@ class rejestracja_Model extends Model
 	
 	public function rejestracja() 
 	{
-		if(isset($_POST['rejestracja'])) 
+		if(isset($_POST['rejestruj'])) 
 		{
+			$result = $this->sql_query("INSERT INTO Konto INSERT INTO `konto`(`Login`, `Haslo`, `Imie`, `Nazwisko`, `Email`, `Nr_Telefonu`)VALUES ('".addslashes($_POST['login'])."', '".addslashes($_POST['haslo'])."', 
+			'".addslashes($_POST['imie'])."','".addslashes($_POST['nazwisko'])."','".addslashes($_POST['email'])."',
+			'".addslashes($_POST['nr_telefonu'])."'"); 
 			
-			if($_POST['Login'] == "" || $_POST['Hasło'] == "" || $_POST['Imie'] == "" || $_POST['Nazwisko'] == "" 
-				$_POST['Email'] == "") 
-				$this->redirect("index.php?con=rejestracja", "error", "Nie wprowadzono danych."); 
-
-				
-			$result = $this->sql_query("INSERT INTO Konto VALUES login='".addslashes($_POST['login'])."', hasło='".addslashes($_POST['hasło'])."', 
-			Imie='".addslashes($_POST['Imie'])."',Nazwisko='".addslashes($_POST['Nazwisko'])."',Email='".addslashes($_POST['Email'])."'
-			Nr telefonu='".addslashes($_POST['Nr telefonu'])."'Data_Utworzenia='".addslashes($_POST['Data_Utworzenia'])."'"); 
+		
+			if($_POST['login'] == "" || $_POST['haslo'] == "" || $_POST['imie'] == "" || $_POST['nazwisko'] == "" ||
+				$_POST['email'] == "" || $_POST['nr_telefonu'] == "")
+				{
+					$this->redirect("index.php?con=rejestracja", "error", "Nie wprowadzono danych."); 
+				  }
 			
-			else
-			{
+			 else 
+			 {
 				$_SESSION['rejestracja'] = true; 
-				$this->redirect("index.php?con=rejestracja", "success", "Utworzyłeś pomyślnie konto!"); 
+				$this->redirect("index.php", "success", "Utworzyłeś pomyślnie konto!"); 
 			}
+			
 		}
 	}
 	
