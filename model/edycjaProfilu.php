@@ -19,7 +19,7 @@ class edycjaProfilu_Model extends Model
 
 		if(isset($_POST['akceptuj'])) 
 		{
-			$result = $this->sql_query("SELECT * FROM `konto` WHERE `login`='Id_konta'")or die(mysql_error()); 
+		//	$result = $this->sql_query("SELECT * FROM `konto` WHERE `login`='Id_konta'")or die(mysql_error()); 
 			
 			
 			if($_POST['imie'] == "" || $_POST['nazwisko'] == "" || $_POST['email'] == "" || $_POST['nr_telefonu'] == "") 
@@ -28,7 +28,7 @@ class edycjaProfilu_Model extends Model
 			 else 
 			 {
 				 mysql_query("UPDATE `konto` SET `Imie`='".addslashes($_POST['imie'])."',Nazwisko='".addslashes($_POST['nazwisko'])."',
-				 Email='".addslashes($_POST['email'])."',Nr_telefonu='".addslashes($_POST['nr_telefonu'])."' WHERE Id_konta = 3")or die(mysql_error()) ;;
+				 Email='".addslashes($_POST['email'])."',Nr_telefonu='".addslashes($_POST['nr_telefonu'])."' WHERE Id_konta='".$_SESSION['id']."'")or die(mysql_error()) ;;
 
 				$this->redirect("index.php", "success", "Twoje dane zostały pomyślnie zmienione"); 
 			}
