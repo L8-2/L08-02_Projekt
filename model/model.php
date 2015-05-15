@@ -55,5 +55,16 @@ abstract class Model extends Controller
 	{
 		return (isset($_SESSION['logged']));
 	}
+	
+	public function isAdmin()
+	{
+		if($this->isLogged())
+		{
+			$admin = $this->sql_query("SELECT * FROM `administrator` WHERE `ID_Uzytkownika`='".$_SESSION['id']."'");
+			if($admin)
+				return true;
+		}
+		return false;
+	}
 }
 ?>
