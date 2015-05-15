@@ -27,7 +27,11 @@
 		  <?php } else { ?>
 			<li class="visit has-sub"><a><img class="frame" height="20" src="http://img1.wikia.nocookie.net/__cb20091231054441/splintercell/images/3/39/Unknown_male.jpg"> Mój profil</a>
 				<ul class="right">
-					<li><a href="#">Edytuj profil</a></li>
+					<li><a href="index.php?con=edycjaProfilu">Edytuj profil</a></li>
+					<li><a href="index.php?con=zmienHaslo">Zmień hasło</a></li>
+					<?php if($this->isAdmin()) { ?>
+						<li><a href="index.php?con=dodajAdministratora">Dodaj administratora</a></li>
+					<?php } ?>
 					<li><a href="index.php?con=login&act=logout">Wyloguj</a></li>
 				</ul>
 			</li>
