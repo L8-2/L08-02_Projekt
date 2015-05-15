@@ -1,0 +1,34 @@
+<h1>Dodaj recenzję</h1>
+<?php $this->getMessage(); ?>
+
+<form method="post">
+	<table> 
+	   <tbody>
+	       <tr>
+	           <td>Ocena</td>
+	           <td>
+	               <select name="ocena">
+	                   <?php for ($i = -5; $i <= 5; $i++): ?>
+	                   <option value="<?php echo $i?>"><?php echo $i ?></option>
+	                   <?php endfor ?>
+	               </select>
+	           </td>
+	       </tr>
+	       <tr>
+	           <td>Treść</td>
+	           <td>
+	               <textarea name="tresc" cols="70" rows="5"></textarea>
+	           </td>
+	       </tr>
+	       <tr>
+	           <td>Publikuj</td>
+	           <td><input type="checkbox" name="publikuj" value="1" /></td>
+	       </tr>
+	       <tr>
+	           <td colspan="2" style="text-align: center">
+	               <input type="submit" name="submit_add" value="Dodaj" />
+	           </td>
+	       </tr>
+	   </tbody>
+	</table>
+</form>
