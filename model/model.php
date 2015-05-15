@@ -1,38 +1,20 @@
 <?php
+
 abstract class Model extends Controller
 {
-	public $mysql;
+	protected $mysql;
 	
 	public function __construct()
 	{
-		try
-		  {
-            require_once('configuration.php');
-			$this->mysql = mysql_connect($DBASE['host'], $DBASE['username'], $DBASE['password']);
-
-			if($this->mysql)
-			{
-				mysql_select_db($DBASE['name']);
-
-				if(mysql_error())
-					throw new Exception('Nie można odnaleźć bazy '.$DBASE['name']);
-			}
-			else
-				throw new Exception('Nie można połączyć się z bazą danych.');
-				
-			include_once("view/header.phtml");
-           }
-
-        catch(Exception $e)
-		{
-			$this->throw_error($e);
-		}
+		parent::__construct();
+		$this->connectDatabase();
+		
+		include 'view/header.phtml';
 	}
 	
 	public function __destruct()
 	{
-		include_once(dirname($_SERVER['SCRIPT_FILENAME'])."/view/footer.phtml");
-		mysql_close($this->mysql);
+		include __DIR__ . '/../view/footer.phtml';
 	}
 	
 	public function sql_query($query)
@@ -43,17 +25,29 @@ abstract class Model extends Controller
 		while ($row = mysql_fetch_array($result, MYSQL_BOTH))
 			$ret[] = $row;
 		
-		if(sizeof($ret) == 0)
-			$ret = false; 
+		if (!$ret)
+			return false; 
 		
 		mysql_free_result($result);
 		
 		return $ret;
 	}
 	
+	public function findOne($sql)
+	{
+		return mysql_fetch_assoc(mysql_query($sql));
+	}
+	
+	public function findRecenzentByKonto($id)
+	{
+		$q = sprintf('SELECT * FROM recenzent WHERE ID_Konto = %d', $id);
+		
+		return $this->findOne($q);
+	}
+	
 	public function isLogged()
 	{
-		return (isset($_SESSION['logged']));
+		return !empty($_SESSION['logged']);
 	}
 	
 	public function isAdmin()
@@ -65,6 +59,22 @@ abstract class Model extends Controller
 				return true;
 		}
 		return false;
+	}
+	
+	private function connectDatabase()
+	{
+		require_once('configuration.php');
+		$this->mysql = mysql_connect($DBASE['host'], $DBASE['username'], $DBASE['password']);
+	
+		if($this->mysql)
+		{
+			mysql_select_db($DBASE['name']);
+	
+			if(mysql_error())
+				throw new Exception('Nie można odnaleźć bazy '.$DBASE['name']);
+		}
+		else
+			throw new Exception('Nie można połączyć się z bazą danych.');
 	}
 }
 ?>

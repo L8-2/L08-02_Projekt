@@ -1,0 +1,33 @@
+<h1>Zarządzanie recenzjami</h1>
+<?php $this->getMessage(); ?>
+<table border="1">
+	<thead>
+		<th width="40">#</th>
+		<th>Artykuł</th>
+		<th>Opublikowany</th>
+		<th>Data dodania</th>
+		<th>Akcje</th>
+	</thead>
+	<tbody>
+		<?php if (!$recenzje): ?>
+		<tr>
+			<td colspan="5" style="text-align: center">
+				Brak dodanych recenzji
+			</td>
+		</tr>
+		<?php else: ?>
+		<?php foreach ($recenzje as $recenzja): ?>
+		<tr>
+			<td><?php echo $recenzja['ID_Recenzja'] ?></td>
+			<td><?php echo $recenzja['Artykul_Tytul'] ?></td>
+			<td><?php echo (bool) $recenzja['Opublikowana'] ? 'Tak' : 'Nie' ?></td>
+			<td><?php echo date('Y-m-d G:i', strtotime($recenzja['Data_Utworzenia'])) ?></td>
+			<td>
+				<a href="<?php echo $this->action('edytuj') ?>">Edytuj</a>
+				| <a href="<?php echo $this->action('usun') ?>" onclick="return confirm('Czy na pewno usunąć?');">Usuń</a>
+			</td>
+		</tr>
+		<?php endforeach ?>
+		<?php endif ?>
+	</tbody>
+</table>
