@@ -1,0 +1,11 @@
+<?php $this->getMessage(); ?>
+<h2>	
+	<form action="index.php?con=szukaj" method="post">
+	<input type="text"  STYLE="width:200px; height: 20px" name="szukane">
+	<button name="szukaj" STYLE="width:90px; height:30px">Szukaj</button>
+	</form></h2>
+
+
+<?php if($_SESSION['szukane']!="") {?><h3>Wyświetlanie wyników dla: <?php echo $_SESSION['szukane'] ?> Znaleziono: <?php echo $_SESSION['znalezionych'] ?> </h3><?php } ?>
+
+
