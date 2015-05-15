@@ -28,13 +28,13 @@
 						
 					if($result)
 					{
-						$result2 = $this->sql_query("SELECT * FROM `administrator` WHERE `ID_Uzytkownika` = '".$result[0][0]."'");
+						$result2 = $this->sql_query("SELECT * FROM `administrator` WHERE `ID_Administrator` = '".$result[0][0]."'");
 
 						if(count($result2[0]) > 0)	
 							$this->redirect("index.php?con=dodajAdministratora", "error", "Użytkownik jest już administratorem.");							
 						else 
 						{
-							mysql_query("INSERT INTO `administrator` (`ID_Uzytkownika`, `Konto_Id_konta`) VALUES ('".$result[0][0]."', '".$result[0][0]."')") or die(mysql_error());
+							mysql_query("INSERT INTO `administrator` (`ID_Administrator`, `Id_konto`) VALUES ('".$result[0][0]."', '".$result[0][0]."')") or die(mysql_error());
 							$this->redirect("index.php?con=dodajAdministratora", "success", "Dodałeś administratora");
 						}
 					}
