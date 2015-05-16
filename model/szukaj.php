@@ -11,9 +11,6 @@ class szukaj_Model extends Model
 				$this->szukaj();
 
 
-				
-		
-		include_once("view/wyniki.phtml"); 
 	}
 		
 	public function szukaj() 
@@ -25,7 +22,7 @@ class szukaj_Model extends Model
 			
 			if($_POST['szukane'] == "")
 			{
-				$_SESSION['szukane'] = "";
+				
 				$this->redirect("index.php?con=szukaj", "error", "Wpisz interesujące Cię słowa i kliknij Szukaj");
 			}
 				else 
@@ -33,34 +30,34 @@ class szukaj_Model extends Model
 					$_POST['szukane']=trim($_POST['szukane']);
 					if($_POST['szukane'] == "")
 					{
-						$_SESSION['szukane'] = "";
+						
 						$this->redirect("index.php?con=szukaj", "error", "Wpisz interesujące Cię słowa i kliknij Szukaj");
 					}
 				
 					else	
 					{	
 						$szukana=addslashes($_POST['szukane']);
-						$result = $this->sql_query("SELECT * FROM `konferencja` WHERE `Nazwa` LIKE '%$szukana%'");
+						$result = $this->sql_query("SELECT k.ID_Konferencja, k.Nazwa, kon.Imie, kon.Nazwisko, k.Miejsce, k.Data 
+													FROM konferencja k 
+													join organizator o on o.ID_Organizator=k.ID_Organizator
+													join konto kon on kon.ID_Konto=o.ID_Konto WHERE k.Nazwa LIKE '%$szukana%' AND (k.Data>NOW()) ORDER BY k.Data");
 					
 						if(!$result)
 						{
-							$_SESSION['szukane'] = "";
-							$this->redirect("index.php?con=szukaj", "error", "Brak wyników ze słowem '$szukana'");
+							
+							$this->redirect("index.php?con=szukaj", "error", "Brak wyników ze słowami '$szukana'");
 						}
 						else
 						{
-							$_SESSION['znalezionych']=count($result);
-							$_SESSION['szukane'] = $_POST['szukane'];
-							
-							
-							
-							
+							$znalezionych=count($result);
+						
 						}
 						
 
 					}
 					
 				}
+		include __DIR__ . "/../view/wyniki.phtml";
 
 	}
 	
