@@ -1,0 +1,17 @@
+  
+<center><h1>Tworzenie nowej konferencji</h1></center>
+
+<?php $this->getMessage(); ?>
+
+	<form method="post" id ="formularz">
+		<center><table> 
+		<tr><td> Wprowadź nazwę konferencji : </td><td> <input  name="Nazwa"></td></tr>
+		<tr><td> Wybierz datę wydarzenia : </td><td> <input type="date" name ="data"> <input type = "time" name = "czas"></td></tr>
+		<tr><td> Miejsce konferencji : </td><td> <input  name="miejsce"></td></tr>
+		<tr><td> Maksymalna liczba uczestników : </td><td> <input  type "number" name="limit_miejsc"></td></tr>
+		<tr><td> Program konferencji : </td><td> <textarea maxlength = "700" name="program" rows="10" cols="50"  form ="formularz">Wprowadź krótki opis konferencji</textarea>
+		<tr><td> Złoszenia przyjmowane do : </td><td> <input type="date" name ="data_"> <input type = "time" name = "czas_"></td></tr>
+		<tr><td> Koszt : </td><td> <input  type "number" name="koszt"></td></tr>
+		<tr><td colspan=2 style="text-align:center;"> <button name="Dodaj">Dodaj konferencje</button> </td></tr>
+		</table></center>
+	</form>
