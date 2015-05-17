@@ -1,0 +1,39 @@
+<h1>Uczestnicy konferencji</h1>
+<?php $this->getMessage(); ?>
+<form action="<?php echo $this->generateUrl(array('con' => 'uczestnicy', 'act' => 'usun')) ?>" method="post" onsubmit="return confirm('Czy na pewno usunąć wybranych uczestników');">
+    <table border="1">
+    	<thead>
+    		<th width="40">#</th>
+    		<th>Imię i nazwisko</th>
+    		<th>Konferencja</th>
+    		<th>Czy zaakceptowany</th>
+    	</thead>
+    	<tfoot>
+    	   <tr>
+    	       <td colspan="4">
+    	           <input type="submit" name="submit_delete" value="Usuń wybrane" />
+	           </td>
+    	   </tr>
+    	</tfoot>
+    	<tbody>
+    		<?php if (!$uczestnicy): ?>
+    		<tr>
+    			<td colspan="4" style="text-align: center">
+    				Brak uczestników
+    			</td>
+    		</tr>
+    		<?php else: ?>
+    		<?php foreach ($uczestnicy as $uczestnik): ?>
+    		<tr>
+    			<td>
+    			    <input type="checkbox" name="id[]" value="<?php echo $uczestnik['ID_Konto'] ?>" />
+    			</td>
+    			<td><?php echo $uczestnik['Imie'] . ' ' . $uczestnik['Nazwisko'] ?></td>
+    			<td><?php echo $uczestnik['Konferencja'] ?></td>
+    			<td><?php echo (bool) $uczestnik['Zaakceptowany'] ? 'Tak' : 'Nie' ?></td>
+    		</tr>
+    		<?php endforeach ?>
+    		<?php endif ?>
+    	</tbody>
+    </table>
+</form>
