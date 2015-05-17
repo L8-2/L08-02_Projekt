@@ -20,8 +20,10 @@ class recenzja_Model extends Model
 		$recenzent = $this->findRecenzentByKonto($_SESSION['id']);
 		$q = sprintf('
 			SELECT r.*, a.Tresc as Artykul_Tytul
-			FROM recenzja r 
-				INNER JOIN (artykul_recenzent ar INNER JOIN artykul a ON a.ID_Artykul = ar.ID_Artykul) ON ar.ID_Recenzent = %d
+			FROM recenzja r
+		      INNER JOIN (artykul a 
+		          INNER JOIN artykul_recenzent ar ON (ar.ID_Recenzent = %d AND a.ID_Artykul = ar.ID_Artykul)
+		      ) ON r.ID_Artykul = a.ID_Artykul
 			ORDER BY r.ID_Recenzja DESC
 		', $recenzent['ID_Recenzent']);
 		$recenzje = $this->sql_query($q);
@@ -42,6 +44,8 @@ class recenzja_Model extends Model
 	        $this->redirect("index.php?con=recenzja", "error", "Wybrany artykuł nie istnieje.");
 	    } elseif (!$this->isAllowedToAdd($idArtykul, $recenzent['ID_Recenzent'])) {
 	    	$this->redirect("index.php?con=recenzja", "error", "Nie możesz dodać recenzji dla tego artykułu.");
+	    } elseif ($this->isRecenzjaAddedBy($idArtykul, $recenzent['ID_Recenzent'])) {
+	        $this->redirect("index.php?con=recenzja", "error", "Recenzja została już dodana do tego arytkułu.");
 	    }
 	    
 	    $q = mysql_query(sprintf('SELECT 1 FROM artykul WHERE ID_Artykul = %d', $idArtykul));
@@ -64,9 +68,10 @@ class recenzja_Model extends Model
     	        	
     	        // Dodanie recenzji
     	        $q = mysql_query(sprintf(
-            		"INSERT INTO recenzja (Tresc, ID_Recenzent, ID_Ocena, Opublikowana) VALUES('%s', %d, %d, %d)",
+            		"INSERT INTO recenzja (Tresc, ID_Recenzent, ID_Artykul, ID_Ocena, Opublikowana) VALUES('%s', %d, %d, %d, %d)",
             		mysql_real_escape_string($tresc),
             		$recenzent['ID_Recenzent'],
+    	            $idArtykul,
             		$ocena,
             		$publikuj
         		));
@@ -86,5 +91,17 @@ class recenzja_Model extends Model
 		$q = mysql_query(sprintf("SELECT 1 FROM artykul_recenzent WHERE ID_Artykul = %d AND ID_Recenzent = %d", $idArtykul, $idRecenzent));
 
 		return (bool) mysql_num_rows($q);
+	}
+	
+	private function isRecenzjaAddedBy($idArtykul, $idRecenzent)
+	{
+	    $q = mysql_query(sprintf("
+	        SELECT 1 
+	        FROM recenzja r 
+	        INNER JOIN artykul_recenzent ar ON (ar.ID_Artykul = %d AND ar.ID_Recenzent = %d)
+	        WHERE r.ID_Artykul = %d
+        ", $idArtykul, $idRecenzent, $idArtykul));
+	    
+	    return (bool) mysql_num_rows($q);
 	}
 }
