@@ -20,6 +20,7 @@ body{
 }
 
 #container { background: WhiteSmoke; padding-bottom: 30px; }
+#container p { padding-left: 20px; }
 
 #menu {padding: 0; margin: 0; border: 0; width:100%}
 #menu ul, #menu li {list-style: none; margin: 0; padding: 0;}

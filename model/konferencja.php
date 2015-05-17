@@ -15,6 +15,10 @@ class konferencja_Model extends Model
 				$this->konferencja = $this->edit();
 				include_once("view/edytuj_konferencje.phtml");
 				break;
+			case 'delete':
+				$this->konferencja = $this->delete();
+				include_once("view/usun_konferencje.phtml");
+				break;
 			default:
 				$this->konferencja = $this->load();
 				include_once("view/konferencja.phtml");
@@ -64,9 +68,10 @@ class konferencja_Model extends Model
 				$result = $this->sql_query("SELECT * FROM `konferencja` WHERE `ID_Konferencja`='".addslashes($_GET['id'])."' LIMIT 1");
 				if($result)
 				{
+					$organizator = $this->sql_query("SELECT * FROM `organizator` WHERE `ID_Konferencja` = '".addslashes($_GET['id'])."'");
 					if(!$this->isLogged())
 						$this->redirect("index.php?con=konferencja&id=".$_GET['id'], "error", "Musisz być zalogowany aby edytować konferencje.");
-					else if(!$this->isAdmin() && $result[0]['ID_Organizator'] != $_SESSION['id'])
+					else if(!$this->isAdmin() && $organizator[0]['ID_Konto'] != $_SESSION['id'])
 						$this->redirect("index.php?con=konferencja&id=".$_GET['id'], "error", "Nie masz praw do edycji tej konferencji.");
 					else				
 					{
@@ -135,6 +140,34 @@ class konferencja_Model extends Model
 			}
 		}
 		else if(!isset($_GET['ret']))
+			$this->redirect("index.php?con=konferencja", "error", "Nie wybrałeś żadnej konferencji!");
+	}
+	
+	public function delete()
+	{
+		if(isset($_GET['id']))
+		{
+			$result = $this->sql_query("SELECT * FROM `konferencja` WHERE `ID_Konferencja`='".addslashes($_GET['id'])."' LIMIT 1");
+			if($result)
+			{
+				$organizator = $this->sql_query("SELECT * FROM `organizator` WHERE `ID_Konferencja` = '".addslashes($_GET['id'])."'");
+				if(!$this->isLogged())
+					$this->redirect("index.php?con=konferencja&id=".$_GET['id'], "error", "Musisz być zalogowany aby usunąć konferencje.");
+				else if(!$this->isAdmin() && $organizator[0]['ID_Konto'] != $_SESSION['id'])
+					$this->redirect("index.php?con=konferencja&id=".$_GET['id'], "error", "Nie masz praw do usunięcia tej konferencji.");
+				else				
+				{
+					if(isset($_POST['delete']))
+					{
+						mysql_query("DELETE FROM `konferencja` WHERE `ID_Konferencja` = '".addslashes($_GET['id'])."'");
+						$this->redirect("index.php", "error", "Konferencja została usunięta.");
+					}
+					else if(isset($_POST['back']))
+						$this->redirect("index.php?con=konferencja&id=".$_GET['id'], "info", "Operacja usuwania przerwana.");
+				}
+			}
+		}
+		else
 			$this->redirect("index.php?con=konferencja", "error", "Nie wybrałeś żadnej konferencji!");
 	}
 	
