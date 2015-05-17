@@ -121,11 +121,11 @@ class konferencja_Model extends Model
 					WHERE ID_Konferencja='".addslashes($_GET['id'])."'");
 					
 					$temat_konferencji = mysql_query("DELETE FROM `temat_konferencji` WHERE `ID_Konferencja` = '".addslashes($_GET['id'])."'");
-					if($_POST['temat'] != '')
+					if($_POST['zaproponuj'] == '')
 						mysql_query("INSERT INTO `temat_konferencji` (`ID_Konferencja`, `ID_Tematy`) VALUES ('".addslashes($_GET['id'])."', '".addslashes($_POST['temat'])."')");
 					else
 					{
-						mysql_query("INSERT INTO `tematy` (`Opis`) VALUES ('".addslashes($_GET['zaproponuj'])."')");
+						mysql_query("INSERT INTO `tematy` (`Opis`) VALUES ('".addslashes($_POST['zaproponuj'])."')");
 						$id = mysql_insert_id(); 
 						mysql_query("INSERT INTO `temat_konferencji` (`ID_Konferencja`, `ID_Tematy`) VALUES ('".addslashes($_GET['id'])."', '".$id."')");
 					}
