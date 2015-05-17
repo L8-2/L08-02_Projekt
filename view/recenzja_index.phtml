@@ -23,8 +23,8 @@
 			<td><?php echo (bool) $recenzja['Opublikowana'] ? 'Tak' : 'Nie' ?></td>
 			<td><?php echo date('Y-m-d G:i', strtotime($recenzja['Data_Utworzenia'])) ?></td>
 			<td>
-				<a href="<?php echo $this->action('edytuj') ?>">Edytuj</a>
-				| <a href="<?php echo $this->action('usun') ?>" onclick="return confirm('Czy na pewno usunąć?');">Usuń</a>
+				<a href="<?php echo $this->generateUrl(array('con' => 'recenzja', 'act' => 'edytuj', 'id' => $recenzja['ID_Recenzja'])) ?>">Edytuj</a>
+				| <a href="<?php echo $this->generateUrl(array('con' => 'recenzja', 'act' => 'usun', 'id' => $recenzja['ID_Recenzja'])) ?>" onclick="return confirm('Czy na pewno usunąć?');">Usuń</a>
 			</td>
 		</tr>
 		<?php endforeach ?>

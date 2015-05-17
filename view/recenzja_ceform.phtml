@@ -9,7 +9,7 @@
 	           <td>
 	               <select name="ocena">
 	                   <?php for ($i = -5; $i <= 5; $i++): ?>
-	                   <option value="<?php echo $i?>"><?php echo $i ?></option>
+	                   <option value="<?php echo $i?>" <?php if ($recenzjaForm['ocena'] == $i): ?>selected="selected"<?php endif ?>><?php echo $i ?></option>
 	                   <?php endfor ?>
 	               </select>
 	           </td>
@@ -17,19 +17,19 @@
 	       <tr>
 	           <td>Treść</td>
 	           <td>
-	               <textarea name="tresc" cols="70" rows="5"></textarea>
+	               <textarea name="tresc" cols="70" rows="5"><?php echo $recenzjaForm['tresc'] ?></textarea>
 	           </td>
 	       </tr>
 	       <tr>
 	           <td>Publikuj</td>
 	           <td>
 	               <input type="hidden" name="publikuj" value="0" />
-	               <input type="checkbox" name="publikuj" value="1" />
+	               <input type="checkbox" name="publikuj" value="1" <?php if (!empty($recenzjaForm['publikuj'])): ?>checked="checked"<?php endif ?> />
                </td>
 	       </tr>
 	       <tr>
 	           <td colspan="2" style="text-align: center">
-	               <input type="submit" name="submit_add" value="Dodaj" />
+	               <input type="submit" name="submit" value="Zatwierdź" />
 	           </td>
 	       </tr>
 	   </tbody>
