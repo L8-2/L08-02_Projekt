@@ -101,7 +101,7 @@ body{
 
 #menu ul li:hover > a, #menu ul li.active > a { background: #1b9bff; color: #FFF; }
 #menu ul li.visit > a { background: /*#7ABD6F*/#2A2A2A; color: #CBCBCB; }
-#menu ul li.visit > a:hover { background: /*#000*/#1b9bff; color: #FFF; }
+#menu ul li.visit > a:hover { background: /*#000*/#1b9bff; color: #FFF; cursor: pointer; }
 #menu ul li.has-sub > a:after { content: '+'; margin-left: 5px; }
 #menu ul li.last ul { left: auto; right: 0; }
 #menu ul li.last ul ul { left: auto; right: 99.5%; }
@@ -249,6 +249,7 @@ button { border:0; }
 .button:hover {
 	background:#88C9FC;
 	color: #fff;
+	cursor: pointer;
 }
 
 hr {
@@ -489,6 +490,30 @@ figure.effect:hover img {
 [data-cuteselect-options] { opacity: 0; display: none; }
 [data-cuteselect-title] { font-size: 14px; }
 [data-cuteselect-title]:after {margin-top:2px; font: normal normal normal 14px/1 FontAwesome; float:right; content: "\f0ab"; }
+
+input {
+	border-radius: 3px;
+	border: 1px solid #A9A9A9;
+	font-size: 16px;
+	height: auto;
+	padding: 5px;
+	color: #6A6457;
+	transition: all 0.2s ease-in-out 0s;
+	-webkit-transition: all 0.2s ease-in-out 0s;
+	-moz-background-size: all 0.2s ease-in-out 0s;
+	-o-background-size: all 0.2s ease-in-out 0s;
+}
+
+input:focus {
+	-webkit-box-shadow: 0px 0px 5px 0px #66AFE9;
+	-moz-box-shadow: 0px 0px 5px 0px #66AFE9;
+	box-shadow: 0px 0px 5px 0px #66AFE9;
+	background: #EEF2F9;
+}
+
+input:hover {
+	  border: 1px solid #7494CF;
+}
 
 footer {  
 	width: 100%;
