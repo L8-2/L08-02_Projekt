@@ -1,0 +1,83 @@
+<?php $this->getMessage(); ?>
+
+<h2 style="margin:30px 0px 0px 20px;">Przegląd konferencji</h2>
+
+<?php if($this->konferencja) { ?>
+<form method="post">
+	<div class="post entry" style="width:100%; margin:30px 0px 20px 0px;">
+		<div class="hexagon"><a href="#"><i class="fa fa-book"></i></a></div>
+		<div class="post-image">
+			<figure>
+				<div class="imgcon full">
+					<input type="text" name="nazwa" value="<?php echo($this->konferencja['Nazwa']); ?>" required/>
+				</div>
+			</figure>
+		</div>
+		<div class="post_content">
+			<h2>Dane:</h2> 
+			<div class="border"></div>
+			<p>
+				<table style="width:460px;">
+				<tr><td><b>Data konferencji: </b></td><td><input type="date" name="konferencja_dzien" value="<?php echo($this->konferencja['konferencja_dzien']); ?>" required/> <input type="time" name="konferencja_czas" value="<?php echo($this->konferencja['konferencja_czas']); ?>"/></td></tr>
+				<tr><td><b>Miejsce: </b></td><td><input type="text" name="miejsce" value="<?php echo($this->konferencja['Miejsce']); ?>" required/></td></tr>
+				<tr><td><b>Wolnych miejsc: </b></td><td><input type="number" min="0" name="limit" value="<?php echo($this->konferencja['Limit_Miejsc']); ?>" required/></td></tr>
+				<tr><td><b>Termin zgłoszeń: </b></td><td><input type="date" name="termin_dzien" value="<?php echo($this->konferencja['termin_dzien']); ?>" required/> <input type="time" name="termin_czas" value="<?php echo($this->konferencja['termin_czas']); ?>"/></td></tr>
+				<tr><td><b>Koszt: </b></td><td><input type="number" min="0" name="koszt" value="<?php echo($this->konferencja['Koszt']); ?>"/></td></tr>
+				</table>
+			</p>
+			<hr>
+			<h2>Program konferencji:</h2>
+			<div class="border"></div>
+			<p>
+
+					<div id="editControls">
+					  <div>
+						<a data-role="undo" href="javascript:void(0)"><i class="fa fa-undo"></i></a>
+						<a data-role="redo" href="javascript:void(0)"><i class="fa fa-repeat"></i></a>
+						<a data-role="bold" href="javascript:void(0)"><i class="fa fa-bold"></i></a>
+						<a data-role="italic" href="javascript:void(0)"><i class="fa fa-italic"></i></a>
+						<a data-role="underline" href="javascript:void(0)"><i class="fa fa-underline"></i></a>
+						<a data-role="strikeThrough" href="javascript:void(0)"><i class="fa fa-strikethrough"></i></a>
+						<a data-role="justifyLeft" href="javascript:void(0)"><i class="fa fa-align-left"></i></a>
+						<a data-role="justifyCenter" href="javascript:void(0)"><i class="fa fa-align-center"></i></a>
+						<a data-role="justifyRight" href="javascript:void(0)"><i class="fa fa-align-right"></i></a>
+						<a data-role="justifyFull" href="javascript:void(0)"><i class="fa fa-align-justify"></i></a>
+						<a data-role="indent" href="javascript:void(0)"><i class="fa fa-indent"></i></a>
+						<a data-role="outdent" href="javascript:void(0)"><i class="fa fa-outdent"></i></a>
+						<a data-role="insertUnorderedList" href="javascript:void(0)"><i class="fa fa-list-ul"></i></a>
+						<a data-role="insertOrderedList" href="javascript:void(0)"><i class="fa fa-list-ol"></i></a>
+						<a data-role="h1" href="javascript:void(0)">h<sup>1</sup></a>
+						<a data-role="h2" href="javascript:void(0)">h<sup>2</sup></a>
+						<a data-role="p" href="javascript:void(0)">p</a>
+						<a data-role="subscript" href="javascript:void(0)"><i class="fa fa-subscript"></i></a>
+						<a data-role="superscript" href="javascript:void(0)"><i class="fa fa-superscript"></i></a>
+					  </div>
+					</div>
+					<div id="editor" contenteditable=""><?php echo($this->konferencja['Program']); ?></div>
+					<textarea id="output" name="program" style="width:100%;height:400px;display:none;"><?php echo($this->konferencja['Program']); ?></textarea>
+			</p>
+			<hr>
+		</div>
+		<div class="post-footer">
+			<div class="post-footer-line">
+				<select name="temat">
+					<option disabled>Wybierz temat konferencji:</option>
+					<?php 
+						foreach($this->konferencja['tematy'] as $temat)
+							if($temat['Opis'] == $this->konferencja['Temat'])
+								echo('<option value="'.$temat['ID_Tematy'].'" selected>'.$temat['Opis'].'</option>'); 
+							else
+								echo('<option value="'.$temat['ID_Tematy'].'">'.$temat['Opis'].'</option>'); 
+					?>
+				</select><br>
+				Nie ma tematu na liście? Zaproponuj temat: <input type="text" name="zaproponuj"/>  
+			</div>
+		</div>
+	</div>
+	<div style="clear:both;"></div>
+	<div style="float:right">
+		<button class="button" name="edit">Zapisz zmiany</button>
+	</div>
+	<div style="clear:both;"></div>
+</form>
+<?php } ?>
