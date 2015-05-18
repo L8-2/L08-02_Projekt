@@ -1,17 +1,15 @@
 <center><h1>Wyniki wyszukiwania: </h1></center>
-
 <?php $this->getMessage(); ?>
-		
-		
-
 
 	<form method="post" id ="formularz">
 	</form>
+	
 		<table> 
 	<?php
-	
+
 	echo "<p>";
  echo "<table boder=\"1\"><tr>";
+ echo "<td bgcolor=\"#CC3399\"><strong>Organizator:</strong></td>";
  echo "<td bgcolor=\"#CC3399\"><strong>Nazwa konferencji:</strong></td>";
  echo "<td bgcolor=\"#CC3399\"><strong>Data</strong></td>";
  echo "<td bgcolor=\"#CC3399\"><strong>Miejsce</strong></td>";
@@ -22,12 +20,13 @@
  echo "</tr>";
 	
  
-while (  $row=mysql_fetch_row($wynik) ) {
+while (  $row=mysql_fetch_row($konferencje) ) {
     echo "</tr>";
 	
-	echo "<td bgcolor=\"#99ff00\">" . $row[1] . "</td>";
+	echo "<td bgcolor=\"#99ff00\">" . $row[0] . "</td>";
+    echo "<td bgcolor=\"#ccff99\">" . $row[1] . "</td>";
     echo "<td bgcolor=\"#ccff99\">" . $row[2] . "</td>";
-    echo "<td bgcolor=\"#ccff99\">" . $row[3] . "</td>";
+	echo "<td bgcolor=\"#ccff99\">" . $row[3] . "</td>";
 	echo "<td bgcolor=\"#ccff99\">" . $row[4] . "</td>";
 	echo "<td bgcolor=\"#ccff99\">" . $row[5] . "</td>";
 	echo "<td bgcolor=\"#ccff99\">" . $row[6] . "</td>";
@@ -35,5 +34,40 @@ while (  $row=mysql_fetch_row($wynik) ) {
 
    echo "</tr>";
  }
- echo "</table>"; ?>
+echo "</table>"; 
+?>
+ 
+ 
+ 
+</table>
+
+
+
+
+
+
+		<table> 
+	<?php
+
+	echo "<p>";
+ echo "<table boder=\"1\"><tr>";
+ echo "<td bgcolor=\"#CC3399\"><strong>Autor:</strong></td>";
+ echo "<td bgcolor=\"#CC3399\"><strong>Treść</strong></td>";
+ echo "<td bgcolor=\"#CC3399\"><strong>Ocena</strong></td>";
+
+ echo "</tr>";
+	
+while (  $kol=mysql_fetch_row($recenzje) ) {
+    echo "</tr>";
+	
+	echo "<td bgcolor=\"#99ff00\">" . $kol[0] . "</td>";
+    echo "<td bgcolor=\"#ccff99\">" . $kol[1] . "</td>";
+	 echo "<td bgcolor=\"#ccff99\">". $kol[2] . "</td>";
+
+
+   echo "</tr>";
+ }
+	echo "</table>"; ?>
+ 
+
 </table>
