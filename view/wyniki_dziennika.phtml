@@ -1,4 +1,4 @@
-<center><h1>Twoje wyniki: </h1></center>
+<center><h1>Wyniki wyszukiwania: </h1></center>
 
 <?php $this->getMessage(); ?>
 		
@@ -6,25 +6,33 @@
 
 
 	<form method="post" id ="formularz">
-
 	</form>
+		<table> 
+	<?php
 	
+	echo "<p>";
+ echo "<table boder=\"1\"><tr>";
+ echo "<td bgcolor=\"#CC3399\"><strong>Nazwa konferencji:</strong></td>";
+ echo "<td bgcolor=\"#CC3399\"><strong>Data</strong></td>";
+ echo "<td bgcolor=\"#CC3399\"><strong>Miejsce</strong></td>";
+ echo "<td bgcolor=\"#CC3399\"><strong>Limit miejsc</strong></td>";
+ echo "<td bgcolor=\"#CC3399\"><strong>Program</strong></td>";
+ echo "<td bgcolor=\"#CC3399\"><strong>Termin zgłoszeń</strong></td>";
+ echo "<td bgcolor=\"#CC3399\"><strong>Koszt</strong></td>";
+ echo "</tr>";
 	
-	<table> 
-<?php	
  
 while (  $row=mysql_fetch_row($wynik) ) {
     echo "</tr>";
 	
-    echo "<td bgcolor=\"ffff99\">" . $wynik[1][1] . "</td>";
-    echo "<td bgcolor=\"ffff00\">" . $row[2] . "</td>";
-    echo "<td bgcolor=\"ffff99\">" . $row[3] . "</td>";
-	echo "<td bgcolor=\"ffff99\">" . $row[4] . "</td>";
-	echo "<td bgcolor=\"ffff99\">" . $row[5] . "</td>";
-	echo "<td bgcolor=\"ffff99\">" . $row[6] . "</td>";
-	echo "<td bgcolor=\"ffff99\">" . $row[7] . "</td>";
-	echo "<td bgcolor=\"ffff99\">" . $row[7] . "</td>";
-	echo "<td bgcolor=\"ffff99\">" . $row[7] . "</td>";
+	echo "<td bgcolor=\"#99ff00\">" . $row[1] . "</td>";
+    echo "<td bgcolor=\"#ccff99\">" . $row[2] . "</td>";
+    echo "<td bgcolor=\"#ccff99\">" . $row[3] . "</td>";
+	echo "<td bgcolor=\"#ccff99\">" . $row[4] . "</td>";
+	echo "<td bgcolor=\"#ccff99\">" . $row[5] . "</td>";
+	echo "<td bgcolor=\"#ccff99\">" . $row[6] . "</td>";
+	echo "<td bgcolor=\"#ccff99\">" . $row[7] . "</td>";
+
    echo "</tr>";
  }
  echo "</table>"; ?>
