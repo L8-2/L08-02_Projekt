@@ -1,0 +1,31 @@
+<center><h1>Twoje wyniki: </h1></center>
+
+<?php $this->getMessage(); ?>
+		
+		
+
+
+	<form method="post" id ="formularz">
+
+	</form>
+	
+	
+	<table> 
+<?php	
+ 
+while (  $row=mysql_fetch_row($wynik) ) {
+    echo "</tr>";
+	
+    echo "<td bgcolor=\"ffff99\">" . $wynik[1][1] . "</td>";
+    echo "<td bgcolor=\"ffff00\">" . $row[2] . "</td>";
+    echo "<td bgcolor=\"ffff99\">" . $row[3] . "</td>";
+	echo "<td bgcolor=\"ffff99\">" . $row[4] . "</td>";
+	echo "<td bgcolor=\"ffff99\">" . $row[5] . "</td>";
+	echo "<td bgcolor=\"ffff99\">" . $row[6] . "</td>";
+	echo "<td bgcolor=\"ffff99\">" . $row[7] . "</td>";
+	echo "<td bgcolor=\"ffff99\">" . $row[7] . "</td>";
+	echo "<td bgcolor=\"ffff99\">" . $row[7] . "</td>";
+   echo "</tr>";
+ }
+ echo "</table>"; ?>
+</table>
