@@ -15,7 +15,7 @@
 	<?php $numer=0;?>
 	<?php foreach ($result as $art_do_publikacji): ?>
 					
-		<tr onMouseover="this.bgColor='#33CCFF'"onMouseout="this.bgColor='#FFFFFF'" style="cursor:pointer;" onClick="location.href='index.php<?php//numer ID Artykułu echo $result[$numer][0]?>'">
+		<tr onMouseover="this.bgColor='#33CCFF'"onMouseout="this.bgColor='#FFFFFF'" style="cursor:pointer;" onClick="location.href='index.php?con=art_load&id=<?php echo $result[$numer][0]?>'">
 			<td style="text-align:center"><?php echo $numer+1; ?>.</td>
 			<td style="text-align:center"><?php echo $result[$numer][2] ?></td>
 			<td style="text-align:center"><?php echo $result[$numer][1] ?></td>

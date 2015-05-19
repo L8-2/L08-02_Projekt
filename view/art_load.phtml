@@ -1,0 +1,56 @@
+<?php $this->getMessage(); ?>
+<center><h2 style="margin:30px 0px 0px 20px;">Zarządzanie artykułami</h2></center>
+
+<div class="post entry" style="width:100%; margin:30px 0px 20px 0px;">
+		<div class="hexagon"><a href="#"><i class="fa fa-book"></i></a></div>
+		<div class="post-image">
+			<figure>
+				<div class="imgcon full">
+				</div>
+			</figure>
+		</div>
+    		<center><h2 style="margin:30px 0px 0px 20px;"></h2>
+			<form action="#" method="post">
+
+	
+			<h2>Informacje o atrykule :</h2> 
+			<div class="border"></div>
+			<p>
+				<table style="width:460px;">
+
+
+				<tr><td><b>Dotyczy konferencji :</b></td><td><b><?php echo $this->art_load[3];?></b></tr>
+				<tr><td><b>Autor: </b></td><td><b><?php echo $this->art_load[4]; echo " "; echo $this->art_load[5]; ?> </b></td></tr>
+				<tr><td><b>Tytuł: </b></td><td><b><?php echo $this->art_load[1]; ?></b></td></tr>
+				<tr><td><b>Treść: </b></td><td><b><?php echo  $this->art_load[2]; ?></b></td></tr>
+				<tr><td><b>Data Utworzenia: </b></td><td><b><?php  echo  $this->art_load[7]; ?></b></td></tr>
+				<tr><td><b>Atrykuł </b></td><td><b>
+				<?php if ($this->art_load[6] == '1')
+				{
+					echo "został opublikowany <tr>";
+
+				}			
+				else
+				{
+					echo "nie został opublikowany<tr>";?>
+				</b></td></tr>
+				</table><br>
+				<?php	echo "<center><INPUT TYPE = 'Submit' Name = 'Submit2' VALUE = 'Opublikuj'></center> </tr>";	
+				}
+				?>
+				
+			</p>
+
+
+			</form></center>
+
+
+	
+		</div>
+		<?php 
+
+			if(isset($_POST['Submit2'])){
+				mysql_query("UPDATE artykul SET Opublikowany = 1 WHERE ID_Artykul = '".addslashes($this->art_load[0])."'") or die(mysql_error());
+				$this->redirect("index.php", "success", "Wybrany artykuł został  opublikowany");
+			}
+			?>
