@@ -1,0 +1,32 @@
+<?php $this->getMessage(); ?>
+	<center><h3>Artykuły które możesz opublikować:<h3></center>
+	
+	
+	<table style="text-align:left; margin-left:auto; margin-right:auto" border="1" >
+	<thead style="text-align:center">
+		<th width="50">Nr</th>
+		<th width="400">Artykuł do konferencji:</th>
+		<th width="200">Tytuł artykułu</th>
+		<th width="150">Autor artykułu</th>
+
+	</thead>
+	<tbody>
+
+	<?php $numer=0;?>
+	<?php foreach ($result as $art_do_publikacji): ?>
+					
+		<tr onMouseover="this.bgColor='#33CCFF'"onMouseout="this.bgColor='#FFFFFF'" style="cursor:pointer;" onClick="location.href='index.php<?php//numer ID Artykułu echo $result[$numer][0]?>'">
+			<td style="text-align:center"><?php echo $numer+1; ?>.</td>
+			<td style="text-align:center"><?php echo $result[$numer][2] ?></td>
+			<td style="text-align:center"><?php echo $result[$numer][1] ?></td>
+<td style="text-align:center"><?php echo $result[$numer][3] ?> <?php echo $result[$numer][4] ?></td>
+
+		<?php $numer=$numer+1;?>
+		</tr>
+		<?php endforeach ?>
+		
+		
+	</tbody>
+	
+</table>
+	
