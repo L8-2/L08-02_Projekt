@@ -76,5 +76,31 @@ abstract class Model extends Controller
 		else
 			throw new Exception('Nie można połączyć się z bazą danych.');
 	}
+	
+	public function sendMail($email, $subject, $body)
+	{
+		require("configuration.php");
+		require("controller/phpmailer/class.phpmailer.php");
+		
+		$mail = new PHPMailer();
+		$mail->PluginDir = "controller/phpmailer/";
+		$mail->From = $MAIL['address'];
+		$mail->FromName = "E-Konferencja";
+		$mail->Host = $MAIL['smtp'];
+		$mail->Mailer = "smtp";
+		$mail->Username = $MAIL['username']; 
+		$mail->Password = $MAIL['password']; 
+		$mail->SMTPAuth = true;
+		$mail->SetLanguage("pl", "phpmailer/language/");
+		$mail->Subject = $subject;
+		$mail->MsgHTML($body);
+		$mail->AddAddress($email,"Uczestnik");
+
+		if(!$mail->Send())
+			echo $mail->ErrorInfo."<br>";
+
+		$mail->ClearAddresses();
+		$mail->ClearAttachments();
+	}
 }
 ?>
