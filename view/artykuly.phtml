@@ -23,7 +23,7 @@
 			<td> <?php echo $artykul['Ocena'] ?> </td>
 			<td> <?php if (!$artykul['Tresc']): ?>
 			<?php else: ?> <button value="<?php echo($artykul['ID_Recenzja']); ?>" name="recenzja">Recenzja </button> <?php endif ?> </td>
-			<td> <?php if ($artykul['Ocena']): ?>
+			<td> <?php if ($artykul['Tresc']): ?>
 			<?php else: ?> <button value="<?php echo($artykul['ID_Artykul']); ?>" name = "ocena">Oceń</button> <?php endif ?> </td>
 		</tr>
 		<?php endforeach ?>

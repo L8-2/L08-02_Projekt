@@ -54,7 +54,7 @@ class artykuly_Model extends Model
 		
 		//$idrecenzja = $this -> sql_query("SELECT ID_Recenzja FROM recenzja");
 
-		/*if(isset($_POST['recenzja']))	
+		if(isset($_POST['recenzja']))	
 		{
 			$recenzja = $this -> sql_query("SELECT Tresc FROM recenzja
 			WHERE ID_Recenzja = ".$_POST['recenzja']."");
@@ -63,7 +63,7 @@ class artykuly_Model extends Model
 			//include __DIR__ . "/../view/artykuly.phtml";
 			
 		}
-		else */if(isset($_POST['wroc']))
+		else if(isset($_POST['wroc']))
 		{
 			include __DIR__ . "/../view/artykuly.phtml";
 		}
@@ -88,7 +88,7 @@ class artykuly_Model extends Model
 						$this->redirect("index.php?con=artykuly", "error", "Brak recenzji");
 					else
 					{
-						mysql_query("INSERT INTO ocena (`Ocena`) Values ('".$_POST['ocena']."')") or die(mysql_error());
+						mysql_query("INSERT INTO ocena (`Ocena`) Values ('".$_POST['ocena_']."')") or die(mysql_error());
 							
 						$id = mysql_insert_id();
 						mysql_query("INSERT INTO recenzja (`Tresc`, `ID_Recenzent`, `ID_Artykul`, `ID_Ocena`) Values ('".addslashes($_POST['recenzja'])."', '".$recenzent[0]['ID_Recenzent']."', '".addslashes($_POST['id'])."', '".$id."')") or die(mysql_error());
@@ -102,7 +102,7 @@ class artykuly_Model extends Model
 			else
 				$this->redirect("index.php?con=artykuly", "error", "Nie jesteś zalogowany");	
 		}
-		else
+		else if(!isset($_POST['grupuj2']))
 			include __DIR__ . "/../view/artykuly.phtml";
 	}
 }
