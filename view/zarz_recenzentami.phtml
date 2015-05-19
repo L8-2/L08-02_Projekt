@@ -1,0 +1,105 @@
+<?php $this->getMessage(); ?>
+<center><h2 style="margin:30px 0px 0px 20px;">Zarządzanie recenzentami</h2></center>
+<div class="post entry" style="width:100%; margin:30px 0px 20px 0px;">
+		<div class="hexagon"><a href="#"><i class="fa fa-book"></i></a></div>
+		<div class="post-image">
+			<figure>
+				<div class="imgcon full">
+				</div>
+			</figure>
+		</div>
+    		</div>
+			<center>
+			<h2 style="margin:30px 0px 0px 20px;">Lista twoich konferencji</h2></center>
+			<p><center><table style="width:460px;">
+			<form action="#" method="post" name = "form1">
+			<select name="decision">
+			<?php 
+				$a=0;
+				foreach($this->zarz_recenzentami[1] as $konf)
+				{
+					echo "<option ";
+					if ($a==$this->zarz_recenzentami[0])
+					echo "selected ";
+					echo "value ='";
+					echo $konf['ID_Konferencja'];
+					echo "'/>";	
+					echo $konf['Nazwa'];
+					$a++;
+				}	
+			?>
+			</select>
+			<br><tr><input type='submit' name='submit2' value = "Wybierz"/></tr></form></table></center></p>
+			
+			<p><center><table style="width:460px;"><b>Recenzenci : </b> <br> <br>
+			
+			<?php 
+				if (isset($this->zarz_recenzentami[2])){
+				echo "<from action ='zarz_recenzentami.php' method = 'post' name ='usun'>";
+			foreach($this->zarz_recenzentami[2] as $resu) 
+				{
+					echo "<b>  ";
+					echo $resu['Imie']; 
+					echo " ";
+					echo $resu['Nazwisko'];
+					echo " ";
+					echo "";
+					echo "<input type='checkbox' name='usun[]'";
+					echo "	value='";
+					echo $resu['ID_Konto'];
+					echo "'/>Usuń</b><br>";
+				}
+			
+echo "<center><input type='submit' name='submit' value ='submit'/>";
+} ?>
+</form></center>
+				
+
+			
+				
+			
+			
+			</table></center></p>
+		
+             
+			<p><center><table style="width:460px;">
+			<form action="#" method="post" name="form2">
+			<select name="decision1">
+			<option selected >Wybierz recenzenta do dodania
+			<?php
+			
+			$kont = $this->sql_query("SELECT * FROM konto");
+			foreach($kont as $konto_)
+			{
+				echo "<option ";
+					
+					
+					echo "value ='";
+					echo $konto_['ID_Konto'];
+					echo "'>";	
+					echo $konto_['Imie'];
+					echo " ";
+					echo $konto_['Nazwisko'];
+					
+			}
+			?>
+			<tr><td><center><input type="submit" name = "dodaj" value="Dodaj recenzenta"/></center></td></tr>
+			</form></center>
+			 <?php 
+			if(isset($_POST['dodaj']))
+			{
+				$this->dodaj();
+			}
+			 ?>
+			 <?php if(isset($_POST['submit']))
+				 {
+					
+}
+				}
+					?> 
+			
+			
+			</table ></center></p>
+			<?php $this->getMessage(); ?>
+			
+			
