@@ -1,12 +1,65 @@
 <?php $this->getMessage(); ?>
 <h2 style="text-align:center">	
+</h2>
+	
+<h5 style="text-align:center">
+
 	<form action="index.php?con=szukaj" method="post">
-	<input type="text"  STYLE="width:200px; height: 20px" name="szukane">
-	<button name="szukaj" STYLE="width:90px; height:30px">Szukaj</button><br><br>
-	</form></h2>
+		<input type="text"  STYLE="width:200px; height: 20px" name="szukane">
+		<input type="submit" value="Szukaj" name="szukaj"><br><br>
+					<h4 align="center">
+				Sortowanie:<select name="sortowanie">
+					<option value="data1">Data od najwcześniejszych</option>
+					<option value="data2">Data od najpóźniejszych</option>
+					<option value="nazwa1">Nazwa A-Z</option>
+					<option value="nazwa2">Nazwa Z-A</option>
+					<option value="koszt1">Najtańsze</option>
+					<option value="koszt2">Najdroższe</option>
+				</select>
+			</h4>
+		
+	<table class="tg" style="text-align:left; margin-left:auto; margin-right:auto" border="0">
+
+		
+		<tr>
+		<td>Data od: <input type="text" name="dzien_od" size="1" placeholder="DD" maxlength="2"><input type="text"  name="miesiac_od" size="1"  placeholder="MM" maxlength="2"><input type="text" name="rok_od" size="4"  placeholder="RRRR" maxlength="4"></td>
+		<td>Cena od: <input type="text"  name="cena_od"  size="5"></td>
+		<td>Organizator: </td><td><input type="text" name="organizator" size="20"></td>
+		</tr>
+		<tr>
+		
+		<td>Data do: <input type="text" name="dzien_do" size="1"  placeholder="DD" maxlength="2"><input type="text"  name="miesiac_do" size="1"  placeholder="MM" maxlength="2"><input type="text" name="rok_do" size="4"  placeholder="RRRR" maxlength="4"></td>
+			<td>Cena do: <input type="text"  name="cena_do"  size="5"></td>
+			<td>Miasto: </td><td><input type="text" name="miasto" size="20"></td>
+		</tr>
+	
+	</table>
+
+		<h5 align="center"><input type="submit" value="Sortuj/Filtruj" name="szukaj">
+		<input type="reset" value="Wyczyść" /></h5>
+	</form>
+</h5>
 
 
-<?php if($_POST['szukane']!="") {?><h3>Wyświetlanie wyników dla: '<?php echo $_POST['szukane'] ?>'. Znaleziono: <?php echo $znalezionych ?>. </h3>
+
+
+<?php if($_POST['szukane']!="" or $_POST['sortowanie'] != "") {?><h3>Wyświetlanie wyników dla: '<?php echo $szukana ?>'. Znaleziono: <?php echo $znalezionych ?>. </h3>
+<?php if(($_POST['dzien_od']!="" and $_POST['miesiac_od']!="" and $_POST['rok_od']!="") or ($_POST['dzien_do']!="" and $_POST['miesiac_do']!="" and $_POST['rok_do']!="")or ($_POST['cena_od']!="") 
+	or ($_POST['cena_do']!="")or($_POST['organizator']!="")or ($_POST['miasto']!="")) {?><h6>Zastosowano filtry:<?php } ?>
+
+<?php if($_POST['dzien_od']!="" and $_POST['miesiac_od']!="" and $_POST['rok_od']!="") {echo "Data od: "; echo $_POST['dzien_od'];echo "-";echo $_POST['miesiac_od'];echo "-";echo $_POST['rok_od'];echo ", ";}?>
+<?php if($_POST['dzien_do']!="" and $_POST['miesiac_do']!="" and $_POST['rok_do']!="")  {echo "Data do: "; echo $_POST['dzien_do'];echo "-";echo $_POST['miesiac_do'];echo "-";echo $_POST['rok_do'];echo ", ";}?>
+<?php if($_POST['cena_od']!="") {echo "Cena od: "; echo $_POST['cena_od'];echo ", ";}?>
+<?php if($_POST['cena_do']!="") {echo "Cena do :"; echo $_POST['cena_do'];echo ", ";}?>
+<?php if($_POST['organizator']!=""){echo "Organizator :"; echo $_POST['organizator'];echo ", ";}?>
+<?php if($_POST['miasto']!=""){echo "Miasto :"; echo $_POST['miasto'];}?></h6>
+
+
+
+
+
+
+
 
 <table style="text-align:left; margin-left:auto; margin-right:auto" border="1" >
 	<thead style="text-align:center">
@@ -14,6 +67,7 @@
 		<th width="400">Nazwa konferencji</th>
 		<th width="200">Organizator</th>
 		<th width="150">Miejsce</th>
+		<th width="150">Cena</th>
 		<th width="150">Data</th>
 	</thead>
 	<tbody>
@@ -21,18 +75,20 @@
 	<?php $numer=0;?>
 	<?php foreach ($result as $szukaj): ?>
 							<?php// $result[$numer][0] to ID_konferencja?>
-		<tr onMouseover="this.bgColor='#33CCFF'"onMouseout="this.bgColor='#FFFFFF'" class="odnosnik" style="cursor:pointer;" onClick="location.href='index.php'">
+		<tr onMouseover="this.bgColor='#33CCFF'"onMouseout="this.bgColor='#FFFFFF'" style="cursor:pointer;" onClick="location.href='index.php?con=konferencja&id=<?php echo $result[$numer][0]?>'">
 			<td style="text-align:center"><?php echo $numer+1; ?>.</td>
-			<td><?php echo $result[$numer][1] ?></td>
-			<td><?php echo $result[$numer][2] ?> <?php echo $result[$numer][3] ?></td>
-			<td><?php echo $result[$numer][4] ?></td>
-			<td><?php echo $result[$numer][5] ?></td>
-		<?php $numer=numer+1;?>
+			<td style="text-align:center"><?php echo $result[$numer][1] ?></td>
+			<td style="text-align:center"><?php echo $result[$numer][2] ?> <?php echo $result[$numer][3] ?></td>
+			<td style="text-align:center"><?php echo $result[$numer][4] ?></td>
+			<td style="text-align:center"><?php echo $result[$numer][6] ?> zł</td>
+			<td style="text-align:center"><?php echo $result[$numer][5] ?></td>
+		<?php $numer=$numer+1;?>
 		</tr>
 		<?php endforeach ?>
 		
 		
 	</tbody>
+	
 </table>
 <?php } ?>
 
