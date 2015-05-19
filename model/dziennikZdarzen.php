@@ -32,7 +32,8 @@ class dziennikZdarzen_Model extends Model
 					{
 						$konferencje=mysql_query("SELECT konto.Login, konferencja.Nazwa,konferencja.Data, konferencja.Miejsce, konferencja.Limit_Miejsc, konferencja.Program, konferencja.Termin_Zgloszen,konferencja.Koszt
 						FROM konferencja  LEFT JOIN organizator ON konferencja.ID_Konferencja=organizator.ID_Konferencja 
-						LEFT JOIN konto ON konto.ID_Konto=organizator.ID_Konto");
+						LEFT JOIN konto ON konto.ID_Konto=organizator.ID_Konto
+						ORDER BY konferencja.Data");
 
 					}			
 					
@@ -47,7 +48,8 @@ class dziennikZdarzen_Model extends Model
 						LEFT JOIN konto ON konto.ID_Konto=organizator.ID_Konto 
 						WHERE (
 						Data >= '".addslashes($_POST['data_od'])."' AND 
-						Data <='".addslashes($_POST['data_do'])."') AND Limit_Miejsc >='".addslashes($_POST['limit_miejsc'])."'");
+						Data <='".addslashes($_POST['data_do'])."') AND Limit_Miejsc >='".addslashes($_POST['limit_miejsc'])."'
+						ORDER BY konferencja.Data");
 					}
 		
 
@@ -82,7 +84,8 @@ class dziennikZdarzen_Model extends Model
 					$recenzje=mysql_query("SELECT konto.Login, recenzja.Tresc, ocena.Ocena FROM recenzja 
 					LEFT JOIN recenzent ON recenzja.ID_Recenzent=recenzent.ID_Recenzent
 					LEFT JOIN konto ON recenzent.ID_Konto=konto.ID_Konto 
-					LEFT JOIN ocena ON ocena.ID_Ocena=recenzja.ID_Ocena ")or die(mysql_error()) ;
+					LEFT JOIN ocena ON ocena.ID_Ocena=recenzja.ID_Ocena 
+					ORDER BY recenzja.Data_Utworzenia")or die(mysql_error()) ;
 							
 				}
 				
@@ -94,7 +97,8 @@ class dziennikZdarzen_Model extends Model
 					LEFT JOIN ocena ON ocena.ID_Ocena=recenzja.ID_Ocena 
 					WHERE (
 					recenzja.Data_Utworzenia >= '".addslashes($_POST['data_od'])."' AND 
-					recenzja.Data_Utworzenia <= '".addslashes($_POST['data_do'])."')")or die(mysql_error()) ;
+					recenzja.Data_Utworzenia <= '".addslashes($_POST['data_do'])."')
+					ORDER BY recenzja.Data_Utworzenia")or die(mysql_error()) ;
 				}
 				
 				
@@ -122,7 +126,8 @@ class dziennikZdarzen_Model extends Model
 					if((($_POST['data_od']) == "" || ($_POST['data_do'])=="" ))
 					{
 						$artykuly=mysql_query("SELECT konto.Login,artykul.Tytul,konferencja.Nazwa FROM  artykul, konferencja, konto 
-						WHERE artykul.ID_Konferencja=konferencja.ID_Konferencja AND artykul.ID_Konto=konto.ID_Konto");
+						WHERE artykul.ID_Konferencja=konferencja.ID_Konferencja AND artykul.ID_Konto=konto.ID_Konto
+						ORDER BY artykul.Data_Utworzenia");
 
 					}			
 			
@@ -131,7 +136,8 @@ class dziennikZdarzen_Model extends Model
 						$artykuly=mysql_query("SELECT konto.Login,artykul.Tytul,konferencja.Nazwa FROM  artykul, konferencja, konto 
 						WHERE artykul.ID_Konferencja=konferencja.ID_Konferencja AND artykul.ID_Konto=konto.ID_Konto AND
 						artykul.Data_Utworzenia >= '".addslashes($_POST['data_od'])."' AND 
-						artykul.Data_Utworzenia <='".addslashes($_POST['data_do'])."'");
+						artykul.Data_Utworzenia <='".addslashes($_POST['data_do'])."'
+						ORDER BY artykul.Data_Utworzenia");
 					}
 		
 
@@ -151,7 +157,8 @@ class dziennikZdarzen_Model extends Model
 			{
 				
 				$buttonUzytkownicy=true;
-				$uzytkownicy=mysql_query("SELECT * FROM konto ");
+				$uzytkownicy=mysql_query("SELECT * FROM konto 
+				ORDER BY Data_Utworzenia");
 	
 			
 			
