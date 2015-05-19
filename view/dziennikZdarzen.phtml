@@ -1,56 +1,22 @@
+<?php $this->getMessage(); ?>
 <center><h1>Przeglądaj zdarzenia </h1></center>
 
-<?php $this->getMessage(); ?>
-		
-		
+<form method="post" id ="formularz">
+	<center>
+		<table> 
+			<tr><td> Zaznacz według jakich kryteriów chcesz pokazać zdarzenia  : </td></tr>
+			<tr><td> Wybierz zdarzenie od: </td><td> <input type="date" name ="data_od"></td></tr>
+			<tr><td> Wybierz zdarzenie do :</td><td> <input type="date" name ="data_do"></td></tr>
+			<tr><td> Wybierz minimalny limit miejsc (dotyczy konferencji):</td><td> <input type="text" name ="limit_miejsc"></td></tr>
+		</table>
 
+		<div style="float:center;margin-top:20px;">
+			<button class="button" name="szukajUzytkownikow">Pokaż użytkowników</button>
+			<button class="button" name="szukajKonferencji">Pokaż konferencje</button>
+			<button class="button" name="szukajRecenzji">Pokaż Recenzje</button>
+			<button class="button" name="szukajArtykul">Pokaż Artykuły</button>
+		</div>
+		<div style="clear:both;"></div>
 
-	<form method="post" id ="formularz">
-		<center><table> 
-		<tr><td> Zaznacz według jakich kryteriów chcesz pokazać zdarzenia  : </td></tr>
-		<tr><td> Wybierz zdarzenie od: </td><td> <input type="date" name ="data_od"></td></tr>
-		<tr><td> Wybierz zdarzenie do :</td><td> <input type="date" name ="data_do"></td></tr>
-		<tr><td> Wybierz minimalny limit miejsc(dotyczy konferencji):</td><td> <input type="text" name ="limit_miejsc"></td></tr>
-
-
-<?php
-/*
-		<tr><td> Zaznacz według jakich kryteriów chcesz pokazać zdarzenia dotyczace recenzji : </td></tr>
-		<tr><td> Wybierz zdarzenie od: </td><td> <input type="date" name ="data_od_recenzji"></td></tr>
-		<tr><td> Wybierz zdarzenie do :</td><td> <input type="date" name ="data_do_recenzji"></td></tr>
-
-	
-		<tr><td> Zaznacz według jakich kryteriów chcesz pokazać zdarzenia dotyczace artykułu : </td></tr>
-		<tr><td> Wybierz zdarzenie od: </td><td> <input type="date" name ="data_od_artykulu"></td></tr>
-		<tr><td> Wybierz zdarzenie do :</td><td> <input type="date" name ="data_do_artykulu"></td></tr>
-		
-		</table></center>*/
-?>
-
-	<center><table> 
-	
-			
-		<div style="clear:both;"></div>
-		<div style="float:center"> <button class="button" name="szukajUzytkownikow">Pokaż użytkowników</button> </div>
-		<div style="clear:both;"></div>
-		
-	
-	
-		<div style="clear:both;"></div>
-		<div style="float:center"><button class="button" name="szukajKonferencji">Pokaż konferencje</button> </div>
-		<div style="clear:both;"></div>
-	
-		<div style="clear:both;"></div>
-		<div style="float:center"> <button class="button" name="szukajRecenzji">Pokaż Recenzje</button> </div>
-		<div style="clear:both;"></div>
-		
-	
-	
-		<div style="clear:both;"></div>
-		<div style="float:center"> <button class="button" name="szukajArtykul">Pokaż Artykuły</button> </div>
-		<div style="clear:both;"></div>
-		
-	
-
-</table></center>
+	</center>
 </form>

@@ -1,146 +1,110 @@
-<center><h1>Wyniki wyszukiwania: </h1></center>
 <?php $this->getMessage(); ?>
+<center>
+<h1>Wyniki wyszukiwania: </h1>
 
-	<form method="post" id ="formularz">
-	</form>
+<?php if($buttonKonferencje==true) { ?>
+	<table id="styled">
+		<thead>
+			<tr>
+				<th><strong><span>Organizator</span></strong></th>
+				<th><strong><span>Nazwa konferencji</span></strong></th>
+				<th><strong><span>Data</span></strong></th>
+				<th><strong><span>Miejsce</span></strong></th>
+				<th><strong><span>Limit miejsc</span></strong></th>
+				<th><strong><span>Program</span></strong></th>
+				<th><strong><span>Termin zgłoszeń</span></strong></th>
+				<th><strong><span>Koszt</span></strong></th>
+			</tr>
+		</thead>
+		<tbody>
 	
-		<table> 
-	<?php
-if($buttonKonferencje==true){
-	echo "<p>";
- echo "<table boder=\"1\"><tr>";
- echo "<td bgcolor=\"#CC3399\"><strong>Organizator:</strong></td>";
- echo "<td bgcolor=\"#CC3399\"><strong>Nazwa konferencji:</strong></td>";
- echo "<td bgcolor=\"#CC3399\"><strong>Data</strong></td>";
- echo "<td bgcolor=\"#CC3399\"><strong>Miejsce</strong></td>";
- echo "<td bgcolor=\"#CC3399\"><strong>Limit miejsc</strong></td>";
- echo "<td bgcolor=\"#CC3399\"><strong>Program</strong></td>";
- echo "<td bgcolor=\"#CC3399\"><strong>Termin zgłoszeń</strong></td>";
- echo "<td bgcolor=\"#CC3399\"><strong>Koszt</strong></td>";
- echo "</tr>";
-	
- 
-while (  $row=mysql_fetch_row($konferencje) ) {
-    echo "</tr>";
-	
-	echo "<td bgcolor=\"#99ff00\">" . $row[0] . "</td>";
-    echo "<td bgcolor=\"#ccff99\">" . $row[1] . "</td>";
-    echo "<td bgcolor=\"#ccff99\">" . $row[2] . "</td>";
-	echo "<td bgcolor=\"#ccff99\">" . $row[3] . "</td>";
-	echo "<td bgcolor=\"#ccff99\">" . $row[4] . "</td>";
-	echo "<td bgcolor=\"#ccff99\">" . $row[5] . "</td>";
-	echo "<td bgcolor=\"#ccff99\">" . $row[6] . "</td>";
-	echo "<td bgcolor=\"#ccff99\">" . $row[7] . "</td>";
+		<?php
+			while($row=mysql_fetch_row($konferencje)) 
+				echo('<tr>
+					<td>'.$row[0].'</td>
+					<td>'.$row[1].'</td>
+					<td>'.$row[2].'</td>
+					<td>'.$row[3].'</td>
+					<td>'.$row[4].'</td>
+					<td>'.$row[5].'</td>
+					<td>'.$row[6].'</td>
+					<td>'.$row[7].'</td>
+					</tr>');
+		?>
 
-   echo "</tr>";
- }
-echo "</table>"; 
-}
-?>
- 
- 
- 
-</table>
+		</tbody>
+	</table> 
+<?php } ?>
 
-
-		<center><table> 
-	<?php
-		if($buttonRecenzje==true)
-
-		{
-			 echo "<p>";
-			 echo "<table boder=\"1\"><tr>";
-			 echo "<td bgcolor=\"#CC3399\"><strong>Autor:</strong></td>";
-			 echo "<td bgcolor=\"#CC3399\"><strong>Treść</strong></td>";
-			 echo "<td bgcolor=\"#CC3399\"><strong>Ocena</strong></td>";
-
-			 echo "</tr>";
-	
-			while (  $kol=mysql_fetch_row($recenzje) )
-				{
-					echo "</tr>";
-					
-					echo "<td bgcolor=\"#99ff00\">" . $kol[0] . "</td>";
-					echo "<td bgcolor=\"#ccff99\">" . $kol[1] . "</td>";
-					echo "<td bgcolor=\"#ccff99\">". $kol[2] . "</td>";
-
-					echo "</tr>";
-				}
-					echo "</table>";
-		}
-	?>
-
-</table></center>
+<?php if($buttonRecenzje==true) { ?>
+	<table id="styled">
+		<thead>
+			<tr>
+				<th><strong><span>Autor</span></strong></th>
+				<th><strong><span>Treść</span></strong></th>
+				<th><strong><span>Ocena</span></strong></th>
+			</tr>
+		</thead>
+		<tbody>
+		<?php
+			while($kol=mysql_fetch_row($recenzje))
+				echo('<tr>
+					<td>'.$kol[0].'</td>
+					<td>'.$kol[1].'</td>
+					<td>'.$kol[2].'</td>
+					</tr>');
+		?>
+		</tbody>
+	</table>
+<?php } ?>
 
 
+<?php if($buttonArtykuly==true) { ?>
+	<table id="styled">
+		<thead>
+			<tr>
+				<th><strong><span>Autor artykułu</span></strong></th>
+				<th><strong><span>Treść</span></strong></th>
+				<th><strong><span>Nazwa konferencji</span></strong></th>
+			 </tr>
+		</thead>
+		<tbody>
+		<?php
+			while($kol=mysql_fetch_row($artykuly))
+				echo('</tr>
+					<td>'.$kol[0].'</td>
+					<td>'.$kol[1].'</td>
+					<td>'.$kol[2].'</td>
+					</tr>');
+		?>
+		</tbody>
+	</table>
+<?php } ?>
 
-<center><table> 
-	<?php
-		if($buttonArtykuly==true)
-
-		{
-			 echo "<p>";
-			 echo "<table boder=\"1\"><tr>";
-			 echo "<td bgcolor=\"#CC3399\"><strong>Autor artykułu:</strong></td>";
-			 echo "<td bgcolor=\"#CC3399\"><strong>Treść</strong></td>";
-			 echo "<td bgcolor=\"#CC3399\"><strong>Nazwa konferencji</strong></td>";
-
-			 echo "</tr>";
-	
-			while (  $kol=mysql_fetch_row($artykuly) )
-		
-			{
-				echo "</tr>";
-			
-				echo "<td bgcolor=\"#99ff00\">" . $kol[0] . "</td>";
-				echo "<td bgcolor=\"#ccff99\">" . $kol[1] . "</td>";
-				echo "<td bgcolor=\"#ccff99\">". $kol[2] . "</td>";
-
-				echo "</tr>";
-			}
-		echo "</table>";
-}
-	?>
-
-
-</table></center>
-
-
-
-
-<center><table> 
-	<?php
-		if($buttonUzytkownicy==true)
-
-		{
-			 echo "<p>";
-			 echo "<table boder=\"1\"><tr>";
-			 echo "<td bgcolor=\"#CC3399\"><strong>Login:</strong></td>";
-			 echo "<td bgcolor=\"#CC3399\"><strong>Imie:</strong></td>";
-			 echo "<td bgcolor=\"#CC3399\"><strong>Nazwisko:</strong></td>";
-			  echo "<td bgcolor=\"#CC3399\"><strong>Email:</strong></td>";
-			   echo "<td bgcolor=\"#CC3399\"><strong>Nr. telefou:</strong></td>";
-			    echo "<td bgcolor=\"#CC3399\"><strong>Data Utworzenia:</strong></td>";
-
-			 echo "</tr>";
-	
-			while (  $kol=mysql_fetch_row($uzytkownicy) )
-		
-			{
-				echo "</tr>";
-			
-				echo "<td bgcolor=\"#99ff00\">" . $kol[1] . "</td>";
-				echo "<td bgcolor=\"#ccff99\">" . $kol[3] . "</td>";
-				echo "<td bgcolor=\"#ccff99\">". $kol[4] . "</td>";
-				echo "<td bgcolor=\"#ccff99\">". $kol[5] . "</td>";
-				echo "<td bgcolor=\"#ccff99\">". $kol[6] . "</td>";
-				echo "<td bgcolor=\"#ccff99\">". $kol[7] . "</td>";
-
-				echo "</tr>";
-			}
-		echo "</table>";
-}
-	?>
-
-
-</table></center>
+<?php if($buttonUzytkownicy==true) { ?>
+	<table id="styled">
+		<thead>
+			<tr>
+				<th><strong><span>Login</span></strong></td>
+				<th><strong><span>Imię</span></strong></td>
+				<th><strong><span>Nazwisko</span></strong></td>
+				<th><strong><span>Email</span></strong></td>
+				<th><strong><span>Nr. telefou</span></strong></td>
+				<th><strong><span>Data Utworzenia</span></strong></td>
+			</tr>
+		</thead>
+		<tbody>
+		<?php
+			while($kol=mysql_fetch_row($uzytkownicy))
+				echo('<tr>
+					<td>'.$kol[1].'</td>
+					<td>'.$kol[3].'</td>
+					<td>'.$kol[4].'</td>
+					<td>'.$kol[5].'</td>
+					<td>'.$kol[6].'</td>
+					<td>'.$kol[7].'</td>
+					</tr>');
+		?>
+		</tbody>
+	</table>
+<?php } ?>

@@ -593,6 +593,37 @@ input:focus {
 
 input:hover { border: 1px solid #7494CF; }
 
+#styled {
+  margin: 0 auto;
+  font-size: 1.2em;
+  margin-bottom: 15px;
+  -webkit-box-shadow: 2px 2px 3px -1px rgba(0,0,0,0.35);
+  color: #585858;
+}
+
+#styled thead {
+  cursor: pointer;
+  background: #c9dff0;
+}
+#styled thead tr th { 
+  font-weight: bold;
+  padding: 15px 30px;
+  padding-left: 42px;
+}
+#styled thead tr th span { 
+  padding-right: 20px;
+  background-repeat: no-repeat;
+  background-position: 100% 100%;
+}
+
+#styled thead tr th.headerSortUp, #styled thead tr th.headerSortDown { background: #acc8dd; }
+#styled thead tr th.headerSortUp span:after { font: normal normal normal 14px/1 FontAwesome; content: "\f063"; }
+#styled thead tr th.headerSortDown span:after { font: normal normal normal 14px/1 FontAwesome; content: "\f062"; }
+#styled tbody tr { color: #555; background: #f4f7f8; }
+#styled tbody tr:nth-child(even) { background: #e8eeef; }
+#styled tbody tr td { text-align: center; padding: 8px 10px; }
+#styled tbody tr td.lalign { text-align: left; }
+
 footer {  
 	width: 100%;
 	background: #333;
