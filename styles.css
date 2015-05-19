@@ -12,6 +12,7 @@ body{
 
 #logo {
 	background: url(images/logo.png) no-repeat;
+	display: block;
 	width: 320px;
 	height: 72px;
 	margin-bottom: 20px;
