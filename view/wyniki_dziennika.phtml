@@ -6,7 +6,7 @@
 	
 		<table> 
 	<?php
-
+if($buttonKonferencje==true){
 	echo "<p>";
  echo "<table boder=\"1\"><tr>";
  echo "<td bgcolor=\"#CC3399\"><strong>Organizator:</strong></td>";
@@ -35,6 +35,7 @@ while (  $row=mysql_fetch_row($konferencje) ) {
    echo "</tr>";
  }
 echo "</table>"; 
+}
 ?>
  
  
@@ -42,32 +43,104 @@ echo "</table>";
 </table>
 
 
-
-
-
-
 		<table> 
 	<?php
+		if($buttonRecenzje==true)
 
-	echo "<p>";
- echo "<table boder=\"1\"><tr>";
- echo "<td bgcolor=\"#CC3399\"><strong>Autor:</strong></td>";
- echo "<td bgcolor=\"#CC3399\"><strong>Treść</strong></td>";
- echo "<td bgcolor=\"#CC3399\"><strong>Ocena</strong></td>";
+		{
+			 echo "<p>";
+			 echo "<table boder=\"1\"><tr>";
+			 echo "<td bgcolor=\"#CC3399\"><strong>Autor:</strong></td>";
+			 echo "<td bgcolor=\"#CC3399\"><strong>Treść</strong></td>";
+			 echo "<td bgcolor=\"#CC3399\"><strong>Ocena</strong></td>";
 
- echo "</tr>";
+			 echo "</tr>";
 	
-while (  $kol=mysql_fetch_row($recenzje) ) {
-    echo "</tr>";
-	
-	echo "<td bgcolor=\"#99ff00\">" . $kol[0] . "</td>";
-    echo "<td bgcolor=\"#ccff99\">" . $kol[1] . "</td>";
-	 echo "<td bgcolor=\"#ccff99\">". $kol[2] . "</td>";
+			while (  $kol=mysql_fetch_row($recenzje) )
+				{
+					echo "</tr>";
+					
+					echo "<td bgcolor=\"#99ff00\">" . $kol[0] . "</td>";
+					echo "<td bgcolor=\"#ccff99\">" . $kol[1] . "</td>";
+					echo "<td bgcolor=\"#ccff99\">". $kol[2] . "</td>";
 
-
-   echo "</tr>";
- }
-	echo "</table>"; ?>
- 
+					echo "</tr>";
+				}
+					echo "</table>";
+		}
+	?>
 
 </table>
+
+
+
+<center><table> 
+	<?php
+		if($buttonArtykuly==true)
+
+		{
+			 echo "<p>";
+			 echo "<table boder=\"1\"><tr>";
+			 echo "<td bgcolor=\"#CC3399\"><strong>Autor artykułu:</strong></td>";
+			 echo "<td bgcolor=\"#CC3399\"><strong>Treść</strong></td>";
+			 echo "<td bgcolor=\"#CC3399\"><strong>Nazwa konferencji</strong></td>";
+
+			 echo "</tr>";
+	
+			while (  $kol=mysql_fetch_row($artykuly) )
+		
+			{
+				echo "</tr>";
+			
+				echo "<td bgcolor=\"#99ff00\">" . $kol[0] . "</td>";
+				echo "<td bgcolor=\"#ccff99\">" . $kol[1] . "</td>";
+				echo "<td bgcolor=\"#ccff99\">". $kol[2] . "</td>";
+
+				echo "</tr>";
+			}
+		echo "</table>";
+}
+	?>
+
+
+</table></center>
+
+
+
+
+<center><table> 
+	<?php
+		if($buttonUzytkownicy==true)
+
+		{
+			 echo "<p>";
+			 echo "<table boder=\"1\"><tr>";
+			 echo "<td bgcolor=\"#CC3399\"><strong>Login:</strong></td>";
+			 echo "<td bgcolor=\"#CC3399\"><strong>Imie</strong></td>";
+			 echo "<td bgcolor=\"#CC3399\"><strong>Nazwisko</strong></td>";
+			  echo "<td bgcolor=\"#CC3399\"><strong>Email</strong></td>";
+			   echo "<td bgcolor=\"#CC3399\"><strong>Nr. telefou</strong></td>";
+			    echo "<td bgcolor=\"#CC3399\"><strong>Data Utworzenia</strong></td>";
+
+			 echo "</tr>";
+	
+			while (  $kol=mysql_fetch_row($uzytkownicy) )
+		
+			{
+				echo "</tr>";
+			
+				echo "<td bgcolor=\"#99ff00\">" . $kol[1] . "</td>";
+				echo "<td bgcolor=\"#ccff99\">" . $kol[3] . "</td>";
+				echo "<td bgcolor=\"#ccff99\">". $kol[4] . "</td>";
+				echo "<td bgcolor=\"#ccff99\">". $kol[5] . "</td>";
+				echo "<td bgcolor=\"#ccff99\">". $kol[6] . "</td>";
+				echo "<td bgcolor=\"#ccff99\">". $kol[7] . "</td>";
+
+				echo "</tr>";
+			}
+		echo "</table>";
+}
+	?>
+
+
+</table></center>
