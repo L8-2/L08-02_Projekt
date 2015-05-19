@@ -4,7 +4,6 @@
 	<table border="1" style="background-color:#CCFFCC;border-collapse:collapse;border:1px solid #993399;color:#330066;width:100%">
 	<tr>
 		<td>Tytuł</td>
-		<td>Tematyka</td>
 		<td>Ocena</td>
 		<td>Wyświetl recenzje</td>
 		<td>Oceń artykuł</td>
@@ -21,25 +20,17 @@
 		<?php foreach ($artykuly as $artykul): ?>
 		<tr>
 			<td> <?php echo $artykul['Tytul'] ?> </td>
-			<td> <?php echo $artykul['Opis'] ?></td>
 			<td> <?php echo $artykul['Ocena'] ?> </td>
 			<td> <?php if (!$artykul['Tresc']): ?>
-			<?php else: ?> <button value="<?php $artykul['ID_Recenzja']?>" name = "recenzj">Recenzja </button> <?php endif ?> </td>
+			<?php else: ?> <button value="<?php echo($artykul['ID_Recenzja']); ?>" name="recenzja">Recenzja </button> <?php endif ?> </td>
 			<td> <?php if ($artykul['Ocena']): ?>
-			<?php else: ?> <button name = "ocena">Oceń </button> <?php endif ?> </td>
+			<?php else: ?> <button value="<?php echo($artykul['ID_Artykul']); ?>" name = "ocena">Oceń</button> <?php endif ?> </td>
 		</tr>
 		<?php endforeach ?>
 		<?php endif ?>
 		<tr>
-			<td></td>
 			<td>
-			<select name="grupujtem">
-				<option> wszystkie</option>
-				<?php foreach ($artykuly as $artykul): ?>
-					<option> <?php echo $artykul['Opis'] ?></option>
-				<?php endforeach ?>
-			</select>
-			<button name="grupuj">Grupuj</button></td>
+			</td>
 			<td>
 				<input type="text"  STYLE="width:200px; height: 20px" name="grupujoceny" ><br>
 			<button name="grupuj2">Grupuj</button></td>
