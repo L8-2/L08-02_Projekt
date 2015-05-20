@@ -1,3 +1,4 @@
+
 <?php $this->getMessage(); ?>
 <h2 style="text-align:center">	
 </h2>
@@ -41,18 +42,16 @@
 </h5>
 
 
-
-
-<?php if($_POST['szukane']!="" or $_POST['sortowanie'] != "") {?><h3>Wyświetlanie wyników dla: '<?php echo $szukana ?>'. Znaleziono: <?php echo $znalezionych ?>. </h3>
+<?php if((isset($_POST['szukane']) && $_POST['szukane']!="") or (isset($_POST['sortowanie']) && $_POST['sortowanie'] != "")) {?><h3>Wyświetlanie wyników dla: '<?php echo $szukana ?>'. Znaleziono: <?php echo $znalezionych ?>. </h3>
 <?php if(($_POST['dzien_od']!="" and $_POST['miesiac_od']!="" and $_POST['rok_od']!="") or ($_POST['dzien_do']!="" and $_POST['miesiac_do']!="" and $_POST['rok_do']!="")or ($_POST['cena_od']!="") 
 	or ($_POST['cena_do']!="")or($_POST['organizator']!="")or ($_POST['miasto']!="")) {?><h6>Zastosowano filtry:<?php } ?>
 
-<?php if($_POST['dzien_od']!="" and $_POST['miesiac_od']!="" and $_POST['rok_od']!="") {echo "Data od: "; echo $_POST['dzien_od'];echo "-";echo $_POST['miesiac_od'];echo "-";echo $_POST['rok_od'];echo ", ";}?>
-<?php if($_POST['dzien_do']!="" and $_POST['miesiac_do']!="" and $_POST['rok_do']!="")  {echo "Data do: "; echo $_POST['dzien_do'];echo "-";echo $_POST['miesiac_do'];echo "-";echo $_POST['rok_do'];echo ", ";}?>
-<?php if($_POST['cena_od']!="") {echo "Cena od: "; echo $_POST['cena_od'];echo ", ";}?>
-<?php if($_POST['cena_do']!="") {echo "Cena do :"; echo $_POST['cena_do'];echo ", ";}?>
-<?php if($_POST['organizator']!=""){echo "Organizator :"; echo $_POST['organizator'];echo ", ";}?>
-<?php if($_POST['miasto']!=""){echo "Miasto :"; echo $_POST['miasto'];}?></h6>
+<?php if((isset($_POST['dzien_od'])&&$_POST['dzien_od']!="") and (isset($_POST['miesiac_od'])&&$_POST['miesiac_od']!="") and (isset($_POST['rok_od'])&&$_POST['rok_od']!="")) {echo "Data od: "; echo $_POST['dzien_od'];echo "-";echo $_POST['miesiac_od'];echo "-";echo $_POST['rok_od'];echo ", ";}?>
+<?php if((isset($_POST['dzien_do'])&&$_POST['dzien_do']!="") and (isset($_POST['miesiac_do'])&&$_POST['miesiac_do']!="") and (isset($_POST['rok_do'])&&$_POST['rok_do']!=""))  {echo "Data do: "; echo $_POST['dzien_do'];echo "-";echo $_POST['miesiac_do'];echo "-";echo $_POST['rok_do'];echo ", ";}?>
+<?php if(isset($_POST['cena_od'])&&$_POST['cena_od']!="") {echo "Cena od: "; echo $_POST['cena_od'];echo ", ";}?>
+<?php if(isset($_POST['cena_do'])&&$_POST['cena_do']!="") {echo "Cena do :"; echo $_POST['cena_do'];echo ", ";}?>
+<?php if(isset($_POST['organizator'])&&$_POST['organizator']!=""){echo "Organizator :"; echo $_POST['organizator'];echo ", ";}?>
+<?php if(isset($_POST['miasto'])&&$_POST['miasto']!=""){echo "Miasto :"; echo $_POST['miasto'];}?></h6>
 
 
 
