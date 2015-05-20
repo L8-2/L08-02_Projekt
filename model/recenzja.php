@@ -7,6 +7,12 @@ class recenzja_Model extends Model
 	{
 		parent::__construct();
 		
+		if (!$this->isLogged()) {
+		    $this->redirect($this->generateUrl(), "error", "Nie jesteś zalogowany");
+		} elseif (!$this->isRecenzent()) {
+		    $this->redirect($this->generateUrl(), "error", "Ta podstrona jest widoczna tylko dla recenzentów");
+		}
+		
 		switch ($this->getAction()) {
 			case 'dodaj':
 			    return $this->dodaj();
@@ -21,7 +27,7 @@ class recenzja_Model extends Model
 	
 	public function index()
 	{
-		$recenzent = $this->findRecenzentByKonto($_SESSION['id']);
+		$recenzent = $this->findRecenzentByKonto($this->getLoggedId());
 		$q = sprintf('
 			SELECT r.*, a.Tresc as Artykul_Tytul
 			FROM recenzja r
@@ -41,7 +47,7 @@ class recenzja_Model extends Model
 	        $this->redirect("index.php?con=recenzja", "error", "Musisz wybrać artykuł.");
 	    }
 	
-	    $recenzent = $this->findRecenzentByKonto($_SESSION['id']);
+	    $recenzent = $this->findRecenzentByKonto($this->getLoggedId());
 	    $idArtykul = (int) $_GET['id_artykul'];
 	    $q = mysql_query(sprintf('SELECT 1 FROM artykul WHERE ID_Artykul = %d', $idArtykul));
 	    if (!mysql_num_rows($q)) {
@@ -102,7 +108,7 @@ class recenzja_Model extends Model
 	        $this->redirect("index.php?con=recenzja", "error", "Musisz wybrać artykuł.");
 	    }
 	     
-	    $recenzent = $this->findRecenzentByKonto($_SESSION['id']);
+	    $recenzent = $this->findRecenzentByKonto($this->getLoggedId());
 	    $id = (int) $_GET['id'];
 	     
 	    $recenzja = $this->findOne(sprintf(
@@ -156,7 +162,7 @@ class recenzja_Model extends Model
 	        $this->redirect("index.php?con=recenzja", "error", "Musisz wybrać artykuł.");
 	    }
 	    
-	    $recenzent = $this->findRecenzentByKonto($_SESSION['id']);
+	    $recenzent = $this->findRecenzentByKonto($this->getLoggedId());
 	    $id = (int) $_GET['id'];
 	    
 	    $recenzja = $this->findOne(sprintf(

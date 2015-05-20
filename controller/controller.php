@@ -98,9 +98,14 @@ class Controller
             echo "index.php?con=" . $_GET['con'];
     }
     
-    public function generateUrl(array $params)
+    public function generateUrl(array $params = array())
     {
-        return 'index.php?' . http_build_query($params);
+        $base = 'index.php';
+        if ($params) {
+            $base .= '?' . http_build_query($params);
+        }
+        
+        return $base;
     }
 }
 ?>

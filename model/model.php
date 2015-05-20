@@ -33,6 +33,17 @@ abstract class Model extends Controller
 		return $ret;
 	}
 	
+	public function findAll($sql)
+	{
+	    $rows = array();
+	    $q = mysql_query($sql);
+	    while ($row = mysql_fetch_assoc($q)) {
+	        $rows[] = $row;
+	    }
+	    
+	    return $rows;
+	}
+	
 	public function findOne($sql)
 	{
 		return mysql_fetch_assoc(mysql_query($sql));
@@ -50,15 +61,56 @@ abstract class Model extends Controller
 		return !empty($_SESSION['logged']);
 	}
 	
+	public function getLoggedId()
+	{
+	    return isset($_SESSION['id']) ? $_SESSION['id'] : null;
+	}
+	
 	public function isAdmin()
 	{
 		if($this->isLogged())
 		{
-			$admin = $this->sql_query("SELECT * FROM `administrator` WHERE `ID_Administrator`='".$_SESSION['id']."'");
+			$admin = $this->sql_query("SELECT * FROM `administrator` WHERE `ID_Konto`='".$_SESSION['id']."'");
 			if($admin)
 				return true;
 		}
 		return false;
+	}
+	
+	public function isOrganizator()
+	{
+	    if (!$this->isLogged()) {
+	        return false;
+	    }
+	    
+	    $id = $_SESSION['id'];
+	    $q = mysql_query(sprintf("SELECT * FROM `organizator` WHERE `ID_Konto`=%d", $id));
+	    
+	    return (bool) mysql_num_rows($q);
+	}
+	
+	public function isRecenzent()
+	{
+	    if (!$this->isLogged()) {
+	        return false;
+	    }
+	
+	    $id = $_SESSION['id'];
+	    $q = mysql_query(sprintf("SELECT * FROM `recenzent` WHERE `ID_Konto`=%d", $id));
+	
+	    return (bool) mysql_num_rows($q);
+	}
+	
+	public function isUczestnik()
+	{
+	    if (!$this->isLogged()) {
+	        return false;
+	    }
+	     
+	    $id = $_SESSION['id'];
+	    $q = mysql_query(sprintf("SELECT * FROM `uczestnik` WHERE `ID_Konto`=%d", $id));
+	     
+	    return (bool) mysql_num_rows($q);
 	}
 	
 	private function connectDatabase()
