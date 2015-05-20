@@ -1,19 +1,19 @@
+<?php $this->getMessage(); ?>
 <h1>Recenzje</h1>
 
-<?php $this->getMessage(); ?>
+<div class='review'>
+	<div class='review-content'>
+		<h3 class='review-title'>Recenzja &mdash; <?php echo($artykul[0]['Tytul']); ?></h3>
+		<time class='review-date'><?php echo($recenzja[0]['Data_Utworzenia']); ?></time>
+		<p><?php echo $recenzja[0]['Tresc'] ?></p>
+		<div class='review-meta'>
+			<span class='review-author'>Autor: <?php echo($autor[0]['Imie'].' '.$autor[0]['Nazwisko']); ?> </span>
+		</div>
+	</div>
+</div>
 
-
-	
-		<font>napisał:</font>
-		</br>
-		
-		<textarea name="nazwa" cols="60" rows="20 readonly="readonly" disabled="disabled"> <?php echo $recenzja[0]['Tresc'] ?></textarea>
-		
-		</br>
-		
-	
-	<form action="index.php?con=artykuly" method="post">
-		
-		<button name="wroc"> Wróć </button>
-
-	</form>
+</br>
+<div style="float:right">
+	<a class="button" href="index.php?con=artykuly"> Wróć </a>
+</div>
+<div style="clear:both;"></div>

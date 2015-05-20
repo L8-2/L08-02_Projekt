@@ -1,47 +1,51 @@
+<?php $this->getMessage(); ?>
 <h1>Artykuły</h1>
 
-<?php $this->getMessage(); ?>
-	<table border="1" style="background-color:#CCFFCC;border-collapse:collapse;border:1px solid #993399;color:#330066;width:100%">
-	<tr>
-		<td>Tytuł</td>
-		<td>Ocena</td>
-		<td>Wyświetl recenzje</td>
-		<td>Oceń artykuł</td>
-	</tr>
-	<tr>
-	<form method="post">
-		<?php if (!$artykuly): ?>
+<form action="index.php?con=artykuly" method="post">
+	<table id="styled">
+	<thead>
 		<tr>
-			<td colspan="5" style="text-align: center">
-				Brak dodanych artykułów
-			</td>
+			<th>Tytuł</th>
+			<th>Ocena</th>
+			<th>Wyświetl recenzje</th>
+			<th>Oceń artykuł</th>
 		</tr>
+	</thead>
+	<tbody>
+		<?php if (!$artykuly): ?>
+			<tr>
+				<td colspan="5" style="text-align: center">
+					Brak dodanych artykułów
+				</td>
+			</tr>
 		<?php else: ?>
 		<?php foreach ($artykuly as $artykul): ?>
-		<tr>
-			<td> <?php echo $artykul['Tytul'] ?> </td>
-			<td> <?php echo $artykul['Ocena'] ?> </td>
-			<td> <?php if (!$artykul['Tresc']): ?>
-			<?php else: ?> <button value="<?php echo($artykul['ID_Recenzja']); ?>" name="recenzja">Recenzja </button> <?php endif ?> </td>
-			<td> <?php if ($artykul['Tresc']): ?>
-			<?php else: ?> <button value="<?php echo($artykul['ID_Artykul']); ?>" name = "ocena">Oceń</button> <?php endif ?> </td>
-		</tr>
+			<tr>
+				<td> <?php echo $artykul['Tytul'] ?> </td>
+				<td> <?php echo $artykul['Ocena'] ?> </td>
+				<td> 
+					<?php if (!$artykul['Tresc']): ?>
+					<?php else: ?> 
+						<button class="button" value="<?php echo($artykul['ID_Recenzja']); ?>" name="recenzja">Recenzja </button> 
+					<?php endif ?> 
+				</td>
+				<td> <?php if ($artykul['Tresc']): ?>
+				<?php else: ?> <button class="button" value="<?php echo($artykul['ID_Artykul']); ?>" name = "ocena">Oceń</button> <?php endif ?> </td>
+			</tr>
 		<?php endforeach ?>
 		<?php endif ?>
+	</tbody>
 		<tr>
+			<td></td>
 			<td>
+				<input type="number" min="-5" max="5" STYLE="width:200px; height: 20px" name="grupujoceny"><br><br>
+				<button class="button" name="grupuj2">Grupuj</button>
 			</td>
-			<td>
-				<input type="text"  STYLE="width:200px; height: 20px" name="grupujoceny" ><br>
-			<button name="grupuj2">Grupuj</button></td>
 			<td></td>
 			<td></td>
 		</tr>
-		
-		
-		</form>
-	</tr>
-</table>
+	</table>
+	</form>
 
 
 

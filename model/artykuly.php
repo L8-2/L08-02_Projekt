@@ -1,5 +1,6 @@
 <?php
 include_once("model/model.php"); 
+
 class artykuly_Model extends Model 
 {
 	public $wynik = false;
@@ -8,8 +9,8 @@ class artykuly_Model extends Model
 	{
 		parent::__construct(); 
 		
-		$this -> artykuly();
-		$this -> grupujoceny();
+		$this->artykuly();
+		$this->grupujoceny();
 		
 	}
 	public function grupujoceny()
@@ -53,24 +54,24 @@ class artykuly_Model extends Model
 		LEFT OUTER JOIN ocena o ON r.ID_Ocena = o.ID_Ocena");	
 		
 		//$idrecenzja = $this -> sql_query("SELECT ID_Recenzja FROM recenzja");
-
+		
 		if(isset($_POST['recenzja']))	
 		{
-			$recenzja = $this -> sql_query("SELECT Tresc FROM recenzja
-			WHERE ID_Recenzja = ".$_POST['recenzja']."");
-			//$this->redirect("index.php?con=artykuly", "error", "Wpisz interesujące");
-			include __DIR__ . "/../view/wyswietlrecenzje.phtml";
-			//include __DIR__ . "/../view/artykuly.phtml";
+			$recenzja = $this->sql_query("SELECT * FROM recenzja
+			WHERE ID_Recenzja = ".addslashes($_POST['recenzja'])."");
+			$artykul = $this->sql_query("SELECT * FROM artykul
+			WHERE ID_Artykul = ".$recenzja[0]['ID_Artykul']."");
+			$recenzent = $this->sql_query("SELECT * FROM recenzent
+			WHERE ID_Recenzent = ".$recenzja[0]['ID_Recenzent']."");
+			$autor = $this->sql_query("SELECT * FROM konto
+			WHERE ID_Konto = ".$recenzent[0]['ID_Konto']."");
 			
+			include __DIR__ . "/../view/wyswietlrecenzje.phtml";
 		}
 		else if(isset($_POST['wroc']))
-		{
 			include __DIR__ . "/../view/artykuly.phtml";
-		}
 		else if(isset($_POST['ocena']))
-		{
 			include __DIR__ . "/../view/ocenianie.phtml";
-		}
 		else if(isset($_POST['zapiszocene']))
 		{
 			if($this->isLogged())
@@ -84,14 +85,14 @@ class artykuly_Model extends Model
 						$this->redirect("index.php?con=artykuly", "error", "Brak oceny");
 					else if($_POST['ocena_'] < "-5" || $_POST['ocena_'] > "5")
 						$this->redirect("index.php?con=artykuly", "error", "Podaj ocene pomiędzy -5 a 5");
-					else if($_POST['recenzja'] == "")
+					else if($_POST['recenzja_'] == "")
 						$this->redirect("index.php?con=artykuly", "error", "Brak recenzji");
 					else
 					{
 						mysql_query("INSERT INTO ocena (`Ocena`) Values ('".$_POST['ocena_']."')") or die(mysql_error());
 							
 						$id = mysql_insert_id();
-						mysql_query("INSERT INTO recenzja (`Tresc`, `ID_Recenzent`, `ID_Artykul`, `ID_Ocena`) Values ('".addslashes($_POST['recenzja'])."', '".$recenzent[0]['ID_Recenzent']."', '".addslashes($_POST['id'])."', '".$id."')") or die(mysql_error());
+						mysql_query("INSERT INTO recenzja (`Tresc`, `ID_Recenzent`, `ID_Artykul`, `ID_Ocena`) Values ('".addslashes($_POST['recenzja_'])."', '".$recenzent[0]['ID_Recenzent']."', '".addslashes($_POST['id'])."', '".$id."')") or die(mysql_error());
 							
 						$this->redirect("index.php?con=artykuly", "success", "Zapisano recenzje");
 					}		

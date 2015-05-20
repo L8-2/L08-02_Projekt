@@ -624,6 +624,80 @@ input:hover { border: 1px solid #7494CF; }
 #styled tbody tr td { text-align: center; padding: 8px 10px; }
 #styled tbody tr td.lalign { text-align: left; }
 
+.review {
+	max-width: 36em;
+	padding: 7px;
+	margin: 0 auto;
+	background: #f9f9f3 url(images/grey.png);
+}
+
+.review-content {
+	border: 1px dashed #c9c9c7;
+	box-sizing: border-box;
+	padding: 2em 1em 1em 1em;
+}
+
+.review-title {
+	font-family: 'PT Sans Narrow', serif;
+	margin: 0;
+	font-size: 1.6em;
+	text-align: center;
+	font-weight: normal;
+}
+
+.review-date {
+	display: block;
+	text-align: center;
+	font-style: italic;
+	color: rgba(0, 0, 0, 0.5);
+	margin-bottom: 1.6em;
+}
+
+.review-date:before { content: "— "; }
+.review-date:after { content: " —"; }
+
+.review-content img {
+	background: #fff;
+	padding: 10px;
+   -moz-box-shadow: 1px 1px 5px rgba(0, 0, 0, .5);
+   -webkit-box-shadow: 1px 1px 5px rgba(0, 0, 0, .5);
+   -o-box-shadow: 1px 1px 5px rgba(0, 0, 0, .5);
+	box-shadow: 1px 1px 5px rgba(0, 0, 0, .5);
+}
+
+.review-meta {
+	margin-top: 1em;
+	padding-top: 1em;
+	border-top: 1px dashed #c9c9c7;
+	font-size: 0.8em;
+}
+
+.review-labels {
+	font-family: 'PT Sans Narrow', sans-serif;
+	text-transform: uppercase;
+	color: rgba(0, 0, 0, 0.5);
+}
+
+.review-labels a {
+	text-decoration: none;
+	color: inherit;
+	-webkit-transition: 0.5s;
+	-moz-transition: 0.5s;
+	-o-transition: 0.5s;
+	transition: 0.5s; 
+	margin-left: 5px;
+	display: inline-block;
+}
+
+.review-labels a:first-child { margin: 0; }
+.review-labels a:hover { color: rgba(0, 0, 0, 0.8); }
+
+.review-author {
+	float: right;
+	font-style: italic;
+	color: rgba(0, 0, 0, 0.5);
+}
+
 footer {  
 	width: 100%;
 	background: #333;
