@@ -1,0 +1,38 @@
+<h1>Uczestnicy konferencji</h1>
+<?php $this->getMessage(); ?>
+<form action="<?php echo $this->generateUrl(array('con' => 'publikacjaTematow', 'act' => 'aktualizuj')) ?>" method="post" onsubmit="return confirm('Czy akceptujesz wybrane tematy?');">
+    <table border="1">
+    	<thead>
+    		<th width="40">#</th>
+    		<th>Opis</th>
+
+    		<th>Czy zaakceptowany</th>
+    	</thead>
+    	<tfoot>
+    	   <tr>
+    	       <td colspan="4">
+    	           <input type="submit" name="aktualizuj" value="Aktualizuj wybrane" />
+	           </td>
+    	   </tr>
+    	</tfoot>
+    	<tbody>
+    		<?php if (!$tematy): ?>
+    		<tr>
+    			<td colspan="4" style="text-align: center">
+    				Brak tematow
+    			</td>
+    		</tr>
+    		<?php else: ?>
+    		<?php foreach ($tematy as $temat): ?>
+    		<tr>
+    			<td>
+    			    <input type="checkbox" name="id[]" value="<?php echo $temat['ID_Tematy'] ?>" />
+    			</td>
+    			<td><?php echo $temat['Opis'] . ' ' . $temat['Zaakceptowany'] ?></td>
+    			<td><?php echo (bool) $temat['Zaakceptowany'] ? 'Tak' : 'Nie' ?></td>
+    		</tr>
+    		<?php endforeach ?>
+    		<?php endif ?>
+    	</tbody>
+    </table>
+</form>
