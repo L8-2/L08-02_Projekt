@@ -34,13 +34,16 @@
 				<?php } else { ?>
 					<tr><td><b>Ocena: </b></td><td>brak</td></tr>
 				<?php } ?>
-				<?php $wynik=$this->sql_query("SELECT * FROM `recenzent` WHERE ID_Konto = '".$_SESSION['id']."' and ID_konferencja = '".addslashes($_GET['id'])."' and Oceniono =0");
-						if(!empty($wynik)){?>
-				<tr><td><b>Oceń (od-5 do 5): </b></td><td><form action="index.php?con=ocenaKonferencji&id=<?php echo($_GET['id']); ?>" method="post"><input type="number" name="ocena" min="-5" max="5" style="width: 40px;"></td></tr>
-				</table>
-				<input type="submit" value="Oceń" name="ocen">
-						</form><?php } else {?> </table> <?php  }?>
-				
+				<?php if($this->isLogged()) { ?>
+					<?php if(!empty($this->konferencja['Recenzent'])) { ?>
+						<tr><td><b>Oceń (od-5 do 5): </b></td><td><form action="index.php?con=ocenaKonferencji&id=<?php echo($_GET['id']); ?>" method="post"><input type="number" name="ocena" min="-5" max="5" style="width: 40px;"></td></tr>
+						</table>
+						<input style="button" type="submit" value="Oceń" name="ocen">
+						</form>
+					<?php } else { ?> 
+						</table> 
+					<?php } ?>
+				<?php } ?>
 			</p>
 			<hr>
 			<h2>Program konferencji:</h2>
@@ -63,10 +66,10 @@
 	<div style="clear:both;"></div>
 	<div style="float:right">
 		<?php if($this->isLogged()) { ?>
-			<?php if($this->konferencja['ID_Organizator'] != $_SESSION['id']) { ?>
+			<?php if($this->konferencja['Organizator_ID_Konto'] != $_SESSION['id']) { ?>
 			<?php if(($this->konferencja['Limit_Miejsc']-$this->konferencja['Ilosc_uczestnikow']) > 0) ?>
 				<a href="#" class="button">Dołącz do konferencji</a>
-			<?php } if($this->isAdmin() || $this->konferencja['ID_Organizator'] == $_SESSION['id']) { ?>
+			<?php } if($this->isAdmin() || $this->konferencja['Organizator_ID_Konto'] == $_SESSION['id']) { ?>
 				<a href="index.php?con=konferencja&act=edit&id=<?php echo($_GET['id']); ?>" class="button">Edytuj konferencję</a> <a href="index.php?con=konferencja&act=delete&id=<?php echo($_GET['id']); ?>" class="button">Usuń konferencję</a>
 			<?php } ?>
 		<?php } ?>
