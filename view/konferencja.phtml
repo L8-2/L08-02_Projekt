@@ -28,15 +28,19 @@
 				<?php } ?>
 				
 				<?php if((int)$this->konferencja['Ilosc_Ocen'] > 0) { ?>
-					<?php if((int)$this->konferencja['Suma_Ocen'] > 0) { ?>
+					
 						<tr><td><b>Ocena: </b></td><td><?php echo($this->konferencja['Suma_Ocen']/$this->konferencja['Ilosc_Ocen']); ?></td></tr>
-					<?php } else { ?>
-						<tr><td><b>Ocena: </b></td><td>0</td></tr>
-					<?php } ?>
+				
 				<?php } else { ?>
 					<tr><td><b>Ocena: </b></td><td>brak</td></tr>
 				<?php } ?>
+				<?php $wynik=$this->sql_query("SELECT * FROM `recenzent` WHERE ID_Konto = '".$_SESSION['id']."' and ID_konferencja = '".addslashes($_GET['id'])."' and Oceniono =0");
+						if(!empty($wynik)){?>
+				<tr><td><b>Oceń (od-5 do 5): </b></td><td><form action="index.php?con=ocenaKonferencji&id=<?php echo($_GET['id']); ?>" method="post"><input type="number" name="ocena" min="-5" max="5" style="width: 40px;"></td></tr>
 				</table>
+				<input type="submit" value="Oceń" name="ocen">
+						</form><?php } else {?> </table> <?php  }?>
+				
 			</p>
 			<hr>
 			<h2>Program konferencji:</h2>
