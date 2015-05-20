@@ -40,7 +40,7 @@ class szukaj_Model extends Model
 						$szukana=addslashes($_POST['szukane']);
 						if($_POST['szukane'] != "") $_SESSION['poprzednia']=$szukana;
 						
-						if($_POST['sortowanie'] != "")
+						if(isset($_POST['sortowanie'])&&$_POST['sortowanie'] != "")
 						{	
 							if($_SESSION['poprzednia']!="")
 							{
@@ -95,7 +95,7 @@ class szukaj_Model extends Model
 						}
 						else
 						{		
-							if($_POST['dzien_od']!="" and $_POST['miesiac_od']!="" and $_POST['rok_od']!="")
+							if(isset($_POST['dzien_od'])&&$_POST['dzien_od']!="" and isset($_POST['miesiac_od'])&&$_POST['miesiac_od']!="" and isset($_POST['rok_od'])&&$_POST['rok_od']!="")
 							{	
 								if (!checkdate( $_POST['miesiac_od'], $_POST['dzien_od'], $_POST['rok_od'])) {
 									$this->redirect("index.php?con=szukaj", "error", "Data jest niepoprawna");
@@ -126,7 +126,7 @@ class szukaj_Model extends Model
 								if(count($result)==0) $this->redirect("index.php?con=szukaj", "error", "Brak wyników");
 							}
 							
-							if($_POST['dzien_do']!="" and $_POST['miesiac_do']!="" and $_POST['rok_do']!="")
+							if(isset($_POST['dzien_do'])&&$_POST['dzien_do']!="" and isset($_POST['miesiac_do'])&&$_POST['miesiac_do']!="" and isset($_POST['rok_do'])&&$_POST['rok_do']!="")
 							{	
 								if (!checkdate( $_POST['miesiac_do'], $_POST['dzien_do'], $_POST['rok_do'])) {
 									$this->redirect("index.php?con=szukaj", "error", "Data jest niepoprawna");
@@ -160,7 +160,7 @@ class szukaj_Model extends Model
 	
 
 					
-							if($_POST['cena_od']!="")
+							if(isset($_POST['cena_od'])&&$_POST['cena_od']!="")
 							{	
 								$j=0;
 								for($i=0; $i<count($result); $i++)
@@ -178,7 +178,7 @@ class szukaj_Model extends Model
 								if(count($result)==0) $this->redirect("index.php?con=szukaj", "error", "Brak wyników");
 							}
 							
-							if($_POST['cena_do']!="")
+							if(isset($_POST['cena_do'])&&$_POST['cena_do']!="")
 							{	
 								$j=0;
 								for($i=0; $i<count($result); $i++)
@@ -196,7 +196,7 @@ class szukaj_Model extends Model
 								if(count($result)==0) $this->redirect("index.php?con=szukaj", "error", "Brak wyników");
 							}
 							
-							if($_POST['miasto']!="")
+							if(isset($_POST['miasto'])&&$_POST['miasto']!="")
 							{	$_POST['miasto']=trim($_POST['miasto']);
 								$j=0;
 								for($i=0; $i<count($result); $i++)
@@ -214,7 +214,7 @@ class szukaj_Model extends Model
 								if(count($result)==0) $this->redirect("index.php?con=szukaj", "error", "Brak wyników");
 							}
 							
-							if($_POST['organizator']!="")
+							if(isset($_POST['organizator'])&&$_POST['organizator']!="")
 							{	$_POST['organizator']=trim($_POST['organizator']);
 
 								$j=0;
@@ -224,7 +224,7 @@ class szukaj_Model extends Model
 								$cz2=strtolower($result[$i][3]);
 								$cz3="$cz1 $cz2";
 							
-									if($cz3==$_POST['organizator'])
+									if($cz3==strtolower($_POST['organizator']))
 									{
 										$tymcz[$j]=$result[$i];
 										$j++;
