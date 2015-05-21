@@ -6,7 +6,7 @@
 <h5 style="text-align:center">
 
 	<form action="index.php?con=szukaj" method="post">
-		<input type="text"  STYLE="width:200px; height: 20px" name="szukane">
+		<input type="text"  STYLE="width:200px; height: 20px" name="szukane" value="<?php if(!empty($szukana))echo $szukana;?>">
 		<input type="submit" value="Szukaj" name="szukaj"><br><br>
 					<h4 align="center">
 				Sortowanie:<select name="sortowanie">
@@ -37,12 +37,12 @@
 	</table>
 
 		<h5 align="center"><input type="submit" value="Sortuj/Filtruj" name="szukaj">
-		<input type="reset" value="Wyczyść" /></h5>
+		<input type="reset" value="Wyczyść" ></h5>
 	</form>
 </h5>
 
 
-<?php if((isset($_POST['szukane']) && $_POST['szukane']!="") or (isset($_POST['sortowanie']) && $_POST['sortowanie'] != "")) {?><h3>Wyświetlanie wyników dla: '<?php echo $szukana ?>'. Znaleziono: <?php echo $znalezionych ?>. </h3>
+<?php if(isset($znalezionych)&&isset($szukana)&&$szukana!="") { ?><h3>Wyświetlanie wyników dla: '<?php echo $szukana ?>'. Znaleziono: <?php echo $znalezionych ?>.</h3><?php } ?>
 
 <?php if(((isset($_POST['dzien_od'])&&$_POST['dzien_od']!="") and (isset($_POST['miesiac_od'])&&$_POST['miesiac_od']!="") and (isset($_POST['rok_od'])&&$_POST['rok_od']!="")) 
 	or  ((isset($_POST['dzien_do'])&&$_POST['dzien_do']!="") and (isset($_POST['miesiac_do'])&&$_POST['miesiac_do']!="") and (isset($_POST['rok_do'])&&$_POST['rok_do']!=""))
@@ -61,10 +61,7 @@
 
 
 
-
-
-
-
+<?php if(!empty($result)){ $numer=0;?>
 <table style="text-align:left; margin-left:auto; margin-right:auto" border="1" >
 	<thead style="text-align:center">
 		<th width="50">Nr</th>
@@ -76,7 +73,7 @@
 	</thead>
 	<tbody>
 
-	<?php $numer=0;?>
+
 	<?php foreach ($result as $szukaj): ?>
 							<?php// $result[$numer][0] to ID_konferencja?>
 		<tr onMouseover="this.bgColor='#33CCFF'"onMouseout="this.bgColor='#FFFFFF'" style="cursor:pointer;" onClick="location.href='index.php?con=konferencja&id=<?php echo $result[$numer][0]?>'">
@@ -88,11 +85,11 @@
 			<td style="text-align:center"><?php echo $result[$numer][5] ?></td>
 		<?php $numer=$numer+1;?>
 		</tr>
-		<?php endforeach ?>
+	<?php endforeach; ?>
 		
 		
 	</tbody>
 	
 </table>
-<?php } ?>
+	<?php } ?>
 
