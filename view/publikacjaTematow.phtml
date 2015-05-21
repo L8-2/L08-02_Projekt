@@ -1,11 +1,11 @@
-<h1>Uczestnicy konferencji</h1>
+<h1><center>Uczestnicy konferencji<center></h1>
 <?php $this->getMessage(); ?>
 <form action="<?php echo $this->generateUrl(array('con' => 'publikacjaTematow', 'act' => 'aktualizuj')) ?>" method="post" onsubmit="return confirm('Czy akceptujesz wybrane tematy?');">
     <table border="1">
+	<table id="styled">
     	<thead>
-    		<th width="40">#</th>
-    		<th>Opis</th>
-
+    		<th width="40">Zaakpceptuj</th>
+    	<th><strong><span>Opis</span></strong></th>
     		<th>Czy zaakceptowany</th>
     	</thead>
     	<tfoot>
