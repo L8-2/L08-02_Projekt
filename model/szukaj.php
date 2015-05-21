@@ -20,18 +20,27 @@ class szukaj_Model extends Model
 
 			
 			
-			if($_POST['szukane'] == "" and $_POST['sortowanie'] == "")
+			if(isset($_POST['szukane'])&&$_POST['szukane'] == "" and isset($_POST['sortowanie'])&&$_POST['sortowanie'] == "")
 			{
-				$_SESSION['poprzednia']="";
-				$this->redirect("index.php?con=szukaj", "error", "Wpisz interesujące Cię słowa i kliknij Szukaj");
+				
+				$result = $this->sql_query("SELECT k.ID_Konferencja, k.Nazwa, kon.Imie, kon.Nazwisko, k.Miejsce, k.Data, k.Koszt, unix_timestamp(k.Data)
+															FROM konferencja k 
+															join organizator o on o.ID_Organizator=k.ID_Organizator
+															join konto kon on kon.ID_Konto=o.ID_Konto ORDER BY k.Data");
+					
+
 			}
 				else 
 				{
 					$_POST['szukane']=trim($_POST['szukane']);
-					if($_POST['szukane'] == "" and $_POST['sortowanie'] == "")
+					if(isset($_POST['szukane'])&&$_POST['szukane'] == "" and isset($_POST['sortowanie'])&&$_POST['sortowanie'] == "")
 					{
-						
-						$this->redirect("index.php?con=szukaj", "error", "Wpisz interesujące Cię słowa i kliknij Szukaj");
+						$result = $this->sql_query("SELECT k.ID_Konferencja, k.Nazwa, kon.Imie, kon.Nazwisko, k.Miejsce, k.Data, k.Koszt, unix_timestamp(k.Data)
+															FROM konferencja k 
+															join organizator o on o.ID_Organizator=k.ID_Organizator
+															join konto kon on kon.ID_Konto=o.ID_Konto ORDER BY k.Data");
+							
+
 					}
 				
 					else	
@@ -42,15 +51,13 @@ class szukaj_Model extends Model
 						
 						if(isset($_POST['sortowanie'])&&$_POST['sortowanie'] != "")
 						{	
-							if($_SESSION['poprzednia']!="")
-							{
-							$szukana=$_SESSION['poprzednia'];
+
 							
 							if($_POST['sortowanie'] == "data1")
-								$result = $this->sql_query("SELECT k.ID_Konferencja, k.Nazwa, kon.Imie, kon.Nazwisko, k.Miejsce, k.Data, k.Koszt, unix_timestamp(k.Data)
+							{$result = $this->sql_query("SELECT k.ID_Konferencja, k.Nazwa, kon.Imie, kon.Nazwisko, k.Miejsce, k.Data, k.Koszt, unix_timestamp(k.Data)
 															FROM konferencja k 
 															join organizator o on o.ID_Organizator=k.ID_Organizator
-															join konto kon on kon.ID_Konto=o.ID_Konto WHERE k.Nazwa LIKE '%$szukana%' AND (k.Data>NOW()) ORDER BY k.Data");
+															join konto kon on kon.ID_Konto=o.ID_Konto WHERE k.Nazwa LIKE '%$szukana%' AND (k.Data>NOW()) ORDER BY k.Data");}
 							if($_POST['sortowanie'] == "data2")								
 								$result = $this->sql_query("SELECT k.ID_Konferencja, k.Nazwa, kon.Imie, kon.Nazwisko, k.Miejsce, k.Data, k.Koszt, unix_timestamp(k.Data)
 															FROM konferencja k 
@@ -76,8 +83,8 @@ class szukaj_Model extends Model
 															FROM konferencja k 
 															join organizator o on o.ID_Organizator=k.ID_Organizator
 															join konto kon on kon.ID_Konto=o.ID_Konto WHERE k.Nazwa LIKE '%$szukana%' AND (k.Data>NOW()) ORDER BY k.Koszt DESC");
-							}
-								 else $this->redirect("index.php?con=szukaj", "error", "Wpisz interesujące Cię słowa i kliknij Szukaj");
+							
+								
 							
 							
 							
