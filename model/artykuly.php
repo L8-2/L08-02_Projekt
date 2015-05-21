@@ -51,7 +51,8 @@ class artykuly_Model extends Model
 		$artykuly = $this->sql_query("SELECT a.Tytul,r.Tresc,o.Ocena,r.ID_Recenzja, a.ID_Artykul
 		FROM artykul a 
 		LEFT OUTER JOIN recenzja r ON a.ID_Artykul = r.ID_Artykul
-		LEFT OUTER JOIN ocena o ON r.ID_Ocena = o.ID_Ocena");	
+		LEFT OUTER JOIN ocena o ON r.ID_Ocena = o.ID_Ocena
+		WHERE a.Opublikowany!='0'");	
 		
 		//$idrecenzja = $this -> sql_query("SELECT ID_Recenzja FROM recenzja");
 		
