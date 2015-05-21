@@ -71,38 +71,11 @@ class artykuly_Model extends Model
 		}
 		else if(isset($_POST['wroc']))
 			include __DIR__ . "/../view/artykuly.phtml";
-		else if(isset($_POST['ocena']))
-			include __DIR__ . "/../view/ocenianie.phtml";
-		else if(isset($_POST['zapiszocene']))
+		else if(isset($_POST['art_wys']))
 		{
-			if($this->isLogged())
-			{
-				$art_rec = $this->sql_query("SELECT * FROM `artykul_recenzent` WHERE ID_Artykul = '".addslashes($_POST['id'])."'");
-				$recenzent = $this->sql_query("SELECT * FROM `recenzent` WHERE ID_Recenzent = '".$art_rec[0]['ID_Recenzent']."'");
-				
-				if($_SESSION['id'] == $recenzent[0]['ID_Konto'])
-				{
-					if($_POST['ocena_'] == "")
-						$this->redirect("index.php?con=artykuly", "error", "Brak oceny");
-					else if($_POST['ocena_'] < "-5" || $_POST['ocena_'] > "5")
-						$this->redirect("index.php?con=artykuly", "error", "Podaj ocene pomiędzy -5 a 5");
-					else if($_POST['recenzja_'] == "")
-						$this->redirect("index.php?con=artykuly", "error", "Brak recenzji");
-					else
-					{
-						mysql_query("INSERT INTO ocena (`Ocena`) Values ('".$_POST['ocena_']."')") or die(mysql_error());
-							
-						$id = mysql_insert_id();
-						mysql_query("INSERT INTO recenzja (`Tresc`, `ID_Recenzent`, `ID_Artykul`, `ID_Ocena`) Values ('".addslashes($_POST['recenzja_'])."', '".$recenzent[0]['ID_Recenzent']."', '".addslashes($_POST['id'])."', '".$id."')") or die(mysql_error());
-							
-						$this->redirect("index.php?con=artykuly", "success", "Zapisano recenzje");
-					}		
-				}
-				else
-					$this->redirect("index.php?con=artykuly", "error", "Nie jesteś recenzentem");
-			}
-			else
-				$this->redirect("index.php?con=artykuly", "error", "Nie jesteś zalogowany");	
+			$tresc = $this -> sql_query("SELECT Tresc FROM artykul
+			WHERE ID_Artykul =".addslashes($_POST['art_wys'])."");
+			include __DIR__ . "/../view/art_wysw.phtml";
 		}
 		else if(!isset($_POST['grupuj2']))
 			include __DIR__ . "/../view/artykuly.phtml";

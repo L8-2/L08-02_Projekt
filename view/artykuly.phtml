@@ -8,7 +8,6 @@
 			<th>Tytuł</th>
 			<th>Ocena</th>
 			<th>Wyświetl recenzje</th>
-			<th>Oceń artykuł</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -21,7 +20,7 @@
 		<?php else: ?>
 		<?php foreach ($artykuly as $artykul): ?>
 			<tr>
-				<td> <?php echo $artykul['Tytul'] ?> </td>
+				<td> <button class="button" value="<?php echo($artykul['ID_Artykul']); ?>" name="art_wys"> <?php echo $artykul['Tytul'] ?></button> </td>
 				<td> <?php echo $artykul['Ocena'] ?> </td>
 				<td> 
 					<?php if (!$artykul['Tresc']): ?>
@@ -29,8 +28,6 @@
 						<button class="button" value="<?php echo($artykul['ID_Recenzja']); ?>" name="recenzja">Recenzja </button> 
 					<?php endif ?> 
 				</td>
-				<td> <?php if ($artykul['Tresc']): ?>
-				<?php else: ?> <button class="button" value="<?php echo($artykul['ID_Artykul']); ?>" name = "ocena">Oceń</button> <?php endif ?> </td>
 			</tr>
 		<?php endforeach ?>
 		<?php endif ?>
@@ -41,7 +38,6 @@
 				<input type="number" min="-5" max="5" STYLE="width:200px; height: 20px" name="grupujoceny"><br><br>
 				<button class="button" name="grupuj2">Grupuj</button>
 			</td>
-			<td></td>
 			<td></td>
 		</tr>
 	</table>
