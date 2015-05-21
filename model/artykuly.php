@@ -17,38 +17,83 @@ class artykuly_Model extends Model
 	{
 		if(isset($_POST['grupuj2']))
 		{
-			if($_POST['grupujoceny'] == "")
+			if($this->isAdmin())
 			{
-				$artykuly = $this->sql_query("SELECT a.Tytul,r.Tresc,o.Ocena
-				FROM artykul a 
-				LEFT OUTER JOIN recenzja r ON a.ID_Artykul = r.ID_Artykul
-				LEFT OUTER JOIN ocena o ON r.ID_Ocena = o.ID_Ocena
-				WHERE o.Ocena is NULL 
-				AND a.Opublikowany!='0'
-				AND a.ID_Konferencja =".addslashes($_SESSION['id_konf'])."");
-				include __DIR__ . "/../view/artykuly.phtml";
+				if($_POST['grupujoceny'] == "")
+				{
+					$artykuly = $this->sql_query("SELECT a.Tytul,r.Tresc,o.Ocena
+					FROM artykul a 
+					LEFT OUTER JOIN recenzja r ON a.ID_Artykul = r.ID_Artykul
+					LEFT OUTER JOIN ocena o ON r.ID_Ocena = o.ID_Ocena
+					WHERE o.Ocena is NULL 
+					AND a.Opublikowany!='0'
+					AND a.ID_Konferencja =".addslashes($_SESSION['id_konf'])."");
+					include __DIR__ . "/../view/artykuly.phtml";
+				}
+				else if($_POST['grupujoceny'] < "-5" || $_POST['grupujoceny'] > "5")
+				{
+					$artykuly = $this->sql_query("SELECT a.Tytul,r.Tresc,o.Ocena
+					FROM artykul a 
+					LEFT OUTER JOIN recenzja r ON a.ID_Artykul = r.ID_Artykul
+					LEFT OUTER JOIN ocena o ON r.ID_Ocena = o.ID_Ocena
+					WHERE a.Opublikowany!='0' 
+					AND a.ID_Konferencja =".addslashes($_SESSION['id_konf'])."");
+					$this->redirect("index.php?con=artykuly", "error", "Podaj ocene pomiędzy -5 a 5");
+					include __DIR__ . "/../view/artykuly.phtml";
+				}
+				else 
+				{
+					$artykuly = $this->sql_query("SELECT a.Tytul,r.Tresc,o.Ocena
+					FROM artykul a 
+					LEFT OUTER JOIN recenzja r ON a.ID_Artykul = r.ID_Artykul
+					LEFT OUTER JOIN ocena o ON r.ID_Ocena = o.ID_Ocena
+					WHERE o.Ocena =".$_POST['grupujoceny']."
+					AND a.Opublikowany!='0'
+					AND a.ID_Konferencja =".addslashes($_SESSION['id_konf'])."");
+					include __DIR__ . "/../view/artykuly.phtml";
+				}
 			}
-			else if($_POST['grupujoceny'] < "-5" || $_POST['grupujoceny'] > "5")
+			else
 			{
-				$artykuly = $this->sql_query("SELECT a.Tytul,r.Tresc,o.Ocena
-				FROM artykul a 
-				LEFT OUTER JOIN recenzja r ON a.ID_Artykul = r.ID_Artykul
-				LEFT OUTER JOIN ocena o ON r.ID_Ocena = o.ID_Ocena
-				WHERE a.Opublikowany!='0' 
-				AND a.ID_Konferencja =".addslashes($_SESSION['id_konf'])."");
-				$this->redirect("index.php?con=artykuly", "error", "Podaj ocene pomiędzy -5 a 5");
-				include __DIR__ . "/../view/artykuly.phtml";
-			}
-			else 
-			{
-				$artykuly = $this->sql_query("SELECT a.Tytul,r.Tresc,o.Ocena
-				FROM artykul a 
-				LEFT OUTER JOIN recenzja r ON a.ID_Artykul = r.ID_Artykul
-				LEFT OUTER JOIN ocena o ON r.ID_Ocena = o.ID_Ocena
-				WHERE o.Ocena =".$_POST['grupujoceny']."
-				AND a.Opublikowany!='0'
-				AND a.ID_Konferencja =".addslashes($_SESSION['id_konf'])."");
-				include __DIR__ . "/../view/artykuly.phtml";
+				if($_POST['grupujoceny'] == "")
+				{
+					$artykuly = $this -> sql_query("SELECT a.Tytul,r.Tresc,o.Ocena,r.ID_Recenzja, a.ID_Artykul
+					FROM artykul a 
+					LEFT OUTER JOIN recenzja r ON a.ID_Artykul = r.ID_Artykul
+					LEFT OUTER JOIN recenzent re ON r.ID_Recenzent = re.ID_Recenzent
+					LEFT OUTER JOIN ocena o ON r.ID_Ocena = o.ID_Ocena
+					WHERE o.Ocena is NULL 
+					AND a.Opublikowany!='0'
+					AND a.ID_Konferencja =".addslashes($_SESSION['id_konf'])."
+					AND a.ID_Konto = ".addslashes($_SESSION['id'])."");	
+					include __DIR__ . "/../view/artykuly.phtml";
+				}
+				else if($_POST['grupujoceny'] < "-5" || $_POST['grupujoceny'] > "5")
+				{
+					$artykuly = $this -> sql_query("SELECT a.Tytul,r.Tresc,o.Ocena,r.ID_Recenzja, a.ID_Artykul
+					FROM artykul a 
+					LEFT OUTER JOIN recenzja r ON a.ID_Artykul = r.ID_Artykul
+					LEFT OUTER JOIN recenzent re ON r.ID_Recenzent = re.ID_Recenzent
+					LEFT OUTER JOIN ocena o ON r.ID_Ocena = o.ID_Ocena
+					WHERE a.Opublikowany!='0'
+					AND a.ID_Konferencja =".addslashes($_SESSION['id_konf'])."
+					AND a.ID_Konto = ".addslashes($_SESSION['id'])."");	
+					$this->redirect("index.php?con=artykuly", "error", "Podaj ocene pomiędzy -5 a 5");
+					include __DIR__ . "/../view/artykuly.phtml";
+				}
+				else 
+				{
+					$artykuly = $this -> sql_query("SELECT a.Tytul,r.Tresc,o.Ocena,r.ID_Recenzja, a.ID_Artykul
+					FROM artykul a 
+					LEFT OUTER JOIN recenzja r ON a.ID_Artykul = r.ID_Artykul
+					LEFT OUTER JOIN recenzent re ON r.ID_Recenzent = re.ID_Recenzent
+					LEFT OUTER JOIN ocena o ON r.ID_Ocena = o.ID_Ocena
+					WHERE o.Ocena =".$_POST['grupujoceny']."
+					AND a.Opublikowany!='0'
+					AND a.ID_Konferencja =".addslashes($_SESSION['id_konf'])."
+					AND a.ID_Konto = ".addslashes($_SESSION['id'])."");	
+					include __DIR__ . "/../view/artykuly.phtml";
+				}
 			}
 		}
 	}
@@ -71,7 +116,8 @@ class artykuly_Model extends Model
 			LEFT OUTER JOIN recenzent re ON r.ID_Recenzent = re.ID_Recenzent
 			LEFT OUTER JOIN ocena o ON r.ID_Ocena = o.ID_Ocena
 			WHERE a.Opublikowany!='0'
-			AND a.ID_Konferencja =".addslashes($_SESSION['id_konf'])."");	
+			AND a.ID_Konferencja =".addslashes($_SESSION['id_konf'])."
+			AND a.ID_Konto = ".addslashes($_SESSION['id'])."");	
 		}
 		
 		if(isset($_POST['recenzja']))	
