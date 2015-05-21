@@ -30,6 +30,7 @@ class konferencja_Model extends Model
 	{
 		if(isset($_GET['id']))
 		{
+			$_SESSION['id_konf'] = $_GET['id'];
 			$result = $this->sql_query("SELECT * FROM `konferencja` WHERE `ID_Konferencja`='".addslashes($_GET['id'])."' LIMIT 1");
 			if($result)
 			{

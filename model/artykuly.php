@@ -23,7 +23,9 @@ class artykuly_Model extends Model
 				FROM artykul a 
 				LEFT OUTER JOIN recenzja r ON a.ID_Artykul = r.ID_Artykul
 				LEFT OUTER JOIN ocena o ON r.ID_Ocena = o.ID_Ocena
-				WHERE o.Ocena is NULL");
+				WHERE o.Ocena is NULL 
+				AND a.Opublikowany!='0'
+				AND a.ID_Konferencja =".addslashes($_SESSION['id_konf'])."");
 				include __DIR__ . "/../view/artykuly.phtml";
 			}
 			else if($_POST['grupujoceny'] < "-5" || $_POST['grupujoceny'] > "5")
@@ -31,7 +33,9 @@ class artykuly_Model extends Model
 				$artykuly = $this->sql_query("SELECT a.Tytul,r.Tresc,o.Ocena
 				FROM artykul a 
 				LEFT OUTER JOIN recenzja r ON a.ID_Artykul = r.ID_Artykul
-				LEFT OUTER JOIN ocena o ON r.ID_Ocena = o.ID_Ocena");
+				LEFT OUTER JOIN ocena o ON r.ID_Ocena = o.ID_Ocena
+				WHERE a.Opublikowany!='0' 
+				AND a.ID_Konferencja =".addslashes($_SESSION['id_konf'])."");
 				$this->redirect("index.php?con=artykuly", "error", "Podaj ocene pomiędzy -5 a 5");
 				include __DIR__ . "/../view/artykuly.phtml";
 			}
@@ -41,20 +45,34 @@ class artykuly_Model extends Model
 				FROM artykul a 
 				LEFT OUTER JOIN recenzja r ON a.ID_Artykul = r.ID_Artykul
 				LEFT OUTER JOIN ocena o ON r.ID_Ocena = o.ID_Ocena
-				WHERE o.Ocena =".$_POST['grupujoceny']."");
+				WHERE o.Ocena =".$_POST['grupujoceny']."
+				AND a.Opublikowany!='0'
+				AND a.ID_Konferencja =".addslashes($_SESSION['id_konf'])."");
 				include __DIR__ . "/../view/artykuly.phtml";
 			}
 		}
 	}
 	public function artykuly() 
-	{		
-		$artykuly = $this->sql_query("SELECT a.Tytul,r.Tresc,o.Ocena,r.ID_Recenzja, a.ID_Artykul
+	{	
+		if($this->isAdmin())
+		{
+		$artykuly = $this -> sql_query("SELECT a.Tytul,r.Tresc,o.Ocena,r.ID_Recenzja, a.ID_Artykul
 		FROM artykul a 
 		LEFT OUTER JOIN recenzja r ON a.ID_Artykul = r.ID_Artykul
 		LEFT OUTER JOIN ocena o ON r.ID_Ocena = o.ID_Ocena
-		WHERE a.Opublikowany!='0'");	
-		
-		//$idrecenzja = $this -> sql_query("SELECT ID_Recenzja FROM recenzja");
+		WHERE a.Opublikowany!='0'
+		AND a.ID_Konferencja =".addslashes($_SESSION['id_konf'])."");	
+		}
+		else
+		{
+			$artykuly = $this -> sql_query("SELECT a.Tytul,r.Tresc,o.Ocena,r.ID_Recenzja, a.ID_Artykul
+			FROM artykul a 
+			LEFT OUTER JOIN recenzja r ON a.ID_Artykul = r.ID_Artykul
+			LEFT OUTER JOIN recenzent re ON r.ID_Recenzent = re.ID_Recenzent
+			LEFT OUTER JOIN ocena o ON r.ID_Ocena = o.ID_Ocena
+			WHERE a.Opublikowany!='0'
+			AND a.ID_Konferencja =".addslashes($_SESSION['id_konf'])."");	
+		}
 		
 		if(isset($_POST['recenzja']))	
 		{

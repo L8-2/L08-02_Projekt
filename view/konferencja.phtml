@@ -68,6 +68,7 @@
 	<div style="clear:both;"></div>
 	<div style="float:right">
 		<?php if($this->isLogged()) { ?>
+			<a href="index.php?con=artykuly&act=edit&id=<?php echo($_GET['id']); ?>" class="button">Wyświetl artykuły</a>
 			<?php if($this->konferencja['Organizator_ID_Konto'] != $_SESSION['id']) { ?>
 			<?php if(($this->konferencja['Limit_Miejsc']-$this->konferencja['Ilosc_uczestnikow']) > 0) ?>
 				<a href="#" class="button">Dołącz do konferencji</a>
