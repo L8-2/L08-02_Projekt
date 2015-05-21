@@ -17,33 +17,35 @@
 			<div class="border"></div>
 			<p>
 				<table style="width:425px;">
-				<tr><td><b>Data konferencji: </b></td><td><?php echo($this->konferencja['Data']); ?></td></tr>
-				<tr><td><b>Miejsce: </b></td><td><?php echo($this->konferencja['Miejsce']); ?></td></tr>
-				<tr><td><b>Wolnych miejsc: </b></td><td><?php echo($this->konferencja['Limit_Miejsc']-$this->konferencja['Ilosc_uczestnikow']); ?> <b>na</b> <?php echo($this->konferencja['Limit_Miejsc']); ?></td></tr>
-				<tr><td><b>Termin zgłoszeń: </b></td><td><?php echo($this->konferencja['Termin_Zgloszen']); ?></td></tr>
-				<?php if((int)$this->konferencja['Koszt'] > 0) { ?>
-					<tr><td><b>Koszt: </b></td><td><?php echo($this->konferencja['Koszt']); ?></td></tr>
-				<?php } else { ?>
-					<tr><td><b>Koszt: </b></td><td>wstęp wolny</td></tr>
-				<?php } ?>
-				
-				<?php if((int)$this->konferencja['Ilosc_Ocen'] > 0) { ?>
-					
-						<tr><td><b>Ocena: </b></td><td><?php echo($this->konferencja['Suma_Ocen']/$this->konferencja['Ilosc_Ocen']); ?></td></tr>
-				
-				<?php } else { ?>
-					<tr><td><b>Ocena: </b></td><td>brak</td></tr>
-				<?php } ?>
-				<?php if($this->isLogged()) { ?>
-					<?php if(!empty($this->konferencja['Recenzent'])) { ?>
-						<tr><td><b>Oceń (od-5 do 5): </b></td><td><form action="index.php?con=ocenaKonferencji&id=<?php echo($_GET['id']); ?>" method="post"><input type="number" name="ocena" min="-5" max="5" style="width: 40px;"></td></tr>
-						</table>
-						<input style="button" type="submit" value="Oceń" name="ocen">
-						</form>
-					<?php } else { ?> 
-						</table> 
+					<tr><td><b>Data konferencji: </b></td><td><?php echo($this->konferencja['Data']); ?></td></tr>
+					<tr><td><b>Miejsce: </b></td><td><?php echo($this->konferencja['Miejsce']); ?></td></tr>
+					<tr><td><b>Wolnych miejsc: </b></td><td><?php echo($this->konferencja['Limit_Miejsc']-$this->konferencja['Ilosc_uczestnikow']); ?> <b>na</b> <?php echo($this->konferencja['Limit_Miejsc']); ?></td></tr>
+					<tr><td><b>Termin zgłoszeń: </b></td><td><?php echo($this->konferencja['Termin_Zgloszen']); ?></td></tr>
+					<?php if((int)$this->konferencja['Koszt'] > 0) { ?>
+						<tr><td><b>Koszt: </b></td><td><?php echo($this->konferencja['Koszt']); ?></td></tr>
+					<?php } else { ?>
+						<tr><td><b>Koszt: </b></td><td>wstęp wolny</td></tr>
 					<?php } ?>
-				<?php } ?>
+					
+					<?php if((int)$this->konferencja['Ilosc_Ocen'] > 0) { ?>
+						
+							<tr><td><b>Ocena: </b></td><td><?php echo($this->konferencja['Suma_Ocen']/$this->konferencja['Ilosc_Ocen']); ?></td></tr>
+					
+					<?php } else { ?>
+						<tr><td><b>Ocena: </b></td><td>brak</td></tr>
+					<?php } ?>
+					<?php if($this->isLogged()) { ?>
+						<?php if(!empty($this->konferencja['Recenzent'])) { ?>
+							<tr><td><b>Oceń (od-5 do 5): </b></td>
+							<td>
+								<form action="index.php?con=ocenaKonferencji&id=<?php echo($_GET['id']); ?>" method="post">
+									<input type="number" name="ocena" min="-5" max="5" style="width: 40px;">
+									<input style="button" type="submit" value="Oceń" name="ocen">
+								</form>
+							</td></tr>
+						<?php } ?>
+					<?php } ?>
+				</table> 
 			</p>
 			<hr>
 			<h2>Program konferencji:</h2>
