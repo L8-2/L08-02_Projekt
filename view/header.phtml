@@ -18,6 +18,11 @@
 				   <?php if($this->isLogged()) { ?><li><a href="index.php?con=art_do_publikacji">Wybierz artykuły do publikacji</a></li> <?php }?>
 				</ul>
 			 </li>
+			 		<?php if($this->isAdmin()) { ?>
+					<li><a href="index.php?con=dziennikZdarzen">Dziennik zdarzeń</a></li>
+					<li><a href="index.php?con=dodajAdministratora">Dodaj administratora</a></li>
+					<li><a href="index.php?con=publikacjaTematow">Zaakceptuj tematy</a></li>
+					<?php } ?>
 			 <li><a href="#">Pomoc</a></li>
 			 <li><a href="index.php?con=kontakt">Kontakt</a></li>
 		  </ul>
@@ -29,11 +34,7 @@
 			<li class="visit has-sub"><a><img class="frame" height="20" src="http://img1.wikia.nocookie.net/__cb20091231054441/splintercell/images/3/39/Unknown_male.jpg"> Mój profil</a>
 				<ul class="right">
 				
-						<?php if($this->isAdmin()) { ?>
-						<li><a href="index.php?con=dziennikZdarzen">Dziennik zdarzeń</a></li>
-						<li><a href="index.php?con=dodajAdministratora">Dodaj administratora</a></li>
-						<li><a href="index.php?con=publikacjaTematow">Zaakceptuj tematy</a></li>
-						<?php } ?>
+
 					<li><a href="index.php?con=edycjaProfilu">Edytuj profil</a></li>
 					<li><a href="index.php?con=zmienHaslo">Zmień hasło</a></li>
 
