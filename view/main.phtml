@@ -7,9 +7,9 @@
 		</div>
 		
 		<?php $this->getMessage(); ?>
-		<h3>Strona główna<h3>
+		<h2 class="h2-space" style="margin-bottom:50px;">Ostatnio dodane konferencje:</h2>
 		
-		<h2 class="h2-space">Ostatnio dodane:</h2>
+		<?php foreach($result as $r): ?>
 		<div class="post entry">
 			<div class="hexagon"><a href="#"><i class="fa fa-book"></i></a></div>
 			<div class="post-image">
@@ -24,20 +24,13 @@
 			</figure>
 			</div>
 			<div class="post_content">
-				<h2><a href="#">Nazwa konferencji</a></h2>
+				<h2><a href="#"><?php echo($r['Nazwa']); ?></a></h2>
 				<div class="border"></div>
-				<p> Krótki opis danej konferencji, program.</p>
-				<a href="#" class="button">Sprawdź</a>
+				<p> <?php echo(substr($r['Program'], 0, 70)."<br>..."); ?> </p>
+				<a href="index.php?con=konferencja&id=<?php echo($r['ID_Konferencja']); ?>" class="button">Sprawdź</a>
 				<hr>
 			</div>
-			<div class="post-footer">
-				<div class="post-footer-line">
-					<span><i class="fa fa-user"></i><a href="#">Autor</a></span><br>
-					<span><i class="fa fa-calendar"></i><a href="#">Poniedziałek, 16 luty 2015</a></span><br>
-					<span><i class="fa fa-comment"></i><a href="#">9 recenzji</a></span><br>
-					<span><i class="fa fa-tag"></i><a href="#">Temat</a></span>
-				</div>
-			</div>
 		</div>
+		<?php endforeach ?>
 		
 		<div style="clear:both;"></div>
