@@ -1,12 +1,12 @@
-<h1>Uczestnicy konferencji</h1>
+<h1>Zarządaj uczestnikami konferencji</h1>
 <?php $this->getMessage(); ?>
 <form action="<?php echo $this->generateUrl(array('con' => 'uczestnicy', 'act' => 'usun')) ?>" method="post" onsubmit="return confirm('Czy na pewno usunąć wybranych uczestników');">
-    <table border="1">
+    <table id="styled">
+	<center><h3>Użytkownicy których możesz usunąć</h3></center>
     	<thead>
     		<th width="40">#</th>
     		<th>Imię i nazwisko</th>
     		<th>Konferencja</th>
-    		<th>Czy zaakceptowany</th>
     	</thead>
     	<tfoot>
     	   <tr>
@@ -26,12 +26,98 @@
     		<?php foreach ($uczestnicy as $uczestnik): ?>
     		<tr>
     			<td>
+
+    			    <input type="checkbox" name="id[]" value="<?php echo $uczestnik['ID_Konto'] ?>" />
+    			</td>
+    			<td><?php echo $uczestnik['Imie'] . ' ' . $uczestnik['Nazwisko'] ?></td>
+    			<td><?php echo $uczestnik['Konferencja'] ?></td>
+			
+    		</tr>
+    		<?php endforeach ?>
+    		<?php endif ?>
+    	</tbody>
+    </table>
+</form>
+</br></br>
+<form action="<?php echo $this->generateUrl(array('con' => 'uczestnicy', 'act' => 'accept')) ?>" method="post" onsubmit="return confirm('Czy na pewno zaakceptować wybranych uczestników');">
+   
+   
+	<center><h3>Akceptuj chęć udziału w konferencji</h3></center>
+    <table id="styled">
+    	<thead>
+    		<th width="40">#</th>
+    		<th>Imię i nazwisko</th>
+    		<th>Konferencja</th>
+    	</thead>
+    	<tfoot>
+    	   <tr>
+    	       <td colspan="4">
+    	           <input type="submit" name="submit_delete" value="Zaakceptuj wybrane" />
+	           </td>
+    	   </tr>
+    	</tfoot>
+    	<tbody>
+    		<?php if (!$uczestnicy): ?>
+    		<tr>
+    			<td colspan="4" style="text-align: center">
+    				Brak uczestników
+    			</td>
+    		</tr>
+    		<?php else: ?>
+    		<?php foreach ($uczestnicy as $uczestnik): ?>
+    		<tr>
+			<?php if($uczestnik['Zaakceptowany']==false) {?>
+    			<td>
+    			    <input type="checkbox" name="id[]" value="<?php echo $uczestnik['ID_Konto'] ?>" />
+    			</td>
+    			<td><?php echo $uczestnik['Imie'] . ' ' . $uczestnik['Nazwisko'] ?></td>
+    			<td><?php echo $uczestnik['Konferencja'] ?></td>
+    		</tr>
+			<?php }?>
+    		<?php endforeach ?>
+    		<?php endif ?>
+    	</tbody>
+    </table>
+</form>
+</br></br>
+<form action="<?php echo $this->generateUrl(array('con' => 'uczestnicy', 'act' => 'reject')) ?>" method="post" onsubmit="return confirm('Czy na pewno odrzucić wybranych uczestników');">
+   
+
+    <table id="styled">
+		<center><h3>Brak akceptacji udziału przez użytkownika  w wybranej konferencji</h3></center>
+    	<thead>
+    		<th width="40">#</th>
+    		<th>Imię i nazwisko</th>
+    		<th>Konferencja</th>
+    		<th>Czy zaakceptowany</th>
+    	</thead>
+    	<tfoot>
+    	   <tr>
+    	       <td colspan="4">
+    	           <input type="submit" name="submit_delete" value="Odrzuć wybrane" />
+	           </td>
+    	   </tr>
+    	</tfoot>
+    	<tbody>
+    		<?php if (!$uczestnicy): ?>
+    		<tr>
+    			<td colspan="4" style="text-align: center">
+    				Brak uczestników
+    			</td>
+    		</tr>
+    		<?php else: ?>
+    		<?php foreach ($uczestnicy as $uczestnik): ?>
+    		<tr>
+			<?php if($uczestnik['Zaakceptowany']==true)
+				{?>
+    			<td>
     			    <input type="checkbox" name="id[]" value="<?php echo $uczestnik['ID_Konto'] ?>" />
     			</td>
     			<td><?php echo $uczestnik['Imie'] . ' ' . $uczestnik['Nazwisko'] ?></td>
     			<td><?php echo $uczestnik['Konferencja'] ?></td>
     			<td><?php echo (bool) $uczestnik['Zaakceptowany'] ? 'Tak' : 'Nie' ?></td>
     		</tr>
+			<?php }?>
     		<?php endforeach ?>
     		<?php endif ?>
     	</tbody>
