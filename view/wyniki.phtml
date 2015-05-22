@@ -1,22 +1,22 @@
-
 <?php $this->getMessage(); ?>
-<h2 style="text-align:center">	
-</h2>
+
+<h2 style="text-align:center">Lista konferencji: </h2>
 	
 <h5 style="text-align:center">
 
 	<form action="index.php?con=szukaj" method="post">
 		<input type="text"  STYLE="width:200px; height: 20px" name="szukane" value="<?php if(!empty($szukana))echo $szukana;?>">
-		<input type="submit" value="Szukaj" name="szukaj"><br><br>
+		<input class="button" type="submit" value="Szukaj" name="szukaj"><br><br>
 					<h4 align="center">
-				Sortowanie:<select name="sortowanie">
+					Sortowanie:
+					<center><select name="sortowanie">
 					<option value="data1">Data od najwcześniejszych</option>
 					<option value="data2">Data od najpóźniejszych</option>
 					<option value="nazwa1">Nazwa A-Z</option>
 					<option value="nazwa2">Nazwa Z-A</option>
 					<option value="koszt1">Najtańsze</option>
 					<option value="koszt2">Najdroższe</option>
-				</select>
+				</select></center>
 			</h4>
 		
 	<table class="tg" style="text-align:left; margin-left:auto; margin-right:auto" border="0">
@@ -36,8 +36,8 @@
 	
 	</table>
 
-		<h5 align="center"><input type="submit" value="Sortuj/Filtruj" name="szukaj">
-		<input type="reset" value="Wyczyść" ></h5>
+		<h5 align="center"><input class="button" type="submit" value="Sortuj/Filtruj" name="szukaj">
+		<input class="button" type="reset" value="Wyczyść" ></h5>
 	</form>
 </h5>
 
@@ -58,38 +58,30 @@
 <?php if(isset($_POST['organizator'])&&$_POST['organizator']!=""){echo "Organizator :"; echo $_POST['organizator'];echo ", ";}?>
 <?php if(isset($_POST['miasto'])&&$_POST['miasto']!=""){echo "Miasto :"; echo $_POST['miasto'];}?></h6>
 
-
-
-
 <?php if(!empty($result)){ $numer=0;?>
-<table style="text-align:left; margin-left:auto; margin-right:auto" border="1" >
+<table id="styled" style="text-align:left; margin-left:auto; margin-right:auto">
 	<thead style="text-align:center">
-		<th width="50">Nr</th>
-		<th width="400">Nazwa konferencji</th>
-		<th width="200">Organizator</th>
-		<th width="150">Miejsce</th>
-		<th width="150">Cena</th>
-		<th width="150">Data</th>
+		<th width="50"><span>Nr</span></th>
+		<th width="400"><span>Nazwa konferencji</span></th>
+		<th width="200"><span>Organizator</span></th>
+		<th width="150"><span>Miejsce</span></th>
+		<th width="150"><span>Cena</span></th>
+		<th width="150"><span>Data</span></th>
 	</thead>
 	<tbody>
-
-
-	<?php foreach ($result as $szukaj): ?>
-							<?php// $result[$numer][0] to ID_konferencja?>
-		<tr onMouseover="this.bgColor='#33CCFF'"onMouseout="this.bgColor='#FFFFFF'" style="cursor:pointer;" onClick="location.href='index.php?con=konferencja&id=<?php echo $result[$numer][0]?>'">
-			<td style="text-align:center"><?php echo $numer+1; ?>.</td>
-			<td style="text-align:center"><?php echo $result[$numer][1] ?></td>
-			<td style="text-align:center"><?php echo $result[$numer][2] ?> <?php echo $result[$numer][3] ?></td>
-			<td style="text-align:center"><?php echo $result[$numer][4] ?></td>
-			<td style="text-align:center"><?php echo $result[$numer][6] ?> zł</td>
-			<td style="text-align:center"><?php echo $result[$numer][5] ?></td>
-		<?php $numer=$numer+1;?>
-		</tr>
-	<?php endforeach; ?>
-		
-		
+		<?php foreach ($result as $szukaj): ?>
+			<tr style="cursor:pointer;" onClick="location.href='index.php?con=konferencja&id=<?php echo $result[$numer][0]?>'">
+				<td style="text-align:center"><?php echo $numer+1; ?>.</td>
+				<td style="text-align:center"><?php echo $result[$numer][1] ?></td>
+				<td style="text-align:center"><?php echo $result[$numer][2] ?> <?php echo $result[$numer][3] ?></td>
+				<td style="text-align:center"><?php echo $result[$numer][4] ?></td>
+				<td style="text-align:center"><?php echo $result[$numer][6] ?> zł</td>
+				<td style="text-align:center"><?php echo $result[$numer][5] ?></td>
+			</tr>
+			<?php $numer=$numer+1;?>
+			
+		<?php endforeach; ?>
 	</tbody>
-	
 </table>
-	<?php } ?>
+<?php } ?>
 
