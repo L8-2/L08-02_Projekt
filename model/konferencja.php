@@ -19,6 +19,11 @@ class konferencja_Model extends Model
 				$this->konferencja = $this->delete();
 				include_once("view/usun_konferencje.phtml");
 				break;
+			case 'add':			
+			$this->konferencja=$this->add();
+			include_once("view/usun_konferencje.phtml");
+			break;
+			
 			default:
 				$this->konferencja = $this->load();
 				include_once("view/konferencja.phtml");
@@ -174,6 +179,40 @@ class konferencja_Model extends Model
 		else
 			$this->redirect("index.php?con=konferencja", "error", "Nie wybrałeś żadnej konferencji!");
 	}
+	
+	
+	
+	public function add()
+	{
+		if(isset($_GET['id']))
+		{
+			if(!isset($_POST['add']))
+			{
+			
+				$limit_miejsc=$this->sql_query("SELECT * FROM `uczestnik` WHERE ID_KONTO='".$_SESSION['id']."' 
+				AND ID_Konferencja ='".addslashes($_GET['id'])."'");
+				
+				if(!$limit_miejsc)
+				{
+				$limit_miejsc1=mysql_query("INSERT INTO `uczestnik`( ID_Konto ,  ID_Konferencja ,  Zaakceptowany ) VALUES 
+				('".$_SESSION['id']."', '".addslashes($_GET['id'])."',1)");
+				$this->redirect("index.php?con=konferencja&add", "success", "Dolaczylse do konferencji");
+				
+				}
+				
+				else		
+				
+			$this->redirect("index.php?con=konferencja&add", "error", "Bierzesz już udział w konferencji");
+			}
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 }
 ?>
