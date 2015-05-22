@@ -35,7 +35,7 @@ class konferencja_Model extends Model
 			if($result)
 			{
 				$uczestnicy = $this->sql_query("SELECT * FROM `uczestnik` WHERE `ID_Konferencja` = '".addslashes($_GET['id'])."'");
-				$result[0]['Ilosc_uczestnikow'] = (count($uczestnicy[0]));
+				$result[0]['Ilosc_uczestnikow'] = (count($uczestnicy));
 				$organizator = $this->sql_query("SELECT * FROM `organizator` WHERE `ID_Konferencja` = '".addslashes($_GET['id'])."'");
 				$organizator = $this->sql_query("SELECT * FROM `konto` WHERE `ID_Konto` = '".$organizator[0]['ID_Konto']."'");
 				$result[0]['Organizator_ID_Konto'] = $organizator[0]['ID_Konto'];
