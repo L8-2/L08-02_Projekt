@@ -165,6 +165,7 @@ class artykuly_recenzje_Model extends Model
 		}
 		else
 		{	
+		$_SESSION['id_art'] = $_GET['id'];
 		$type = 'user';
 		if ($this->isAdmin()) {
 		    $type = 'admin';
