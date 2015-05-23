@@ -1,5 +1,5 @@
 <?php $this->getMessage(); ?>
-<center><h2 style="margin:30px 0px 0px 20px;">Zarządzanie recenzentami</h2></center><br>
+<center><h2 style="margin:30px 0px 20px 0px;">Zarządzanie recenzentami</h2></center><br>
 <div class="post entry" style="width:100%; margin:30px 0px 20px 0px;">
 		<div class="hexagon"><a href="#"><i class="fa fa-book"></i></a></div>
 		<div class="post-image">
@@ -12,7 +12,7 @@
 			
 			
 			<center><br><br>
-			<h2 style="margin:30px 0px 0px 20px;">Zgłoś nowego :</h2></center>
+			<h2 style="margin:30px 0px 0px 20px;">Zgłoś nowego:</h2></center>
 			<p><center><table style="width:460px;">
 			<form action="#" method="post" name = "form2">
 			<select name="decision2">
@@ -34,11 +34,11 @@
 			?>
 			</select>
 			
-			<br><tr><input type='submit' name='submit3' value = "Dodaj"/></tr></form></table></center></p>
+			<br><tr><input class="button" type='submit' name='submit3' value = "Dodaj"/></tr></form></table></center></p>
 			
 			
 			<center>
-			<h2 style="margin:30px 0px 0px 20px;">Lista twoich recenzentów :</h2></center>
+			<h2 style="margin:30px 0px 0px 20px;">Lista twoich recenzentów:</h2></center>
 			<p><center><table style="width:460px;">
 			<form action="" method="post" name = "form1">
 			<select name="decision">
@@ -63,11 +63,11 @@ else
 echo "<option disabled>Brak recenzentów</option>";
 			?>
 			</select>
-			<br><tr><input type='submit' name='submit2' value = "Usun"/></tr></form></table></center></p>
+			<br><tr><input class="button" type='submit' name='submit2' value = "Usuń"/></tr></form></table></center></p>
 			
 			
 			<center><br><br>
-			<h2 style="margin:30px 0px 0px 20px;">Nie ma na liście ? </h2></center><br>
+			<h2 style="margin:30px 0px 0px 20px;">Danej osoby nie ma na liście? </h2></center><br>
 			<form method="post">
 				<center><table>
 				<tr><td> Login: </td><td> <input type="text" name="login" required> </td></tr>
@@ -76,7 +76,7 @@ echo "<option disabled>Brak recenzentów</option>";
 				<tr><td> Nazwisko: </td><td> <input type="text" name="nazwisko" required></td></tr>
 				<tr><td> Email: </td><td> <input type="text" name="email" required></td></tr>
 				<tr><td> Nr telefonu: </td><td> <input type="text" name="nr_telefonu" required></td></tr>
-				<tr><td colspan=2 style="text-align:center;"> <button class="button" name="submit4">Zgłoś z poza listy</button> </td></tr>
+				<tr><td colspan=2 style="text-align:center;"><br> <button class="button" name="submit4">Zgłoś recenzenta z poza listy</button> </td></tr>
 				</table></center>
 			</form>
 			

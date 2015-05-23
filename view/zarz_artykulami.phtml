@@ -1,6 +1,6 @@
 <?php $this->getMessage(); ?>
 <center><h2 style="margin:30px 0px 0px 20px;">Zarządzanie artykułami</h2></center>
-<?php $this->getMessage(); 
+<?php
 global $selected_val;
 $selected_val=0;?>
 <div class="post entry" style="width:100%; margin:30px 0px 20px 0px;">
@@ -30,7 +30,7 @@ $selected_val=0;?>
 				}	
 			?>
 			</select>
-			<input type='submit' name='submit' value = "Wybierz"/>
+			<input class="button" type='submit' name='submit' value = "Wybierz"/>
 	
 			<h2>O atrykule :</h2> 
 			<div class="border"></div>
@@ -51,12 +51,12 @@ $selected_val=0;?>
 				<?php if ($this->zarz_artykulami[$selected_val]['Opublikowany'] == '1')
 				{
 					echo "został opublikowany <tr>";
-					echo "<center><INPUT TYPE = 'Submit' Name = 'Submit1' VALUE = 'Ukryj'></center> </tr>";
+					echo "<center><INPUT class='button' TYPE = 'Submit' Name = 'Submit1' VALUE = 'Ukryj'></center> </tr>";
 				}			
 				else
 				{
 					echo "nie został jeszcze opublikowany<tr>";
-					echo "<center><INPUT TYPE = 'Submit' Name = 'Submit2' VALUE = 'Opublikuj'></center> </tr>";	
+					echo "<center><INPUT class='button' TYPE = 'Submit' Name = 'Submit2' VALUE = 'Opublikuj'></center> </tr>";	
 				}
 				?>
 				</b></td></tr>
