@@ -28,14 +28,16 @@ class zarz_recenzentami_Model extends Model
 			}
 		if(isset($_SESSION['id']))
 		{
-			$result = $this->sql_query("SELECT k.Nazwa ,k.ID_Konferencja FROM  konferencja k  ,organizator o 
-			WHERE  (k.ID_Organizator =  o.ID_Organizator)  AND  (o.ID_Konto = '".addslashes($_SESSION['id'])."')   ")
+		
+			$result = $this->sql_query("SELECT k.Nazwa ,k.ID_Konferencja FROM  konferencja k  RIGHT JOIN organizator o  ON k.ID_Organizator =  o.ID_Organizator
+			WHERE  (o.ID_Konto = '".addslashes($_SESSION['id'])."')   ")
 			or die(mysql_error());
-				$wynik[] = $result;
+			
+				return $result;
 		}
 		else
 			$this->redirect("index.php?con=login", "error", "Musisz się zalogować!");
-			return $wynik;
+			
 	}
 	
 }
