@@ -195,7 +195,7 @@ class konferencja_Model extends Model
 				if(!$limit_miejsc)
 				{
 				$limit_miejsc1=mysql_query("INSERT INTO `uczestnik`( ID_Konto ,  ID_Konferencja ,  Zaakceptowany ) VALUES 
-				('".$_SESSION['id']."', '".addslashes($_GET['id'])."',0)");
+				('".$_SESSION['id']."', '".addslashes($_GET['id'])."',1)");
 				$this->redirect("index.php?con=konferencja&add", "success", "Dolaczyłeś do konferencji");
 				
 				}

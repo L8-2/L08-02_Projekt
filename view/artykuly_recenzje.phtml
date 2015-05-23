@@ -1,0 +1,36 @@
+<?php $this->getMessage(); ?>
+<h3>Artykul</h3>
+<?php echo htmlspecialchars($artykul['Tresc'])?>
+<?php if ('user' != $type): ?>
+<h3>Recenzje</h3>
+	
+<div>
+    <?php if (!$recenzje): ?>
+    <p>Brak recenzji</p>
+    <?php else: ?>
+	<form method="post">
+	<td><input type="text" STYLE="width:350px; height: 20px" name="grupujoceny"><br><br>
+	<input type="submit" class="button" value="Grupuj oceny" name="grupuj" STYLE="width:200px;"></td>
+	</form>
+    <?php foreach ($recenzje as $recenzja): ?>
+    <div class='review'>
+    	<div class='review-content'>
+			<h3 class='review-title'>Ocena <?php echo $recenzja['Ocena']?> &mdash;</h3>
+    		<h3 class='review-title'>Recenzja &mdash;</h3>
+    		<time class='review-date'><?php echo $recenzja['Data_Utworzenia']; ?></time>
+    		<p><?php echo htmlspecialchars($recenzja['Tresc']) ?></p>
+    		<div class='review-meta'>
+    			<span class='review-author'>Autor: <?php echo $recenzja['Autor_Imie'].' '.$recenzja['Autor_Nazwisko']; ?> </span>
+    		</div>
+    	</div>
+    </div>
+    <?php endforeach ?>
+    <?php endif ?>
+</div>
+<?php endif ?>
+
+</br>
+<div style="float:right">
+	<a class="button" href="index.php?con=artykuly"> Wróć </a>
+</div>
+<div style="clear:both;"></div>

@@ -57,7 +57,15 @@
 			<div class="post-footer-line">
 				<span><i class="fa fa-user"></i> <?php echo($this->konferencja['Organizator']); ?></span><br>
 				<?php if((int)$this->konferencja['Ilosc_artykulow'] > 0) { ?>
-					<span><i class="fa fa-comment"></i> <a href="#"><?php echo($this->konferencja['Ilosc_artykulow']); ?> artykułów</a></span><br>
+					<?php if($this->isLogged()): ?>
+						<?php if($this->isAdmin() || $this->isOrganizator() || $this->isRecenzent()):?>
+						<span><i class="fa fa-comment"></i> <a href="index.php?con=artykuly&act=edit&id=<?php echo($_GET['id']); ?>"><?php echo($this->konferencja['Ilosc_artykulow']); ?> artykułów</a></span><br>
+						<?php else:?>
+						<span><i class="fa fa-comment"></i> <?php echo($this->konferencja['Ilosc_artykulow']); ?> artykułów</span><br>
+						<?php endif ?>
+					<?php else:?>
+						<span><i class="fa fa-comment"></i> <a href="#"><?php echo($this->konferencja['Ilosc_artykulow']); ?> artykułów</a></span><br>
+					<?php endif ?>
 				<?php } else { ?>
 					<span><i class="fa fa-comment"></i> brak artykułów</span><br>
 				<?php } ?>
@@ -68,7 +76,9 @@
 	<div style="clear:both;"></div>
 	<div style="float:right">
 		<?php if($this->isLogged()) { ?>
+			<?php if($this->isAdmin() || $this->isOrganizator() || $this->isRecenzent()):?>
 			<a href="index.php?con=artykuly&act=edit&id=<?php echo($_GET['id']); ?>" class="button">Wyświetl artykuły</a>
+			<?php endif?>
 			<?php if($this->konferencja['Organizator_ID_Konto'] != $_SESSION['id']) { ?>
 			<?php if(($this->konferencja['Limit_Miejsc']-$this->konferencja['Ilosc_uczestnikow']) > 0) ?>
 				<a href="index.php?con=konferencja&act=add&id=<?php echo($_GET['id']); ?>" class="button">Dołącz do konferencji</a>

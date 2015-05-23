@@ -6,8 +6,7 @@
 	<thead>
 		<tr>
 			<th>Tytuł</th>
-			<th>Ocena</th>
-			<th>Wyświetl recenzje</th>
+			<th>Recenzje</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -18,30 +17,23 @@
 				</td>
 			</tr>
 		<?php else: ?>
+		
 		<?php foreach ($artykuly as $artykul): ?>
 			<tr>
-				<td> <button class="button" value="<?php echo($artykul['ID_Artykul']); ?>" name="art_wys"> <?php echo $artykul['Tytul'] ?></button> </td>
-				<td> <?php echo $artykul['Ocena'] ?> </td>
+				<td>  <input type="hidden" value="<?php echo($artykul['ID_Artykul']); ?>" name="qwe"><?php echo $artykul['Tytul'] ?> </td>
 				<td> 
-					<?php if (!$artykul['Tresc']): ?>
-					<?php else: ?> 
-						<button class="button" value="<?php echo($artykul['ID_Recenzja']); ?>" name="recenzja">Recenzja </button> 
-					<?php endif ?> 
-				</td>
+					<a href="index.php?con=artykuly_recenzje&id=<?php echo($artykul['ID_Artykul']); ?>" class="button">Wyświetl</a> 
+					
 			</tr>
 		<?php endforeach ?>
+		
 		<?php endif ?>
 	</tbody>
-		<tr>
-			<td></td>
-			<td>
-				<input type="number" min="-5" max="5" STYLE="width:200px; height: 20px" name="grupujoceny"><br><br>
-				<button class="button" name="grupuj2">Grupuj</button>
-			</td>
-			<td></td>
-		</tr>
 	</table>
 	</form>
 
-
-
+</br>
+<div style="float:right">
+	<a href="index.php?con=konferencja&act=load&id=<?php echo($_SESSION['id_konf']); ?>" class="button">Wróć</a>
+</div>
+<div style="clear:both;"></div>
