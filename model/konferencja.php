@@ -196,6 +196,9 @@ class konferencja_Model extends Model
 				{
 				$limit_miejsc1=mysql_query("INSERT INTO `uczestnik`( ID_Konto ,  ID_Konferencja ,  Zaakceptowany ) VALUES 
 				('".$_SESSION['id']."', '".addslashes($_GET['id'])."',0)");
+				$nazwa = $this->sql_query("SELECT Nazwa , Data FROM konferencja WHERE ID_Konferencja =  '".addslashes($_GET['id'])."'");
+				$tresc = "<h2>Zostałeś zapisany na konferencje : ".$nazwa['nazwa']."<br> Data : ".$nazwa['data']."</h2><br>Masz pytania? - Napisz do nas:<br>E-mail: e-konferencja@wp.pl <br>Lub zadzwoń: <br>Nr. telefonu: 17555111";
+				$this->sendMail($_POST['email'], "E-Konferencje", $tresc);
 				$this->redirect("index.php?con=konferencja&add", "success", "Dolaczyłeś do konferencji");
 				
 				}
