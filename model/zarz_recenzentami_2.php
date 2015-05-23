@@ -59,6 +59,8 @@ class zarz_recenzentami_2_Model extends Model
 				mysql_query("INSERT INTO recenzent (ID_Konto , ID_Konferencja ) VALUES
 			('".$id."','".addslashes($k)."') ")
 			or die(mysql_error());
+			$tresc = "<h2>Zostałeś zarejestrowany w aplikacji </h2><br>E-Konferencja.";
+				$this->sendMail($_POST['email'], "E-Konferencje", $tresc);
 			
 			$this->redirect("index.php?con=zarz_recenzentami_2&konf=$k", "success", "Pomyślnie dodano recenzenta");
 			}
