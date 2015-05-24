@@ -9,7 +9,6 @@ class artykuly_Model extends Model
 	{
 		parent::__construct(); 
 		
-		
 		switch ($this->getAction()) {
 		    case 'pokaz':
 		        $this->pokaz();
@@ -47,27 +46,37 @@ class artykuly_Model extends Model
 		    case 'admin':
 		    case 'organizator':
 		    case 'autor':
-        		$recenzje = $this->findAll(sprintf(
-        		    'SELECT r.*, k.Imie AS Autor_Imie, k.Nazwisko AS Autor_Nazwisko 
-        		     FROM recenzja r 
-        		     INNER JOIN recenzent rc ON r.ID_Recenzent = rc.ID_Recenzent 
-        		     INNER JOIN konto k ON k.ID_Konto = rc.ID_Konto
-    		         INNER JOIN ocena o ON o.ID_Ocena = r.ID_Ocena
-        		     WHERE r.ID_Artykul = %d AND r.Opublikowana = 1',
-        		     $idArt
-        	    ));
+		        $where = array(
+                    'r.ID_Artykul = '.$idArt,
+                    'r.Opublikowana = 1'
+		        );
+		        $sql = 
+		        'SELECT r.*, k.Imie AS Autor_Imie, k.Nazwisko AS Autor_Nazwisko, o.Ocena
+    		     FROM recenzja r
+    		     INNER JOIN recenzent rc ON r.ID_Recenzent = rc.ID_Recenzent
+    		     INNER JOIN konto k ON k.ID_Konto = rc.ID_Konto
+		         INNER JOIN ocena o ON o.ID_Ocena = r.ID_Ocena';
+		        $this->filterPokaz($where);
+		        $sql .= ' WHERE '.implode(' AND ', $where);
+		        
+        		$recenzje = $this->findAll($sql);
         		break;
 		    case 'recenzent':
-		        $recenzje = $this->findOne(sprintf(
-		            'SELECT r.*, k.Imie AS Autor_Imie, k.Nazwisko AS Autor_Nazwisko
-        		     FROM recenzja r
-		             INNER JOIN recenzent rc ON r.ID_Recenzent = rc.ID_Recenzent 
-        		     INNER JOIN konto k ON k.ID_Konto = rc.ID_Konto
-	                 INNER JOIN ocena o ON o.ID_Ocena = r.ID_Ocena
-        		     WHERE r.ID_Artykul = %d AND r.Opublikowana = 1 AND k.ID_Konto = %d',
-		            $idArt,
-		            $this->getLoggedId()
-		        ));
+		        $where = array(
+		            'r.ID_Artykul = '.$idArt,
+		            'r.Opublikowana = 1',
+		            'k.ID_Konto = '.$this->getLoggedId()
+		        );
+		        $sql =
+		        'SELECT r.*, k.Imie AS Autor_Imie, k.Nazwisko AS Autor_Nazwisko, o.Ocena
+    		     FROM recenzja r
+    		     INNER JOIN recenzent rc ON r.ID_Recenzent = rc.ID_Recenzent
+    		     INNER JOIN konto k ON k.ID_Konto = rc.ID_Konto
+		         INNER JOIN ocena o ON o.ID_Ocena = r.ID_Ocena';
+		        $this->filterPokaz($where);
+		        $sql .= ' WHERE '.implode(' AND ', $where);
+		        
+		        $recenzje = $this->findOne($sql);
 		        if (!$recenzje) {
 		            $recenzje = array();
 		        } else {
