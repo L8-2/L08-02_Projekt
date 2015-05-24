@@ -9,6 +9,10 @@ class artykuly_Model extends Model
 	{
 		parent::__construct(); 
 		
+		if (!$this->isLogged()) {
+		    $this->redirect($this->generateUrl(), "error", "Nie jesteś zalogowany");
+		}
+		
 		switch ($this->getAction()) {
 		    case 'pokaz':
 		        $this->pokaz();
@@ -116,6 +120,13 @@ class artykuly_Model extends Model
 		}
 		
 		include __DIR__ . "/../view/artykuly.phtml";
+	}
+	
+	public function getLoggedRecenzentId()
+	{
+	    $recenzent = $this->findRecenzentByKonto($this->getLoggedId());
+	    
+	    return $recenzent['ID_Recenzent'];
 	}
 	
 	private function filterPokaz(array &$conds)

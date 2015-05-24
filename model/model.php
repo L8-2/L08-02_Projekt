@@ -48,6 +48,22 @@ abstract class Model extends Controller
 		return mysql_fetch_assoc(mysql_query($sql));
 	}
 	
+	public function findRecenzjaByOwner($idArtykul, $idRecenzent)
+	{
+	    return $this->findOne(sprintf("
+	        SELECT *
+	        FROM recenzja r
+	        INNER JOIN artykul_recenzent ar ON (ar.ID_Artykul = %d AND ar.ID_Recenzent = %d)
+	        WHERE r.ID_Artykul = %d
+	        LIMIT 1
+        ", $idArtykul, $idRecenzent, $idArtykul));
+	}
+	
+	public function isRecenzjaAddedByOwner($idArtykul, $idRecenzent)
+	{
+	    return (bool) $this->findRecenzjaByOwner($idArtykul, $idRecenzent);
+	}
+	
 	public function findRecenzentByKonto($id)
 	{
 		$q = sprintf('SELECT * FROM recenzent WHERE ID_Konto = %d', $id);

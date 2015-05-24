@@ -29,7 +29,7 @@ class recenzja_Model extends Model
 	{
 		$recenzent = $this->findRecenzentByKonto($this->getLoggedId());
 		$q = sprintf('
-			SELECT r.*, a.Tresc as Artykul_Tytul
+			SELECT r.*, a.Tytul as Artykul_Tytul
 			FROM recenzja r
 	        INNER JOIN artykul a ON a.ID_Artykul = r.ID_Artykul	      
 		    WHERE r.ID_Recenzent = %d
@@ -53,7 +53,7 @@ class recenzja_Model extends Model
 	        $this->redirect("index.php?con=recenzja", "error", "Wybrany artykuł nie istnieje.");
 	    } elseif (!$this->canAddRecenzja($idArtykul, $recenzent['ID_Recenzent'])) {
 	    	$this->redirect("index.php?con=recenzja", "error", "Nie możesz dodać recenzji dla tego artykułu.");
-	    } elseif ($this->isRecenzjaAddedBy($idArtykul, $recenzent['ID_Recenzent'])) {
+	    } elseif ($this->isRecenzjaAddedByOwner($idArtykul, $recenzent['ID_Recenzent'])) {
 	        $this->redirect("index.php?con=recenzja", "error", "Recenzja została już dodana do tego arytkułu.");
 	    }
 	    
@@ -180,17 +180,5 @@ class recenzja_Model extends Model
 	    } else {
 	        $this->redirect("index.php?con=recenzja", "success", "Usunięto recenzję.");
 	    }
-	}
-	
-	private function isRecenzjaAddedBy($idArtykul, $idRecenzent)
-	{
-	    $q = mysql_query(sprintf("
-	        SELECT 1 
-	        FROM recenzja r 
-	        INNER JOIN artykul_recenzent ar ON (ar.ID_Artykul = %d AND ar.ID_Recenzent = %d)
-	        WHERE r.ID_Artykul = %d
-        ", $idArtykul, $idRecenzent, $idArtykul));
-	    
-	    return (bool) mysql_num_rows($q);
 	}
 }
