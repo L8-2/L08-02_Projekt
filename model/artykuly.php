@@ -94,23 +94,24 @@ class artykuly_Model extends Model
 	
 	public function artykuly() 
 	{		
-		if (!isset($_SESSION['id_konf'])) {
+		if (!isset($_GET['id_konferencji'])) {
 		    $this->redirect($this->generateUrl(), 'error', 'Musisz wybrać konferencję');
 		}
 		
+		$idKonf = (int) $_GET['id_konferencji'];
 	    if($this->isAdmin() || $this->isOrganizator() || $this->isRecenzent())
 		{
 			$artykuly = $this->sql_query("SELECT Tytul,ID_Artykul
 			FROM artykul
 			WHERE Opublikowany!='0'
-			AND ID_Konferencja =".$_SESSION['id_konf']."");
+			AND ID_Konferencja = $idKonf");
 		}
 		else
 		{
 			$artykuly = $this->sql_query("SELECT Tytul,ID_Artykul
 			FROM artykul
 			WHERE Opublikowany!='0'
-			AND ID_Konferencja =".$_SESSION['id_konf']."
+			AND ID_Konferencja = $idKonf
 			AND ID_Konto = ".$this->getLoggedId()."");	
 		}
 		

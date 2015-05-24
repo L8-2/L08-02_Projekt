@@ -22,7 +22,7 @@
 			<tr>
 				<td>  <input type="hidden" value="<?php echo($artykul['ID_Artykul']); ?>" name="qwe"><?php echo $artykul['Tytul'] ?> </td>
 				<td> 
-					<a href="index.php?con=artykuly_recenzje&id=<?php echo($artykul['ID_Artykul']); ?>" class="button">Wyświetl</a> 
+					<a href="index.php?con=artykuly&act=pokaz&id=<?php echo($artykul['ID_Artykul']); ?>" class="button">Wyświetl</a> 
 					
 			</tr>
 		<?php endforeach ?>
@@ -34,6 +34,6 @@
 
 </br>
 <div style="float:right">
-	<a href="index.php?con=konferencja&act=load&id=<?php echo($_SESSION['id_konf']); ?>" class="button">Wróć</a>
+	<a href="index.php?con=konferencja&act=load&id=<?php echo $idKonf; ?>" class="button">Wróć</a>
 </div>
 <div style="clear:both;"></div>
