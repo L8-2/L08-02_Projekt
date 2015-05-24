@@ -31,9 +31,8 @@ class recenzja_Model extends Model
 		$q = sprintf('
 			SELECT r.*, a.Tresc as Artykul_Tytul
 			FROM recenzja r
-		      INNER JOIN (artykul a 
-		          INNER JOIN artykul_recenzent ar ON (ar.ID_Recenzent = %d AND a.ID_Artykul = ar.ID_Artykul)
-		      ) ON r.ID_Artykul = a.ID_Artykul
+	        INNER JOIN artykul a ON a.ID_Artykul = r.ID_Artykul	      
+		    WHERE r.ID_Recenzent = %d
 			ORDER BY r.ID_Recenzja DESC
 		', $recenzent['ID_Recenzent']);
 		$recenzje = $this->sql_query($q);
@@ -52,7 +51,7 @@ class recenzja_Model extends Model
 	    $q = mysql_query(sprintf('SELECT 1 FROM artykul WHERE ID_Artykul = %d', $idArtykul));
 	    if (!mysql_num_rows($q)) {
 	        $this->redirect("index.php?con=recenzja", "error", "Wybrany artykuł nie istnieje.");
-	    } elseif (!$this->isAllowedToAdd($idArtykul, $recenzent['ID_Recenzent'])) {
+	    } elseif (!$this->canAddRecenzja($idArtykul, $recenzent['ID_Recenzent'])) {
 	    	$this->redirect("index.php?con=recenzja", "error", "Nie możesz dodać recenzji dla tego artykułu.");
 	    } elseif ($this->isRecenzjaAddedBy($idArtykul, $recenzent['ID_Recenzent'])) {
 	        $this->redirect("index.php?con=recenzja", "error", "Recenzja została już dodana do tego arytkułu.");
@@ -181,13 +180,6 @@ class recenzja_Model extends Model
 	    } else {
 	        $this->redirect("index.php?con=recenzja", "success", "Usunięto recenzję.");
 	    }
-	}
-	
-	private function isAllowedToAdd($idArtykul, $idRecenzent)
-	{
-		$q = mysql_query(sprintf("SELECT 1 FROM artykul_recenzent WHERE ID_Artykul = %d AND ID_Recenzent = %d", $idArtykul, $idRecenzent));
-
-		return (bool) mysql_num_rows($q);
 	}
 	
 	private function isRecenzjaAddedBy($idArtykul, $idRecenzent)

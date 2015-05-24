@@ -6,7 +6,7 @@
 	<thead>
 		<tr>
 			<th>Tytuł</th>
-			<th>Recenzje</th>
+			<th>Akcje</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -20,10 +20,13 @@
 		
 		<?php foreach ($artykuly as $artykul): ?>
 			<tr>
-				<td>  <input type="hidden" value="<?php echo($artykul['ID_Artykul']); ?>" name="qwe"><?php echo $artykul['Tytul'] ?> </td>
+				<td><?php echo $artykul['Tytul'] ?></td>
 				<td> 
 					<a href="index.php?con=artykuly&act=pokaz&id=<?php echo($artykul['ID_Artykul']); ?>" class="button">Wyświetl</a> 
-					
+					<?php if ($this->isRecenzent() && $this->canAddRecenzja($artykul['ID_Artykul'], $this->getLoggedId())): ?>
+					<a href="index.php?con=artykuly&act=pokaz&id=<?php echo($artykul['ID_Artykul']); ?>" class="button">Dodaj recenzję</a> 
+					<?php endif ?>
+				</td>
 			</tr>
 		<?php endforeach ?>
 		

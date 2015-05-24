@@ -21,7 +21,7 @@ abstract class Model extends Controller
 	{
 		$ret = array();
 		$result = mysql_query($query);
-		
+		echo mysql_error();
 		while ($row = mysql_fetch_array($result, MYSQL_BOTH))
 			$ret[] = $row;
 		
@@ -110,6 +110,13 @@ abstract class Model extends Controller
 	    $id = $_SESSION['id'];
 	    $q = mysql_query(sprintf("SELECT * FROM `uczestnik` WHERE `ID_Konto`=%d", $id));
 	     
+	    return (bool) mysql_num_rows($q);
+	}
+	
+	public function canAddRecenzja($idArtykul, $idRecenzent)
+	{
+	    $q = mysql_query(sprintf("SELECT 1 FROM artykul_recenzent WHERE ID_Artykul = %d AND ID_Recenzent = %d", $idArtykul, $idRecenzent));
+	
 	    return (bool) mysql_num_rows($q);
 	}
 	
