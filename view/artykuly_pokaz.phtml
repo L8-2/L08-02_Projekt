@@ -3,13 +3,19 @@
 <?php echo htmlspecialchars($artykul['Tresc'])?>
 <?php if ('user' != $type): ?>
 <h3>Recenzje</h3>
+	<form method="post">
+	<td><input type="text" style="width:350px; height: 20px" name="ocena"><br><br>
+	<input type="submit" class="button" value="Grupuj oceny" name="grupuj" style="width:200px;"></td>
+	</form>
 <div>
     <?php if (!$recenzje): ?>
     <p>Brak recenzji</p>
     <?php else: ?>
+	
     <?php foreach ($recenzje as $recenzja): ?>
     <div class='review'>
     	<div class='review-content'>
+			<h3 class='review-title'>Ocena <?php echo $recenzja['Ocena']?> &mdash;</h3>
     		<h3 class='review-title'>Recenzja &mdash;</h3>
     		<time class='review-date'><?php echo $recenzja['Data_Utworzenia']; ?></time>
     		<p><?php echo htmlspecialchars($recenzja['Tresc']) ?></p>
