@@ -39,6 +39,9 @@
 						<li><a href="index.php?con=dodajAdministratora">Dodaj administratora</a></li>
 						<li><a href="index.php?con=publikacjaTematow">Zaakceptuj tematy</a></li>
 					<?php } ?>
+					<?php if($this->isRecenzent()): ?>
+						<li><a href="index.php?con=recenzja">Recenzje</a></li>
+					<?php endif ?>
 					<li><a href="index.php?con=login&act=logout">Wyloguj</a></li>
 				</ul>
 			</li>
