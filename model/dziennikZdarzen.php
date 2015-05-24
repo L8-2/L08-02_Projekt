@@ -5,6 +5,13 @@ class dziennikZdarzen_Model extends Model
 {
 	public function __construct()  
 	{
+		
+		if (!$this->isLogged()) {
+		    $this->redirect($this->generateUrl(), "error", "Nie jesteś zalogowany");
+		} elseif (!$this->isAdmin()) {
+		    $this->redirect($this->generateUrl(), "error", "Ta podstrona jest widoczna tylko dla recenzentów");
+		}
+		
 		parent::__construct(); 
 		$this->dziennikZdarzen();
 				
