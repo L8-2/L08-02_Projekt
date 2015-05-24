@@ -4,7 +4,7 @@
 <?php if ('user' != $type): ?>
 <h3>Recenzje</h3>
 	<form method="post">
-	<td><input type="text" style="width:350px; height: 20px" name="ocena"><br><br>
+	<td><input type="text" style="width:350px; height: 20px" name="ocena" value="<?php echo isset($_POST['ocena']) ? $_POST['ocena'] : '' ?>" /><br><br>
 	<input type="submit" class="button" value="Grupuj oceny" name="grupuj" style="width:200px;"></td>
 	</form>
 <div>
