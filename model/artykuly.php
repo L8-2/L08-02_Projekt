@@ -120,7 +120,7 @@ class artykuly_Model extends Model
 	        return;
 	    }
 	    
-	    if (isset($_POST['ocena'])) {
+	    if (!empty($_POST['ocena'])) {
 	        if (!in_array($_POST['ocena'], range(-5, 5))) {
 	            $this->setMessage('error', 'Błędna ocena, poprawne oceny to od -5 do 5');
 	        } else {
