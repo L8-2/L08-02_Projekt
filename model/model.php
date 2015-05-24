@@ -21,7 +21,6 @@ abstract class Model extends Controller
 	{
 		$ret = array();
 		$result = mysql_query($query);
-		echo mysql_error();
 		while ($row = mysql_fetch_array($result, MYSQL_BOTH))
 			$ret[] = $row;
 		
