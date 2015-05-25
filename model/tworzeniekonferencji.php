@@ -38,11 +38,13 @@ class tworzeniekonferencji_Model extends Model
 				}
 				
 				 
-				mysql_query("INSERT INTO `organizator`
-				(`ID_Konto`) VALUES( '".addslashes((int)$_SESSION['id'])."')")
+				mysql_query("INSERT INTO organizator
+				(ID_Konto)  VALUES( '".addslashes($_SESSION['id'])."')")
 					or die(mysql_error()) ;
-					$query = mysql_query("SELECT * FROM organizator");
-					$query_l = mysql_num_rows($query);
+					//$organizator_id = last_insert_id();
+					$organizator_id =mysql_query("SELECT MAX(ID_Organizator) as ID FROM organizator");
+					$organizator_id =mysql_fetch_object($organizator_id);			
+					
 	
 				mysql_query("INSERT INTO `konferencja`
 				(`Nazwa`, `Data`, `Miejsce`, `Limit_Miejsc`, `Program`, `Termin_Zgloszen` , `Koszt` , `ID_Organizator`)
@@ -55,18 +57,19 @@ class tworzeniekonferencji_Model extends Model
 				,'".addslashes($program)."' 
 				,'".addslashes($termin)."'  
 				,'".addslashes($_POST['koszt'])."'
-				,'".addslashes($query_l)."'
+				,'".addslashes($organizator_id->ID)."'
 				)
 							")
 			or die(mysql_error()) ;
 			
 			$konferencja_id = mysql_insert_id(); 
+			//die ($konferencja_id." to była konf ".$organizator_id->ID."to jest organizator");
 			
-			$query2 = mysql_query("SELECT * FROM konferencja") or die(mysql_error()) ;
-			$query_2_l = mysql_num_rows($query2) or die(mysql_error()) ;
-			mysql_query("UPDATE `organizator` SET 
-			`ID_Konferencja` = '".addslashes($query_2_l)."'
-			WHERE ID_Organizator = '".$query_2_l."'") 
+			
+			
+			mysql_query("UPDATE organizator SET 
+			ID_Konferencja = '".addslashes($konferencja_id)."'
+			WHERE ID_Organizator = '".addslashes($organizator_id->ID)."'") 
 			or die(mysql_error());
 			
 			$temat_konferencji = mysql_query("DELETE FROM `temat_konferencji` WHERE `ID_Konferencja` = '".$konferencja_id."'");
