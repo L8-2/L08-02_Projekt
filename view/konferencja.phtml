@@ -80,6 +80,9 @@
 			<a href="index.php?con=artykuly&id_konferencji=<?php echo($_GET['id']); ?>" class="button">Wyświetl artykuły</a>
 			<a href="index.php?con=art_dodaj&act=dodaj&id_konferencji=<?php echo($_GET['id']); ?>" class="button">Dodaj artykuł</a>
 			<?php endif?>
+			<?php if($this->isUczestnik()):?>
+			<a href="index.php?con=art_dodaj&act=add&&id_konferencji=<?php echo($_GET['id']); ?>" class="button">Dodaj artykuł</a>
+			<?php endif?>
 			<?php if($this->konferencja['Organizator_ID_Konto'] != $_SESSION['id']) { ?>
 			<?php if(($this->konferencja['Limit_Miejsc']-$this->konferencja['Ilosc_uczestnikow']) > 0) ?>
 				<a href="index.php?con=konferencja&act=add&id=<?php echo($_GET['id']); ?>" class="button">Dołącz do konferencji</a>
