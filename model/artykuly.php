@@ -35,6 +35,9 @@ class artykuly_Model extends Model
 		    $this->redirect("index.php?con=recenzja", "error", "Wybrany artykuł nie istnieje.");
 		}
 		
+		$konferencja = $this->findOne(sprintf('SELECT * FROM konferencja WHERE ID_Konferencja = %d', $artykul['ID_Konferencja']));
+		$autor = $this->findOne(sprintf('SELECT * FROM konto WHERE ID_Konto = %d', $artykul['ID_Konto']));
+		
 		$type = 'user';
 		if ($this->isAdmin()) {
 		    $type = 'admin';
