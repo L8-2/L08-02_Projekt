@@ -1,29 +1,31 @@
-<h1>Zgłoś temat konferencji</h1>
 <?php $this->getMessage(); ?>
-<form method="post">
-    <table id="tabela-tematy" border="0" style="width: 350px">
-        <tfoot>
-            <tr>
-                <td colspan="2">
-                    <a id="dodaj-art" href="#">Dodaj artykuł</a>
-                </td>
-            </tr>
-            <tr>
-    		  <td colspan="2">
-    		      <input type="submit" name="submit" value="Dodaj" />
-    		  </td>
-    		</tr>
-        </tfoot>
-    	<tbody>
-    		<tr>
-    		  <td>Temat:</td>
-    		  <td>
-    		      <input type="text" name="temat" maxlength="30" style="width: 100%" />
-    		  </td>
-    		</tr>
-    	</tbody>
-    </table>
-</form>
+<h1>Zgłoś temat konferencji</h1>
+<center>
+	<form method="post">
+		<table id="tabela-tematy" border="0" style="width: 350px">
+			<tfoot>
+				<tr>
+					<td colspan="2">
+						<a id="dodaj-art" href="#">Dodaj artykuł</a>
+					</td>
+				</tr>
+				<tr>
+				  <td colspan="2" style="text-align:center;">
+					  <input class="button" type="submit" name="submit" value="Dodaj" />
+				  </td>
+				</tr>
+			</tfoot>
+			<tbody>
+				<tr>
+				  <td>Temat:</td>
+				  <td>
+					  <input type="text" name="temat" maxlength="30" style="width: 100%" />
+				  </td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+</center>
 <script>
 $('#dodaj-art').click(function(e) {
     e.preventDefault();
