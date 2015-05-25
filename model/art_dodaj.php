@@ -26,8 +26,7 @@ class art_dodaj_Model extends Model
 			$artykulForm = $_POST;
 	        $tresc = isset($_POST['tresc']) ? $_POST['tresc'] : null;
 	        $tytul = isset($_POST['tytul']) ? $_POST['tytul'] : null;
-
-		
+			
 		$idKonf = (int) $_GET['id_konferencji'];
 		
 		
@@ -35,7 +34,9 @@ class art_dodaj_Model extends Model
 		if(isset($_POST['dodaj']))
 		{
 			
-			
+		if(!$tytul || !$tresc)
+			$this->redirect("index.php?con=art_dodaj&id_konferencji=".$idKonf, "error", "Nie wprowadzono danych");
+		
 	    if($this->isAdmin() || $this->isOrganizator() || $this->isRecenzent()|| $this->isUczestnik())
     	        $q = mysql_query(sprintf(
             		"INSERT INTO artykul (ID_Konferencja, ID_Konto, Tytul, Tresc, Opublikowany) VALUES(%d, %d, '%s', '%s',0)",
@@ -44,7 +45,7 @@ class art_dodaj_Model extends Model
 					mysql_real_escape_string($tytul),
 					mysql_real_escape_string($tresc)
         		));
-		$this->redirect("index.php?", "success", "Dodałeś artykuł"); 
+		$this->redirect("index.php?con=konferencja&id=".$idKonf, "success", "Dodałeś artykuł"); 
 
 		}
 		else
