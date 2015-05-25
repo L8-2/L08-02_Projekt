@@ -11,7 +11,7 @@
     		</div>
 			<center>
 			
-			<?php   if (count ( $this->zarz_recenzentami) >=2) {  ?>
+			<?php if($this->isOrganizator()) {  ?>
 			<h2 style="margin:30px 0px 0px 20px;">Lista twoich konferencji</h2></center>
 			
 			<p><center><table style="width:460px;">
@@ -34,7 +34,7 @@
 			</select>
 			<br><tr><input class='button' type='submit' name='submit2' value = "Wybierz"/></tr></form></table></center></p>
 			<?php } else {
-				$this->redirect("index.php?con=login", "error", "Nie jesteś organizatorem żadnej koferencji !");
+				$this->redirect("index.php", "error", "Nie jesteś organizatorem żadnej koferencji !");
 			 } ?>
 			
 			

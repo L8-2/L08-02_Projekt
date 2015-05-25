@@ -26,7 +26,7 @@ class zarz_recenzentami_Model extends Model
 				$selected = $_POST['decision'];
 				$this->redirect("index.php?con=zarz_recenzentami_2&konf=$selected", "", "");
 			}
-		if(isset($_SESSION['id']))
+		if($this->isLogged())
 		{
 		
 			$result = $this->sql_query("SELECT k.Nazwa ,k.ID_Konferencja FROM  konferencja k  RIGHT JOIN organizator o  ON k.ID_Organizator =  o.ID_Organizator
