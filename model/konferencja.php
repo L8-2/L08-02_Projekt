@@ -39,7 +39,9 @@ class konferencja_Model extends Model
 			$result = $this->sql_query("SELECT * FROM `konferencja` WHERE `ID_Konferencja`='".addslashes($_GET['id'])."' LIMIT 1");
 			if($result)
 			{
-				$uczestnicy = $this->sql_query("SELECT * FROM `uczestnik` WHERE `ID_Konferencja` = '".addslashes($_GET['id'])."'");
+				$uczestnicy = $this->sql_query("SELECT * FROM `uczestnik` WHERE `ID_Konferencja` = '".addslashes($_GET['id'])."' AND `Zaakceptowany` !='0'");
+				if (count($uczestnicy[0]) == 0) $result[0]['Ilosc_uczestnikow'] = 0; 
+				else
 				$result[0]['Ilosc_uczestnikow'] = (count($uczestnicy));
 				$organizator = $this->sql_query("SELECT * FROM `organizator` WHERE `ID_Konferencja` = '".addslashes($_GET['id'])."'");
 				$organizator = $this->sql_query("SELECT * FROM `konto` WHERE `ID_Konto` = '".$organizator[0]['ID_Konto']."'");
@@ -195,17 +197,17 @@ class konferencja_Model extends Model
 				if(!$limit_miejsc)
 				{
 				$limit_miejsc1=mysql_query("INSERT INTO `uczestnik`( ID_Konto ,  ID_Konferencja ,  Zaakceptowany ) VALUES 
-				('".$_SESSION['id']."', '".addslashes($_GET['id'])."',0)");
+				('".$_SESSION['id']."', '".addslashes($_GET['id'])."',0)") or die(mysql_error());
 				$nazwa = $this->sql_query("SELECT Nazwa , Data FROM konferencja WHERE ID_Konferencja =  '".addslashes($_GET['id'])."'");
 				$tresc = "<h2>Zostałeś zapisany na konferencje : ".$nazwa['nazwa']."<br> Data : ".$nazwa['data']."</h2><br>Masz pytania? - Napisz do nas:<br>E-mail: e-konferencja@wp.pl <br>Lub zadzwoń: <br>Nr. telefonu: 17555111";
 				$this->sendMail($_POST['email'], "E-Konferencje", $tresc);
-				$this->redirect("index.php?con=konferencja&add", "success", "Dolaczyłeś do konferencji");
+				$this->redirect("index.php?con=konferencja&id=".$_GET['id']."&add", "success", "Dolaczyłeś do konferencji");
 				
 				}
 				
 				else		
 				
-			$this->redirect("index.php?con=konferencja&add", "error", "Bierzesz już udział w tej konferencji");
+			$this->redirect("index.php?con=konferencja&id=".$_GET['id']."&add", "error", "Bierzesz już udział w tej konferencji");
 			}
 		}
 	}

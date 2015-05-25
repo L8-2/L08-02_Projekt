@@ -116,16 +116,39 @@ abstract class Model extends Controller
 	    return (bool) mysql_num_rows($q);
 	}
 	
-	public function isUczestnik()
+	public function isUczestnik($konf)
 	{
 	    if (!$this->isLogged()) {
 	        return false;
 	    }
 	     
 	    $id = $_SESSION['id'];
-	    $q = mysql_query(sprintf("SELECT * FROM `uczestnik` WHERE `ID_Konto`=%d", $id));
+	    $q = mysql_query("SELECT * FROM uczestnik WHERE ID_Konto = '".addslashes($id)."' 
+		AND ID_Konferencja = '".addslashes($konf)."' ");
+	    
+	    if ( mysql_num_rows($q) >0 )
+		{
+			
+			return true;
+		}
+		else return false;
+	}
+	public function isUczestnik_accepted($konf)
+	{
+	    if (!$this->isLogged()) {
+	        return false;
+	    }
 	     
-	    return (bool) mysql_num_rows($q);
+	    $id = $_SESSION['id'];
+	    $q = mysql_query("SELECT * FROM uczestnik WHERE ID_Konto = '".addslashes($id)."' 
+		AND ID_Konferencja = '".addslashes($konf)."' AND  Zaakceptowany !='0' ");
+	    
+	    if ( mysql_num_rows($q) >0 )
+		{
+			
+			return true;
+		}
+		else return false;
 	}
 	
 	public function canAddRecenzja($idArtykul, $idRecenzent)

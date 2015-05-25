@@ -33,9 +33,10 @@
 					
 					<?php } else { ?>
 						<tr><td><b>Ocena: </b></td><td>brak</td></tr>
-					<?php } ?>
-					<?php if($this->isLogged()) { ?>
-						<?php if(!empty($this->konferencja['Recenzent'])) { ?>
+					<?php } 
+					$dzisiaj=date("Y-m-d H:m:s");
+					 if($this->isUczestnik_accepted($_GET['id']) AND ($dzisiaj > $this->konferencja['Data']))
+					{{ ?>
 							<tr><td><b>Oceń (od-5 do 5): </b></td>
 							<td>
 								<form action="index.php?con=ocenaKonferencji&id=<?php echo($_GET['id']); ?>" method="post">
@@ -76,17 +77,15 @@
 	<div style="clear:both;"></div>
 	<div style="float:right">
 		<?php if($this->isLogged()) { ?>
-			<?php if($this->isAdmin() || $this->isOrganizator() || $this->isUczestnik()):?>
+			<?php if($this->isAdmin() || $this->isOrganizator() || $this->isRecenzent()):?>
 			<a href="index.php?con=artykuly&id_konferencji=<?php echo($_GET['id']); ?>" class="button">Wyświetl artykuły</a>
-			<a href="index.php?con=art_dodaj&act=dodaj&id_konferencji=<?php echo($_GET['id']); ?>" class="button">Dodaj artykuł</a>
-			<?php endif?>
-			<?php if($this->isUczestnik()):?>
-			<a href="index.php?con=art_dodaj&act=add&&id_konferencji=<?php echo($_GET['id']); ?>" class="button">Dodaj artykuł</a>
 			<?php endif?>
 			<?php if($this->konferencja['Organizator_ID_Konto'] != $_SESSION['id']) { ?>
-			<?php if(($this->konferencja['Limit_Miejsc']-$this->konferencja['Ilosc_uczestnikow']) > 0) ?>
+			<?php if(($this->konferencja['Limit_Miejsc']-$this->konferencja['Ilosc_uczestnikow']) > 0){
+if(!$this->isUczestnik($_GET['id'])) {			?>
 				<a href="index.php?con=konferencja&act=add&id=<?php echo($_GET['id']); ?>" class="button">Dołącz do konferencji</a>
-			<?php } if($this->isAdmin() || $this->konferencja['Organizator_ID_Konto'] == $_SESSION['id']) { ?>
+<?php }}}
+ if($this->isAdmin() || $this->konferencja['Organizator_ID_Konto'] == $_SESSION['id']) { ?>
 				<a href="index.php?con=konferencja&act=edit&id=<?php echo($_GET['id']); ?>" class="button">Edytuj konferencję</a> <a href="index.php?con=konferencja&act=delete&id=<?php echo($_GET['id']); ?>" class="button">Usuń konferencję</a>
 			<?php } ?>
 		<?php } ?>
