@@ -51,9 +51,8 @@
 				<ul class="right">
 					<li><a href="index.php?con=edycjaProfilu">Edytuj profil</a></li>
 					<li><a href="index.php?con=zmienHaslo">Zmień hasło</a></li>
-					<?php if($this->isRecenzent() || $this->isAdmin()){ ?>
-					<li><a href="index.php?con=dziennikZdarzen">Dziennik zdarzeń</a></li>
-			 		<?php } if($this->isAdmin()) { ?>
+					<?php if($this->isAdmin()){ ?>
+						<li><a href="index.php?con=dziennikZdarzen">Dziennik zdarzeń</a></li>
 						<li><a href="index.php?con=dodajAdministratora">Dodaj administratora</a></li>
 						<li><a href="index.php?con=publikacjaTematow">Zaakceptuj tematy</a></li>
 					<?php } ?>
