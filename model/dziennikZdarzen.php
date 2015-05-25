@@ -6,12 +6,12 @@ class dziennikZdarzen_Model extends Model
 	public function __construct()  
 	{
 		
-		if (!$this->isLogged()) {
+		/*if (!$this->isLogged()) {
 		    $this->redirect($this->generateUrl(), "error", "Nie jesteś zalogowany");
 		} elseif (!$this->isAdmin()) {
-		    $this->redirect($this->generateUrl(), "error", "Ta podstrona jest widoczna tylko dla recenzentów");
+		    $this->redirect($this->generateUrl(), "error", "Ta podstrona jest widoczna tylko dla administratora");
 		}
-		
+		*/
 		parent::__construct(); 
 		$this->dziennikZdarzen();
 				
@@ -23,6 +23,10 @@ class dziennikZdarzen_Model extends Model
  
 	public function dziennikZdarzen() 
 	{	
+	
+	
+	if ( $this->isAdmin())
+			{
 	$buttonRecenzje=false;
 	$buttonKonferencje=false;
 	$buttonArtykuly=false;
@@ -188,6 +192,12 @@ class dziennikZdarzen_Model extends Model
 		
 	
 	}
+	else 
+	 $this->redirect($this->generateUrl(), "error", "Ta podstrona jest widoczna tylko dla administratora");
+
+	
+	}
+	
 	
 	
 	
