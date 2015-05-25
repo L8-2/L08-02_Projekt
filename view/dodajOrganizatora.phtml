@@ -1,0 +1,42 @@
+<?php $this->getMessage(); ?>
+<center><h2 style="margin:30px 0px 20px 0px;">Dodaj Organizatora Konferencji</h2></center>
+<div class="post entry" style="width:100%; margin:30px 0px 20px 0px;">
+		<div class="hexagon"><a href="#"><i class="fa fa-book"></i></a></div>
+		<div class="post-image">
+			<figure>
+				<div class="imgcon full">
+				</div>
+			</figure>
+		</div>
+    		</div>
+			<center>
+			
+			<?php   if (count ( $this->dodajOrganizatora) >=2) {  ?>
+			<h2 style="margin:30px 0px 0px 20px;">Lista twoich konferencji</h2></center>
+			
+			<p><center><table style="width:460px;">
+			<form action="#" method="post" name = "form1">
+			<select name="decision">
+			<?php 
+				$a=0;
+				foreach($this->dodajOrganizatora as $konf)
+				{
+					echo "<option ";
+					if ($a==$this->dodajOrganizatora)
+					echo "selected ";
+					echo "value ='";
+					echo $konf['ID_Konferencja'];
+					echo "'/>";	
+					echo $konf['Nazwa'];
+					$a++;
+				}	
+			?>
+			</select>
+			<br><tr><input class='button' type='submit' name='submit2' value = "Wybierz"/></tr></form></table></center></p>
+			<?php } else {
+				$this->redirect("index.php?con=login", "error", "Nie jesteś organizatorem żadnej koferencji !");
+			 } ?>
+			
+			
+			
+			
