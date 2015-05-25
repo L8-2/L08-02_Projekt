@@ -8,15 +8,27 @@ class szukaj_Model extends Model
 		parent::__construct(); 
 		
 
-				$this->szukaj();
+				
+		switch($this->getAction())
+		{
+			case 'brakwynikow':
+				$this->szukaj = $this->pusta();
+				include_once("view/wyniki.phtml");
+				break;
+
+			
+			default:
+				$this->szukaj = $this->szukaj();
+				include_once("view/wyniki.phtml");
+				break;
+		}
 
 
 	}
 		
 	public function szukaj() 
 	{
-		 if(isset($_POST['szukaj'])) 
-			 
+
 
 			
 			
@@ -32,7 +44,7 @@ class szukaj_Model extends Model
 			}
 				else 
 				{
-					$_POST['szukane']=trim($_POST['szukane']);
+					if(isset($_POST['szukane']))$_POST['szukane']=trim($_POST['szukane']);
 					if(isset($_POST['szukane'])&&$_POST['szukane'] == "" and isset($_POST['sortowanie'])&&$_POST['sortowanie'] == "")
 					{
 						$result = $this->sql_query("SELECT k.ID_Konferencja, k.Nazwa, kon.Imie, kon.Nazwisko, k.Miejsce, k.Data, k.Koszt, unix_timestamp(k.Data)
@@ -45,9 +57,9 @@ class szukaj_Model extends Model
 				
 					else	
 					{	
-				
-						$szukana=addslashes($_POST['szukane']);
-						if($_POST['szukane'] != "") $_SESSION['poprzednia']=$szukana;
+						$szukana="";
+						if(isset($szukana)&&isset($_POST['szukane']))$szukana=addslashes($_POST['szukane']);
+						if(isset($_POST['szukane'])&&$_POST['szukane'] != "") $_SESSION['poprzednia']=$szukana;
 						
 						if(isset($_POST['sortowanie'])&&$_POST['sortowanie'] != "")
 						{	
@@ -98,14 +110,15 @@ class szukaj_Model extends Model
 									
 						if(!$result)
 						{
-							$this->redirect("index.php?con=szukaj", "error", "Brak wyników ze słowami '$szukana'");
+							$this->redirect("index.php?con=szukaj&act=brakwynikow", "error", "Brak wyników ze słowami '$szukana'");
+							
 						}
 						else
 						{		
 							if(isset($_POST['dzien_od'])&&$_POST['dzien_od']!="" and isset($_POST['miesiac_od'])&&$_POST['miesiac_od']!="" and isset($_POST['rok_od'])&&$_POST['rok_od']!="")
 							{	
 								if (!checkdate( $_POST['miesiac_od'], $_POST['dzien_od'], $_POST['rok_od'])) {
-									$this->redirect("index.php?con=szukaj", "error", "Data jest niepoprawna");
+									$this->redirect("index.php?con=szukaj&act=brakwynikow", "error", "Data jest niepoprawna");
 								} 
 						
 								$dzien   = $_POST['dzien_od'];
@@ -130,7 +143,7 @@ class szukaj_Model extends Model
 								$result=$tymcz;
 								unset($tymcz);
 	
-								if(count($result)==0) $this->redirect("index.php?con=szukaj", "error", "Brak wyników");
+								if(count($result)==0) $this->redirect("index.php?con=szukaj&act=brakwynikow", "error", "Brak wyników");
 							}
 							
 							if(isset($_POST['dzien_do'])&&$_POST['dzien_do']!="" and isset($_POST['miesiac_do'])&&$_POST['miesiac_do']!="" and isset($_POST['rok_do'])&&$_POST['rok_do']!="")
@@ -161,7 +174,7 @@ class szukaj_Model extends Model
 								$result=$tymcz;
 								unset($tymcz);
 	
-								if(count($result)==0) $this->redirect("index.php?con=szukaj", "error", "Brak wyników");
+								if(count($result)==0) $this->redirect("index.php?con=szukaj&act=brakwynikow", "error", "Brak wyników");
 							}
 							
 	
@@ -182,7 +195,7 @@ class szukaj_Model extends Model
 								unset($result);
 								$result=$tymcz;
 								unset($tymcz);
-								if(count($result)==0) $this->redirect("index.php?con=szukaj", "error", "Brak wyników");
+								if(count($result)==0) $this->redirect("index.php?con=szukaj&act=brakwynikow", "error", "Brak wyników");
 							}
 							
 							if(isset($_POST['cena_do'])&&$_POST['cena_do']!="")
@@ -200,7 +213,7 @@ class szukaj_Model extends Model
 								unset($result);
 								$result=$tymcz;
 								unset($tymcz);
-								if(count($result)==0) $this->redirect("index.php?con=szukaj", "error", "Brak wyników");
+								if(count($result)==0) $this->redirect("index.php?con=szukaj&act=brakwynikow", "error", "Brak wyników");
 							}
 							
 							if(isset($_POST['miasto'])&&$_POST['miasto']!="")
@@ -218,7 +231,7 @@ class szukaj_Model extends Model
 								unset($result);
 								$result=$tymcz;
 								unset($tymcz);
-								if(count($result)==0) $this->redirect("index.php?con=szukaj", "error", "Brak wyników");
+								if(count($result)==0) $this->redirect("index.php?con=szukaj&act=brakwynikow", "error", "Brak wyników");
 							}
 							
 							if(isset($_POST['organizator'])&&$_POST['organizator']!="")
@@ -241,7 +254,7 @@ class szukaj_Model extends Model
 								unset($result);
 								$result=$tymcz;
 								unset($tymcz);
-								if(count($result)==0) $this->redirect("index.php?con=szukaj", "error", "Brak wyników");
+								if(count($result)==0) $this->redirect("index.php?con=szukaj&act=brakwynikow", "error", "Brak wyników");
 							}
 
 							
@@ -255,8 +268,14 @@ class szukaj_Model extends Model
 					}
 					
 				}
+
 		include __DIR__ . "/../view/wyniki.phtml";
 
+	}
+	
+	public function pusta()
+	{
+		include __DIR__ . "/../view/wyniki.phtml";
 	}
 
 
