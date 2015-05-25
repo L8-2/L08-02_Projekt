@@ -1,0 +1,89 @@
+<?php $this->getMessage(); ?>
+<center><h2 style="margin:30px 0px 20px 0px;">Dodaj Ogranizatora</h2></center><br>
+<div class="post entry" style="width:100%; margin:30px 0px 20px 0px;">
+		<div class="hexagon"><a href="#"><i class="fa fa-book"></i></a></div>
+		<div class="post-image">
+			<figure>
+				<div class="imgcon full"><?php echo $this->dodajOrganizatora_2['konferencja'][0]['Nazwa']; ?>
+				</div>
+			</figure>
+		</div>
+    		</div>
+			
+			
+			<center><br><br>
+			<h2 style="margin:30px 0px 0px 20px;">Dodaj z listy:</h2></center>
+			<p><center><table style="width:460px;">
+			<form action="#" method="post" name = "form2">
+			<select name="decision2">
+			<option disabled>Wybierz</option>
+			<?php 
+				$a=0;
+				
+					foreach($this->dodajOrganizatora_2['konto'] as $konf)
+					{
+						echo "<option ";
+						echo "value ='";
+						echo $konf['ID_Konto'];
+						echo "'>";	
+						echo $konf['Imie']." ".$konf['Nazwisko'];
+						echo "</option>";
+						$a++;
+					}
+								
+			?>
+			</select>
+			
+			<br><tr><input class="button" type='submit' name='submit3' value = "Dodaj"/></tr></form></table></center></p>
+			
+			<?php echo "<pre>"; print_r($this->dodajOrganizatora_2); echo "</pre>"; ?>
+			<center>
+			<h2 style="margin:30px 0px 0px 20px;">Zapisani Organizatorzy:</h2></center>
+			<p><center><table style="width:460px;">
+			<form action="" method="post" name = "form1">
+			<select name="decision">
+			
+			<?php 
+				$a=0;
+				
+				if (count($this->dodajOrganizatora_2['organizatorzy']) >1)
+				{
+					echo "<option disabled>Wybierz</option>";
+			
+				foreach($this->dodajOrganizatora_2['organizatorzy'] as $konf)
+				{
+					if ($konf[0]['ID_Konto'] != $_SESSION['id'])
+					{
+					echo "<option ";
+					echo "value ='";
+					echo $konf[0]['ID_Organizator'];
+					echo "'/>";	
+					echo $konf[0]['Imie']." ";
+					echo $konf[0]['Nazwisko'];
+					echo "</option>";
+					}
+					$a++;
+				}}
+else
+echo "<option disabled>Brak innych organizatorów</option>";
+
+			?>
+			</select>
+			<br><tr><input class="button" type='submit' name='submit2' value = "Usuń"/></tr></form></table></center></p>
+			
+			
+			<center><br><br>
+			<h2 style="margin:30px 0px 0px 20px;">Danej osoby nie ma na liście? </h2></center><br>
+			<form method="post">
+				<center><table>
+				<tr><td> Login: </td><td> <input type="text" name="login" required> </td></tr>
+				<tr><td> Hasło: </td><td> <input type="password" name="haslo" required></td></tr>
+				<tr><td> Imię: </td><td> <input type="text" name="imie" required></td></tr>
+				<tr><td> Nazwisko: </td><td> <input type="text" name="nazwisko" required></td></tr>
+				<tr><td> Email: </td><td> <input type="text" name="email" required></td></tr>
+				<tr><td> Nr telefonu: </td><td> <input type="text" name="nr_telefonu" required></td></tr>
+				<tr><td colspan=2 style="text-align:center;"><br> <button class="button" name="submit4">Dodaj Organizatora z poza listy</button> </td></tr>
+				</table></center>
+			</form>
+			
+			
