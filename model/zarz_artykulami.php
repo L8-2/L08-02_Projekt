@@ -13,9 +13,25 @@ class zarz_artykulami_Model extends Model
 	{	
 		if(isset($_SESSION['id']))
 		{
-			$result = $this->sql_query("SELECT a.ID_Artykul,k.Nazwa,a.ID_Konto ,a.Tytul , a.Tresc , a.ID_Konferencja , k.Nazwa ,ko.Imie,ko.Nazwisko,a.Data_Utworzenia,a.Opublikowany  FROM artykul a ,konto ko, konferencja k ,organizator o 
-			WHERE (a.ID_Konferencja = k.ID_Konferencja) AND  (o.ID_Konto = '".addslashes($_SESSION['id'])."' ) AND (ko.ID_Konto = a.ID_Konto)")
-			or die(mysql_error());
+			$result = array();
+			$organizator = $this->sql_query("SELECT * FROM `organizator` WHERE `ID_Konto` = '".$_SESSION['id']."'");
+			foreach($organizator as $o)
+			{
+				$konferencja = $this->sql_query("SELECT * FROM `konferencja` WHERE `ID_Konferencja` = '".$o['ID_Konferencja']."'");
+				$art = array();
+				$artykuly = $this->sql_query("SELECT * FROM `artykul` WHERE `ID_Konferencja` = '".$o['ID_Konferencja']."'");
+				if ($artykuly)
+				foreach($artykuly as $a)
+				{
+					$art[(int)$a['ID_Artykul']] = $a;
+					$autor = $this->sql_query("SELECT * FROM `konto` WHERE `ID_Konto` = '".$a['ID_Konto']."'");
+					$art[(int)$a['ID_Artykul']]['autor'] = $autor[0];
+				}
+				
+				$result['organizator'][(int)$konferencja[0]['ID_Konferencja']] = $o;
+				$result['konferencja'][(int)$konferencja[0]['ID_Konferencja']] = $konferencja[0];
+				$result['artykuly'][(int)$konferencja[0]['ID_Konferencja']] = $art;
+			}
 			if($result)
 			{
 				return $result;
