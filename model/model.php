@@ -104,6 +104,16 @@ abstract class Model extends Controller
 	    return (bool) mysql_num_rows($q);
 	}
 	
+	public function isOrganizatorKonferencji($k)
+	{
+	    if (!$this->isLogged())
+	        return false;
+	    
+	    return $this->sql_query("SELECT * FROM `organizator` WHERE `ID_Konto`='".$_SESSION['id']."' AND `ID_Konferencja` = '".$k."'");
+	    
+	    return (bool) mysql_num_rows($q);
+	}
+	
 	public function isRecenzent()
 	{
 	    if (!$this->isLogged()) {

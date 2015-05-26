@@ -43,11 +43,15 @@ class konferencja_Model extends Model
 				if (count($uczestnicy[0]) == 0) $result[0]['Ilosc_uczestnikow'] = 0; 
 				else
 				$result[0]['Ilosc_uczestnikow'] = (count($uczestnicy));
+			
 				$organizator = $this->sql_query("SELECT * FROM `organizator` WHERE `ID_Konferencja` = '".addslashes($_GET['id'])."'");
-				$organizator = $this->sql_query("SELECT * FROM `konto` WHERE `ID_Konto` = '".$organizator[0]['ID_Konto']."'");
-				$result[0]['Organizator_ID_Konto'] = $organizator[0]['ID_Konto'];
-				$organizator = $organizator[0]['Imie']." ".$organizator[0]['Nazwisko'];
-				$result[0]['Organizator'] = $organizator;
+				$organizatorzy = array();
+				foreach($organizator as $o)
+				{
+					$konto = $this->sql_query("SELECT * FROM `konto` WHERE `ID_Konto` = '".$o['ID_Konto']."'");
+					$organizatorzy[] = $konto[0];
+				}
+				$result[0]['Organizatorzy'] = $organizatorzy;
 				$artykuly = $this->sql_query("SELECT * FROM `artykul` WHERE `ID_Konferencja` = '".addslashes($_GET['id'])."' AND `Opublikowany` = '1'");
 				if(count($artykuly[0]) == 0)
 					$result[0]['Ilosc_artykulow'] = 0;
@@ -85,7 +89,7 @@ class konferencja_Model extends Model
 					$organizator = $this->sql_query("SELECT * FROM `organizator` WHERE `ID_Konferencja` = '".addslashes($_GET['id'])."'");
 					if(!$this->isLogged())
 						$this->redirect("index.php?con=konferencja&id=".$_GET['id'], "error", "Musisz być zalogowany aby edytować konferencje.");
-					else if(!$this->isAdmin() && $organizator[0]['ID_Konto'] != $_SESSION['id'])
+					else if(!$this->isAdmin() && !$this->isOrganizatorKonferencji($_GET['id']))
 						$this->redirect("index.php?con=konferencja&id=".$_GET['id'], "error", "Nie masz praw do edycji tej konferencji.");
 					else				
 					{
@@ -167,7 +171,7 @@ class konferencja_Model extends Model
 				$organizator = $this->sql_query("SELECT * FROM `organizator` WHERE `ID_Konferencja` = '".addslashes($_GET['id'])."'");
 				if(!$this->isLogged())
 					$this->redirect("index.php?con=konferencja&id=".$_GET['id'], "error", "Musisz być zalogowany aby usunąć konferencje.");
-				else if(!$this->isAdmin() && $organizator[0]['ID_Konto'] != $_SESSION['id'])
+				else if(!$this->isAdmin() && !$this->isOrganizatorKonferencji($_GET['id']))
 					$this->redirect("index.php?con=konferencja&id=".$_GET['id'], "error", "Nie masz praw do usunięcia tej konferencji.");
 				else				
 				{
