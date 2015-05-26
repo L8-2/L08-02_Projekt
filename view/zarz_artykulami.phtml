@@ -1,81 +1,80 @@
 <?php $this->getMessage(); ?>
 <center><h2 style="margin:30px 0px 0px 20px;">Zarządzanie artykułami</h2></center>
-<?php
-global $selected_val;
-$selected_val=0;?>
-<div class="post entry" style="width:100%; margin:30px 0px 20px 0px;">
-		<div class="hexagon"><a href="#"><i class="fa fa-book"></i></a></div>
-		<div class="post-image">
-			<figure>
-				<div class="imgcon full">
-				</div>
-			</figure>
-		</div>
-    		<center><h2 style="margin:30px 0px 0px 20px;">Lista artykułów</h2>
-			<form action="#" method="post">
+
+<div class="post entry" style="width:100%; margin:30px 0px 0px 0px; padding-bottom:80px;">
+	<div class="hexagon"><a href="#"><i class="fa fa-book"></i></a></div>
+	<div class="post-image"><figure><div class="imgcon full"></div></figure></div>
+    <center>
+		<h2 style="margin:30px 0px 0px 20px;">Lista artykułów</h2>
+		<form action="" method="post">
 			<select name="decision">
-			
-			<?php 
-				$a=0;
-				foreach($this->zarz_artykulami as $artykul)
-				{
-					echo "<option ";
-					if ($a==0)
-					echo "selected ";
-					echo "value ='";
-					echo $a;
-					echo "'>";	
-					echo $artykul['Tytul'];
-					$a++;
-				}	
-			?>
+			<option disabled>Brak artykułów</option>
+				<?php 
+					$a = 0;
+					
+					foreach($this->zarz_artykulami['artykuly'] as $k)
+					{
+						foreach($k as $artykul)
+						{
+							echo "<option ";
+							if ($a==0)
+							echo "selected ";
+							echo "value ='";
+							echo $artykul['ID_Artykul'].'|'.$artykul['ID_Konferencja'];
+							echo "'>";	
+							echo $artykul['Tytul'];
+							$a++;
+						}	
+					}
+				?>
 			</select>
-			<input class="button" type='submit' name='submit' value = "Wybierz"/>
+			<br>
+			<input class="button" type='submit' name='submit' value="Wybierz"/>
 	
+			<?php 
+				if(isset($_POST['submit']))
+				{
+					$selected = explode('|', $_POST['decision']);
+					$selected_val= $selected[0];
+					$selected_konf = $selected[1];
+			?>
 			<h2>O atrykule :</h2> 
 			<div class="border"></div>
 			<p>
 				<table style="width:460px;">
-				<?php 
-				if(isset($_POST['submit'])){
-				$selected_val= $_POST['decision'];
-			
-				}
-				?>
-				<tr><td><b>Dotyczy konferencji :</b></td><td><b><?php echo $this->zarz_artykulami[$selected_val]['Nazwa'];?></b></tr>
-				<tr><td><b>Autor: </b></td><td><b><?php echo $this->zarz_artykulami[$selected_val]['Imie']; echo " "; echo $this->zarz_artykulami[$selected_val]['Nazwisko']; ?> </b></td></tr>
-				<tr><td><b>Tytuł: </b></td><td><b><?php echo $this->zarz_artykulami[$selected_val]['Tytul']; ?></b></td></tr>
-				<tr><td><b>Treść: </b></td><td><b><?php echo  $this->zarz_artykulami[$selected_val]['Tresc']; ?></b></td></tr>
-				<tr><td><b>Data Utworzenia: </b></td><td><b><?php  echo  $this->zarz_artykulami[$selected_val]['Data_Utworzenia']; ?></b></td></tr>
+				<tr><td><b>Dotyczy konferencji :</b></td><td><b><?php echo $this->zarz_artykulami['konferencja'][$selected_konf]['Nazwa'];?></b></tr>
+				<tr><td><b>Autor: </b></td><td><b><?php echo $this->zarz_artykulami['artykuly'][$selected_konf][$selected_val]['autor']['Imie']; echo " "; echo $this->zarz_artykulami['artykuly'][$selected_konf][$selected_val]['autor']['Nazwisko']; ?> </b></td></tr>
+				<tr><td><b>Tytuł: </b></td><td><b><?php echo $this->zarz_artykulami['artykuly'][$selected_konf][$selected_val]['Tytul']; ?></b></td></tr>
+				<tr><td><b>Treść: </b></td><td><b><?php echo  $this->zarz_artykulami['artykuly'][$selected_konf][$selected_val]['Tresc']; ?></b></td></tr>
+				<tr><td><b>Data Utworzenia: </b></td><td><b><?php  echo  $this->zarz_artykulami['artykuly'][$selected_konf][$selected_val]['Data_Utworzenia']; ?></b></td></tr>
 				<tr><td><b>Atrykuł </b></td><td><b>
-				<?php if ($this->zarz_artykulami[$selected_val]['Opublikowany'] == '1')
-				{
-					echo "został opublikowany <tr>";
-					echo "<center><INPUT class='button' TYPE = 'Submit' Name = 'Submit1' VALUE = 'Ukryj'></center> </tr>";
-				}			
-				else
-				{
-					echo "nie został jeszcze opublikowany<tr>";
-					echo "<center><INPUT class='button' TYPE = 'Submit' Name = 'Submit2' VALUE = 'Opublikuj'></center> </tr>";	
-				}
+				<?php 
+					if ($this->zarz_artykulami['artykuly'][$selected_konf][$selected_val]['Opublikowany'] == '1')
+					{
+						echo "został opublikowany <tr>";
+						echo "<center><INPUT class='button' TYPE = 'Submit' Name = 'Submit1' VALUE = 'Ukryj'></center> </tr>";
+					}			
+					else
+					{
+						echo "nie został jeszcze opublikowany<tr>";
+						echo "<center><INPUT class='button' TYPE = 'Submit' Name = 'Submit2' VALUE = 'Opublikuj'></center> </tr>";	
+					}
 				?>
 				</b></td></tr>
 				</table>
 			</p>
-
+			<?php } ?>
 
 			</form></center>
 
-
-	
 		</div>
 		<?php 
 			if(isset($_POST['Submit1'])){
-				mysql_query("UPDATE artykul SET Opublikowany = 0 WHERE ID_Artykul = '".addslashes($this->zarz_artykulami[$selected_val]['ID_Artykul'])."'") or die(mysql_error());
+				mysql_query("UPDATE artykul SET Opublikowany = 0 WHERE ID_Artykul = '".addslashes($this->zarz_artykulami['artykuly'][$selected_konf][$selected_val]['ID_Artykul'])."'") or die(mysql_error());
 				$this->redirect("index.php?con=zarz_artykulami", "success", "Wybrany artykuł został  ukryty");
 			}
 			if(isset($_POST['Submit2'])){
-				mysql_query("UPDATE artykul SET Opublikowany = 1 WHERE ID_Artykul = '".addslashes($this->zarz_artykulami[$selected_val]['ID_Artykul'])."'") or die(mysql_error());
+				mysql_query("UPDATE artykul SET Opublikowany = 1 WHERE ID_Artykul = '".addslashes($this->zarz_artykulami['artykuly'][$selected_konf][$selected_val]['ID_Artykul'])."'") or die(mysql_error());
 				$this->redirect("index.php?con=zarz_artykulami", "success", "Wybrany artykuł został  opublikowany");
 			}
-			?>
+		?>
