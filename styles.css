@@ -179,7 +179,7 @@ body{
 .alert.info { background: #53AFCA; }
 .alert.error { background: #CA5353; }
 
-.post { float:left; width: 320px; margin-top: 50px; margin: 0 auto; margin-left: 12px; }
+.post { display:inline-table; width: 320px; margin-top: 50px; margin: 0 auto; margin-left: 12px; }
 
 .imgcon { width:100%; }
 
