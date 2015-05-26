@@ -65,7 +65,7 @@
 						<span><i class="fa fa-comment"></i> <?php echo($this->konferencja['Ilosc_artykulow']); ?> artykułów</span><br>
 						<?php endif ?>
 					<?php else:?>
-						<span><i class="fa fa-comment"></i> <a href="#"><?php echo($this->konferencja['Ilosc_artykulow']); ?> artykułów</a></span><br>
+						<span><i class="fa fa-comment"></i> <?php echo($this->konferencja['Ilosc_artykulow']); ?> artykułów</span><br>
 					<?php endif ?>
 				<?php } else { ?>
 					<span><i class="fa fa-comment"></i> brak artykułów</span><br>
@@ -77,15 +77,20 @@
 	<div style="clear:both;"></div>
 	<div style="float:right">
 		<?php if($this->isLogged()) { ?>
-			<?php if($this->isAdmin() || $this->isOrganizator() || $this->isRecenzent()):?>
-			<a href="index.php?con=artykuly&id_konferencji=<?php echo($_GET['id']); ?>" class="button">Wyświetl artykuły</a>
-			<?php endif?>
+			<?php if($this->isAdmin() || $this->isOrganizator() || $this->isRecenzent()) { ?>
+				<?php if((int)$this->konferencja['Ilosc_artykulow'] > 0) { ?>
+					<a href="index.php?con=artykuly&id_konferencji=<?php echo($_GET['id']); ?>" class="button">Wyświetl artykuły</a>
+				<?php } ?>
+				<?php if($this->isAdmin() || $this->isOrganizator()) { ?>
+					<a href="index.php?con=art_dodaj&id_konferencji=<?php echo($_GET['id']); ?>" class="button">Dodaj artykuł</a>
+				<?php } ?>
+			<?php } ?>
 			<?php if($this->konferencja['Organizator_ID_Konto'] != $_SESSION['id']) { ?>
-			<?php if(($this->konferencja['Limit_Miejsc']-$this->konferencja['Ilosc_uczestnikow']) > 0){
-if(!$this->isUczestnik($_GET['id'])) {			?>
-				<a href="index.php?con=konferencja&act=add&id=<?php echo($_GET['id']); ?>" class="button">Dołącz do konferencji</a>
-<?php }}}
- if($this->isAdmin() || $this->konferencja['Organizator_ID_Konto'] == $_SESSION['id']) { ?>
+				<?php if(($this->konferencja['Limit_Miejsc']-$this->konferencja['Ilosc_uczestnikow']) > 0 && !$this->isUczestnik($_GET['id'])) { ?>
+					<a href="index.php?con=konferencja&act=add&id=<?php echo($_GET['id']); ?>" class="button">Dołącz do konferencji</a>
+				<?php } ?>
+			<?php } ?>
+			<?php if($this->isAdmin() || $this->konferencja['Organizator_ID_Konto'] == $_SESSION['id']) { ?>
 				<a href="index.php?con=konferencja&act=edit&id=<?php echo($_GET['id']); ?>" class="button">Edytuj konferencję</a> <a href="index.php?con=konferencja&act=delete&id=<?php echo($_GET['id']); ?>" class="button">Usuń konferencję</a>
 			<?php } ?>
 		<?php } ?>

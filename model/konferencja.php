@@ -48,8 +48,11 @@ class konferencja_Model extends Model
 				$result[0]['Organizator_ID_Konto'] = $organizator[0]['ID_Konto'];
 				$organizator = $organizator[0]['Imie']." ".$organizator[0]['Nazwisko'];
 				$result[0]['Organizator'] = $organizator;
-				$artykuly = $this->sql_query("SELECT * FROM `artykul` WHERE `ID_Konferencja` = '".addslashes($_GET['id'])."'");
-				$result[0]['Ilosc_artykulow'] = (count($artykuly));
+				$artykuly = $this->sql_query("SELECT * FROM `artykul` WHERE `ID_Konferencja` = '".addslashes($_GET['id'])."' AND `Opublikowany` = '1'");
+				if(count($artykuly[0]) == 0)
+					$result[0]['Ilosc_artykulow'] = 0;
+				else
+					$result[0]['Ilosc_artykulow'] = (count($artykuly));
 				$temat = false;
 				$temat_konferencji = $this->sql_query("SELECT * FROM `temat_konferencji` WHERE `ID_Konferencja` = '".addslashes($_GET['id'])."'");
 				if(count($temat_konferencji[0]) > 0)
@@ -60,7 +63,7 @@ class konferencja_Model extends Model
 					}
 				$result[0]['Temat'] = $temat;
 				if($this->isLogged())
-					$result[0]['Recenzent'] = $this->sql_query("SELECT * FROM `recenzent` WHERE ID_Konto = '".$_SESSION['id']."' and ID_konferencja = '".addslashes($_GET['id'])."' and Oceniono =0");
+					$result[0]['Recenzent'] = $this->sql_query("SELECT * FROM `recenzent` WHERE ID_Konto = '".$_SESSION['id']."' and ID_Konferencja = '".addslashes($_GET['id'])."' and Oceniono =0");
 				return $result[0];
 			}
 			else

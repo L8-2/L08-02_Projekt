@@ -36,7 +36,6 @@
 			
 			<br><tr><input class="button" type='submit' name='submit3' value = "Dodaj"/></tr></form></table></center></p>
 			
-			
 			<center>
 			<h2 style="margin:30px 0px 0px 20px;">Lista twoich recenzentów:</h2></center>
 			<p><center><table style="width:460px;">
@@ -45,22 +44,23 @@
 			
 			<?php 
 				$a=0;
-				if (count($this->zarz_recenzentami_2[2]) >1)
-				{echo "<option disabled>Wybierz</option>";
-			
-				foreach($this->zarz_recenzentami_2[2] as $konf)
+				if ($this->zarz_recenzentami_2[2])
 				{
-					echo "<option ";
-					echo "value ='";
-					echo $konf['ID_Recenzent'];
-					echo "'/>";	
-					echo $konf['Imie']." ";
-					echo $konf['Nazwisko'];
-					echo "</option>";
-					$a++;
-				}}
-else
-echo "<option disabled>Brak recenzentów</option>";
+					echo "<option disabled>Wybierz</option>";
+					foreach($this->zarz_recenzentami_2[2] as $konf)
+					{
+						echo "<option ";
+						echo "value ='";
+						echo $konf['ID_Recenzent'];
+						echo "'/>";	
+						echo $konf['Imie']." ";
+						echo $konf['Nazwisko'];
+						echo "</option>";
+						$a++;
+					}
+				}
+				else
+					echo "<option disabled>Brak recenzentów</option>";
 			?>
 			</select>
 			<br><tr><input class="button" type='submit' name='submit2' value = "Usuń"/></tr></form></table></center></p>

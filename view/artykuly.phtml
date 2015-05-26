@@ -26,9 +26,9 @@
 					<?php if ($this->isRecenzent() && $this->canAddRecenzja($artykul['ID_Artykul'], $this->getLoggedRecenzentId())): ?>
 					<?php $recenzja = $this->findRecenzjaByOwner($artykul['ID_Artykul'], $this->getLoggedRecenzentId()); ?>
 					<?php if ($recenzja): ?>
-					<a href="<?php echo $this->generateUrl(array('con' => 'recenzja', 'act' => 'edytuj', 'id' => $recenzja['ID_Recenzja'])) ?>" class="button">Edytuj recenzję</a> 
+						<a href="<?php echo $this->generateUrl(array('con' => 'recenzja', 'act' => 'edytuj', 'id' => $recenzja['ID_Recenzja'])) ?>" class="button">Edytuj recenzję</a> 
 					<?php else: ?>
-					<a href="<?php echo $this->generateUrl(array('con' => 'recenzja', 'act' => 'dodaj', 'id_artykul' => $artykul['ID_Artykul'])) ?>" class="button">Dodaj recenzję</a>
+						<a href="<?php echo $this->generateUrl(array('con' => 'recenzja', 'act' => 'dodaj', 'id_artykul' => $artykul['ID_Artykul'])) ?>" class="button">Dodaj recenzję</a>
 					<?php endif ?>
 					<?php endif ?>
 				</td>

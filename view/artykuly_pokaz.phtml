@@ -1,26 +1,38 @@
 <?php $this->getMessage(); ?>
-<h3>Artykul</h3>
-<?php echo htmlspecialchars($artykul['Tresc'])?>
+<h3>Artykuł konferencji: <?php echo($konferencja['Nazwa']); ?></h3>
+
+<div class='review' style="max-width:60em;">
+    <div class='review-content'>
+		<h3 class='review-title'>&mdash; <?php echo $artykul['Tytul']?> &mdash;</h3>
+    	<time class='review-date'><?php echo $artykul['Data_Utworzenia']; ?></time>
+    	<p><?php echo htmlspecialchars($artykul['Tresc'])?></p>
+    	<div class='review-meta'>
+    		<span class='review-author'>Autor: <?php echo $autor['Imie'].' '.$autor['Nazwisko']; ?> </span>
+    	</div>
+    </div>
+</div>
+
 <?php if ('user' != $type): ?>
 <h3>Recenzje</h3>
+	<center>
 	<form method="post">
-	<td><input type="text" style="width:350px; height: 20px" name="ocena" value="<?php echo isset($_POST['ocena']) ? $_POST['ocena'] : '' ?>" /><br><br>
-	<input type="submit" class="button" value="Grupuj oceny" name="grupuj" style="width:200px;"></td>
+	<td><input type="number" min="-5" max="5" style="width:200px; height: 20px" name="ocena" value="<?php echo isset($_POST['ocena']) ? $_POST['ocena'] : '' ?>" />
+	<input type="submit" class="button" value="Grupuj wg oceny" name="grupuj" style="width:200px;"><br><br></td>
 	</form>
+	</center>
 <div>
     <?php if (!$recenzje): ?>
     <p>Brak recenzji</p>
     <?php else: ?>
 	
     <?php foreach ($recenzje as $recenzja): ?>
-    <div class='review'>
-    	<div class='review-content'>
-			<h3 class='review-title'>Ocena <?php echo $recenzja['Ocena']?> &mdash;</h3>
-    		<h3 class='review-title'>Recenzja &mdash;</h3>
+    <div class='review' style="background:none;">
+    	<div class='review-content' style="border:none;">
+			<h3 class='review-title'>&mdash; <?php echo $recenzja['Autor_Imie'].' '.$recenzja['Autor_Nazwisko']; ?> &mdash;</h3>
     		<time class='review-date'><?php echo $recenzja['Data_Utworzenia']; ?></time>
     		<p><?php echo htmlspecialchars($recenzja['Tresc']) ?></p>
     		<div class='review-meta'>
-    			<span class='review-author'>Autor: <?php echo $recenzja['Autor_Imie'].' '.$recenzja['Autor_Nazwisko']; ?> </span>
+    			<span class='review-author' style="font-weight:bold;">Ocena: <span style="color: #1064B6;font-size: 14px;"><?php echo $recenzja['Ocena']?></span> </span>
     		</div>
     	</div>
     </div>
