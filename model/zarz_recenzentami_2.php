@@ -69,11 +69,14 @@ class zarz_recenzentami_2_Model extends Model
 		if(isset($_POST['submit3']))
 		{
 			$selected = $_POST['decision2'];
-			mysql_query("INSERT INTO recenzent (ID_Konto , ID_Konferencja ) VALUES
-			('".addslashes($selected)."','".addslashes($k)."')")
-			or die(mysql_error());
-			$this->redirect("index.php?con=zarz_recenzentami_2&konf=$k", "success", "Pomyślnie dodano recenzenta");
-			
+			$recenzent = $this->sql_query("SELECT * FROM `recenzent` WHERE ID_Konto = '".addslashes($selected)."' AND `ID_Konferencja` = '".addslashes($k)."'");
+			if($recenzent)
+				$this->redirect("index.php?con=zarz_recenzentami_2&konf=$k", "error", "Wybrany użytkownik już jest recenzentem danej konferencji!");
+			else
+			{
+				mysql_query("INSERT INTO recenzent (ID_Konto , ID_Konferencja ) VALUES ('".addslashes($selected)."','".addslashes($k)."')") or die(mysql_error());
+				$this->redirect("index.php?con=zarz_recenzentami_2&konf=$k", "success", "Pomyślnie dodano recenzenta");
+			}	
 		}
 		
 		if(isset($_SESSION['id']))
