@@ -5,8 +5,14 @@ class uczestnicy_Model extends Model
 {
 	public function __construct()
 	{
+		
+		
 		parent::__construct();
 		
+		
+		if(!$this->isOrganizator()){
+	    $this->redirect("index.php", "error", "Ta podstrona widoczna tylko dla organizatora");
+		}
 		switch ($this->getAction()) {
 			case 'usun':
 			    return $this->usun();

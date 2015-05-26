@@ -161,7 +161,7 @@ abstract class Model extends Controller
 	private function connectDatabase()
 	{
 		require_once('configuration.php');
-		$this->mysql = mysql_connect($DBASE['host'], $DBASE['username'], $DBASE['password']);
+		$this->mysql = @mysql_connect($DBASE['host'], $DBASE['username'], $DBASE['password']);
 		mysql_set_charset('utf8');
 	
 		if($this->mysql)
