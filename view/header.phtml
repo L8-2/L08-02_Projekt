@@ -17,7 +17,10 @@
 					<?php if($this->isLogged()) { ?>
 						<li><a href="index.php?con=tworzeniekonferencji">Dodaj konferencje</a></li>
 						<li><a href="index.php?con=temat_konferencji&act=dodaj">Zgłoś temat do konferencji</a></li>
-						<?php if ($this->isOrganizator()){?><li><a href="index.php?con=uczestnicy">Zarządzaj uczestnikami</a></li><?php } ?>
+						<?php if ($this->isOrganizator()){?>
+							<li><a href="index.php?con=uczestnicy">Zarządzaj uczestnikami</a></li>
+							<li><a href="index.php?con=dodajOrganizatora">Dodaj organizatorów</a></li>
+						<?php } ?>
 					<?php } ?>
 				</ul>
 			 </li>
@@ -25,7 +28,7 @@
 				<li class="has-sub"><a href="#">Artykuły</a>
 					<ul class="left">
 						<li><a href="index.php?con=zarz_artykulami">Zarządzaj artykułami</a></li>
-						<li><a href="index.php?con=art_do_publikacji">Wybierz artykuły do publikacji</a></li> 
+						<li><a href="index.php?con=art_do_publikacji">Artykuły do publikacji</a></li> 
 					</ul>
 				</li>
 			<?php } ?>
@@ -34,7 +37,7 @@
 				<li class="has-sub"><a href="#">Recenzje</a>
 					<ul class="left">
 						<?php if($this->isRecenzent()){ ?>
-							<li><a href="index.php?con=recenzja">Recenzje</a></li>
+							<li><a href="index.php?con=recenzja">Moje recenzje</a></li>
 						<?php } if($this->isOrganizator()) { ?>
 							<li><a href="index.php?con=zarz_recenzentami">Zarządzaj recenzentami</a></li>
 						<?php } ?>
